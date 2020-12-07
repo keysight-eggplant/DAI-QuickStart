@@ -1,0 +1,26 @@
+﻿to FormEventHorizontal label,input
+	Set Label to "Email"
+	Set Input to "Helloworld"
+	Set labelTextAligned to "Right"
+	put imageRectangle(text:label,searchrectangle:ScreenPart("Center")) into IR
+	if labelTextAligned ...
+		... is "Left" then 
+			click IR.CenterLeft + (100,0)
+		... is "Right" then 
+			click IR.CenterRight + (100,0)
+	end if
+	typetext controlkey,"a" // to select
+	wait 0.7
+	typetext input
+	wait 0.7 // allows for it to complete ... 
+end horizontal
+
+to FormEventVertical label,input
+	Configuration
+	put imageRectangle(text:label,caseSensitive:True) into IR
+	click IR.BottomRight + (0,universal sut_config.label_text_padding_vertical)
+	typetext controlkey,"a" // to select
+	wait 0.7
+	typetext input
+	wait 0.7 // allows for it to complete ... 
+end vertical

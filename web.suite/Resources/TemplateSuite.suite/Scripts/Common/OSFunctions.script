@@ -1,0 +1,23 @@
+﻿///SUT Functions.....
+to handle CloseBrowser App
+	typetext windowskey,"r"
+	waitfor 10,(text:"Run",caseSensitive:"yes",searchrectangle:ScreenPart("BottomLeftQuadrant"))
+	typetext "TASKKILL /IM"&&App,return
+	waitfor 20,(image:"Desktop")
+end CloseBrowser
+
+to handle DeviceConnection MyDevice
+	Connect MyDevice
+	repeat until connectioninfo().Status = "Connected"
+		wait 0.2
+	end repeat
+end DeviceConnection
+
+to handle OpenURL MyBrowser, MyURL
+	typetext windowskey,"r"
+	waitfor 10,(text:"Run",caseSensitive:"yes",searchrectangle:ScreenPart("BottomLeftQuadrant"))
+	typetext MyBrowser && MyURL,return
+	waitfor 20,"Logos"
+end OpenURL
+
+

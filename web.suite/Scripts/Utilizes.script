@@ -1,0 +1,148 @@
+﻿
+on BuildSuite ( SuitePath,AIJson )
+	put AIJson into AIJsonPath
+	split AIJsonPath by "/"
+	put  item -1 of AIJsonPath into simplename
+	delete ".json" in simplename
+	
+	put ("Exit","Cleanup","Error") into my IngoreScripts
+	
+	me.aiTOpl AIJson 
+	me.CreateNewSuite SuitePath,simplename
+	me.BuildNewAIJson simplename 
+	me.createScripts 
+end BuildSuite
+
+to aiTOpl ResoucePather
+	//----------------------------
+	put 0 into ListOfState.GlobalActions
+	put "GlobalActions" into IDMapState."0"
+	//----------------------------
+	put JSONValue(file (ResoucePather)) into AIModel
+	put AIModel.elements into AIE
+	put the number of items of AIE into Max
+	
+	repeat max times
+		put item repeatindex() of AIE into SingleAIE
+		if SingleAIE.type = "Action" then
+			put SingleAIE.name into ActionName
+			replace space with "_" in ActionName
+			insert   ActionName into ListOfAction.(SingleAIE."parentid")
+			else if  SingleAIE.type = "State" then
+			put SingleAIE.name into StateName
+			replace space with "_" in StateName
+			put  SingleAIE."id" into ListOfState.(StateName)
+			put StateName into IDMapState.(SingleAIE."id")
+		end if
+	end repeat
+	//------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
+	put keys(ListOfState) into StateKeys
+	put the number of items of StateKeys into StateCount
+	repeat StateCount times
+		put item repeatindex() of StateKeys into SSK
+		put ListOfState.(SSK) into AA
+		put ListOfAction.(AA) into ActionsinState
+		put SSK into StateName
+		put ActionsinState into  FrameworkData.(StateName)
+	end repeat
+	//-----------
+	put  IDMapState into my IDMapState
+	put AIModel into My AIModel
+	put FrameworkData  into my FrameworkData
+end aiTOpl
+
+
+on BuildNewAIJson simplename
+	put my IDMapState into IDMapState
+	put my AIModel into AIModel
+	//-----------------------------------------------
+	put AIModel.elements into AIE
+	put the number of items of AIE into Max
+	repeat max times
+		put item repeatindex() of AIE into SingleAIE
+		//********************************************
+		if SingleAIE.type = "Action" then
+			put SingleAIE.name into ActionName
+			replace space with "_" in ActionName
+			
+			put SingleAIE.parentid into IDS
+			if IDS is not empty then
+				put IDMapState.(IDS) into StateName
+			end if
+			if  my IngoreScripts contains ActionName then
+			else
+				put StateName &".script:"& ActionName into AIScriptPath
+				insert [{fullName:ActionName, name:ActionName, scriptPath:AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
+			end if
+			
+		else if  SingleAIE.type = "State" then
+			if SingleAIE.name = "Initial"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"common/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
+end if
+			
+		end if
+		//********************************************
+		insert SingleAIE into NEWAIModel.elements 
+	end repeat
+	
+	delete AIModel.elements
+	delete  AIModel.suitePath
+	put NEWAIModel.elements into AIModel.elements
+	put simplename &".suite" into AIModel.suitePath
+	
+	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
+	move file ResourcePath (simplename& ".JSON") to my NewPathSuite & "/Resources/"
+end BuildNewAIJson
+
+
+
+on CreateNewSuite BasePathSuite , simplename
+	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
+	try
+		delete folder NewPathSuite
+	end try
+	Log "NewPathSuite:"&& NewPathSuite
+	wait 2
+	copy folder ResourcePath() &"/TemplateSuite.suite" to BasePathSuite
+	rename folder BasePathSuite&"/TemplateSuite.suite" to simplename &".suite"
+	//-------------
+	put NewPathSuite  into my NewPathSuite
+end CreateNewSuite
+
+
+
+on createScripts  Framework, SuitePath
+	put my FrameworkData  into Framework
+	put my NewPathSuite into SuitePath
+	
+	put keys(Framework) into  ScriptList
+	put the number  of items of ScriptList into  ScriptCount
+	
+	repeat ScriptCount times
+		put item  repeatindex() of ScriptList into ScriptName 
+		put Framework.(ScriptName) into  HandlersNames
+		
+		if  my IngoreScripts contains ScriptName then
+		else
+			put SuitePath &"/Scripts/" & ScriptName &".script" into ScriptPath
+			create folder SuitePath &"/Images/" & ScriptName
+			create file ScriptPath
+			open  file ScriptPath
+			put the number of  items  of HandlersNames into HandlerCount
+			repeat HandlerCount times
+				put   item repeatindex() of HandlersNames into SHN
+				write "on" && SHN to file ScriptPath 
+				write return to file ScriptPath
+				write "//Workflow for" && SHN to file ScriptPath
+				write return to file ScriptPath 
+				write return to file ScriptPath 
+				write return to file ScriptPath 
+				write "end" && SHN to file ScriptPath 
+				write return to file ScriptPath 
+				write return to file ScriptPath
+			end repeat
+			close file ScriptPath
+		end if
+	end repeat
+end createScripts

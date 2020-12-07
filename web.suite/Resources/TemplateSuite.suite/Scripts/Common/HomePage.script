@@ -1,0 +1,23 @@
+﻿to handle DigitalDownloads
+	ConfigFile
+	GenericFunctions.ClickEvent "Digital downloads"
+	
+end DigitalDownloads
+
+to handle Login
+	GenericFunctions.ClickEvent "Log in","TopRightQuadrant"
+end Login
+
+to handle Logo
+
+	GenericFunctions.ClickEvent "Logos/NopComm"
+	Click (image:"helloworld")
+end Logo
+
+ClickEvent ("Log in"),("Welcome, Please Sign In!"),("TopRightQuadrant"),("Center")
+
+///
+GenericFunctions.ClickEvent "text","Email","Center",100
+
+
+

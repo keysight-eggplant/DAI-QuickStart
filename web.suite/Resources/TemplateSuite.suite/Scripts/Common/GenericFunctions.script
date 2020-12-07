@@ -1,0 +1,43 @@
+﻿
+to handle WaitForItem MyItem,MyArea
+	if MyArea is empty then Set MyArea to "FullScreen"
+	waitfor Universal timeLimit,((Universal DataType):MyItem,Searchrectangle:MyArea)
+	if foundimagelocation().value = true then LogSuccess "Found Item at location:" && foundimagelocation()
+	ConfigFile // run the config file to reset parameters
+end WaitForItem
+
+to handle ClickEvent nav,exp,SearchArea,VerificationArea
+	Set the ScriptLogging to Silent
+	if SearchArea is empty then Set SearchArea to "FullScreen"
+	try 
+		click image:nav,searchrectangle:ScreenPart(MyArea)
+	catch 
+		click text:nav,caseSensitive:True, IgnoreSpaces:"Yes",searchrectangle:ScreenPart(SearchArea), IgnoreUnderscores:"Yes"
+		set the textStyle to "Default"
+	end try 
+	wait 0.5 // to handle state transition better...
+	if exp is not empty 
+		if VerificationArea is empty then Set VerificationArea to "FullScreen"
+		try 			
+			waitfor 20, image:exp
+		catch 
+			waitfor 20, text:exp,caseSensitive:True, IgnoreSpaces:"Yes",searchrectangle:ScreenPart(VerificationArea), IgnoreUnderscores:"Yes"
+		end try 	
+	end if
+	Set the ScriptLogging to On
+end ClickEvent
+
+to handle TextEntry MyItem
+	typetext controlKey,"a"
+	typetext MyItem
+end TextEntry
+
+to handle CollectData FileName,SheetName
+	Set MyExcelFile to (type:"excel",file:ResourcePath(FileName&".xlsx"),name:SheetName)
+	put the records of MyExcelFile into MyData
+	Set SelectedRow to Item MyRow of MyData
+	Return SelectedRow.(ColumnHeading)
+end CollectData
+
+
+

@@ -1,0 +1,15 @@
+﻿
+
+//Randy Hesse
+//FocusBuild v0.4
+
+//Mark Frenee
+//Framework_Draft_A
+
+
+//Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
+
+Utilizes.BuildSuite "/Users/randyhesse/desktop","/Users/randyhesse/Downloads/extron2.json"
+
+
+
