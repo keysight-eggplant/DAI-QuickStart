@@ -1,0 +1,48 @@
+{
+  "lastmodifieddate" : 1604665250.3152671,
+  "ocrcapturestring" : "nopCommerce open source e-cormerce solution",
+  "testlocationdata" : [
+    {
+      "connectionserverid" : "192.168.200.132",
+      "sutinfo" : {
+        "type" : "Unknown VNC"
+      },
+      "connectionname" : "Windows_10_Local_VNC",
+      "connectionportnum" : 5900,
+      "connectiontype" : "VNC",
+      "capturedocrtext" : "nopCommerce open source e-cormerce solution",
+      "properties" : {
+        "Rotate" : 0,
+        "Scale" : "    1",
+        "SearchType" : "Smoothed for Text",
+        "Discrepancy" : "_0",
+        "Tolerance" : "_73",
+        "HotSpot" : "[182,48]",
+        "CropRectangle" : "[0,0,0,0]"
+      },
+      "type" : 1,
+      "name" : "Logos\/NopComm.png",
+      "capturerect" : [
+        329,
+        128,
+        365,
+        96
+      ]
+    }
+  ],
+  "createddate" : 1604665246.2293239,
+  "lastfoundlocation" : [
+    337,
+    129,
+    365,
+    96
+  ],
+  "originalcapturelocation" : [
+    329,
+    128,
+    365,
+    96
+  ],
+  "lastfounddate" : 1607546031.2507381,
+  "name" : "NopComm"
+}
