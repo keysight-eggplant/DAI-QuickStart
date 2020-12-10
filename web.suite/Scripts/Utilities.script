@@ -28,7 +28,7 @@ to aiTOpl ResoucePather
 			put SingleAIE.name into ActionName
 			replace space with "_" in ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
-			else if  SingleAIE.type = "State" then
+		else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
@@ -73,26 +73,28 @@ on BuildNewAIJson simplename
 			if  my IngoreScripts contains ActionName then
 			else
 				put StateName &".script:"& ActionName into AIScriptPath
-				insert [{fullName:ActionName, name:ActionName, scriptPath:AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:ActionName, name:ActionName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			end if
 			
 		else if  SingleAIE.type = "State" then
 			if SingleAIE.name = "Initial"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"common/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
-end if
-			
+			else
+				insert [{fullName:SingleAIE.name, name:SingleAIE.name, scriptPath:"Snippets/"&SingleAIE.name&".script", type:"normal"}]  into SingleAIE."snippets"
 		end if
-		//********************************************
-		insert SingleAIE into NEWAIModel.elements 
-	end repeat
-	
-	delete AIModel.elements
-	delete  AIModel.suitePath
-	put NEWAIModel.elements into AIModel.elements
-	put simplename &".suite" into AIModel.suitePath
-	
-	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
-	move file ResourcePath (simplename& ".JSON") to my NewPathSuite & "/Resources/"
+		
+	end if
+	//********************************************
+	insert SingleAIE into NEWAIModel.elements 
+end repeat
+
+delete AIModel.elements
+delete  AIModel.suitePath
+put NEWAIModel.elements into AIModel.elements
+put simplename &".suite" into AIModel.suitePath
+
+put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
+move file ResourcePath (simplename&".json") to my NewPathSuite & "/Resources/"
 end BuildNewAIJson
 
 
@@ -115,7 +117,7 @@ end CreateNewSuite
 on createScripts  Framework, SuitePath
 	put my FrameworkData  into Framework
 	put my NewPathSuite into SuitePath
-	
+	log Framework
 	put keys(Framework) into  ScriptList
 	put the number  of items of ScriptList into  ScriptCount
 	
@@ -123,9 +125,10 @@ on createScripts  Framework, SuitePath
 		put item  repeatindex() of ScriptList into ScriptName 
 		put Framework.(ScriptName) into  HandlersNames
 		
+		
 		if  my IngoreScripts contains ScriptName then
 		else
-			put SuitePath &"/Scripts/" & ScriptName &".script" into ScriptPath
+			put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
 			create folder SuitePath &"/Images/" & ScriptName
 			create file ScriptPath
 			open  file ScriptPath
@@ -143,6 +146,6 @@ on createScripts  Framework, SuitePath
 				write return to file ScriptPath
 			end repeat
 			close file ScriptPath
-		end if
+end if
 	end repeat
 end createScripts

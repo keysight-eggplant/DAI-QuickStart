@@ -9,7 +9,6 @@
 
 //Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
 
-Utilizes.BuildSuite "/Users/randyhesse/desktop","/Users/randyhesse/Downloads/extron2.json"
-
+Utilizes.BuildSuite "/Users/randyhesse/desktop","/Users/randyhesse/desktop/bank_app.json"
 
 
