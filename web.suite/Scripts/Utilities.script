@@ -15,7 +15,7 @@ end BuildSuite
 
 to aiTOpl ResoucePather
 	//----------------------------
-	put 0 into ListOfState.GlobalActions
+	put 0 into ListOfState.GlobalActions 
 	put "GlobalActions" into IDMapState."0"
 	//----------------------------
 	put JSONValue(file (ResoucePather)) into AIModel
@@ -47,13 +47,13 @@ to aiTOpl ResoucePather
 		put ActionsinState into  FrameworkData.(StateName)
 	end repeat
 	//-----------
+	
 	delete FrameworkData.Cleanup
 	delete FrameworkData.Error
 	delete FrameworkData.Exit
-	insert "Cleanup" into FrameworkData.globalActions
-	insert "ExitModel" into FrameworkData.globalActions
-	insert "ErrorModel" into FrameworkData.globalActions
 	
+	
+	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
 	
 	put AIModel into My AIModel
 	put  IDMapState into my IDMapState
@@ -96,11 +96,11 @@ on BuildNewAIJson simplename
 			if SingleAIE.name = "Initial"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Error"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalActions.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Cleanup"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalActions.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Exit"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalActions.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
 			else 
 				put SingleName &".script:"& "StateCall" into AIScriptPath
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
@@ -146,19 +146,23 @@ end CreateNewSuite
 on createScripts  Framework, SuitePath
 	put my FrameworkData  into Framework
 	put my NewPathSuite into SuitePath
+	//-----------------
+	
+	
+	
+	
 	put keys(Framework) into  ScriptList
 	put the number  of items of ScriptList into  ScriptCount
-	
-	
-	
 	repeat ScriptCount times
-		put item  repeatindex() of ScriptList into ScriptName 
+		put item  repeatindex() of ScriptList into ScriptName
 		put Framework.(ScriptName) into  HandlersNames
+		//------
 		
-		if ScriptName not equal "GlobalActions" then
-			insert "StateCall" before item 1 of  HandlersNames
-		end if			
+		if ScriptName not equal "GlobalActions" and if ScriptName not equal "GlobalStates" then
+			insert "StateCall" before first item of  HandlersNames
+		end if
 		
+		//--------
 		put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
 		create folder SuitePath &"/Images/" & ScriptName
 		create file ScriptPath
@@ -171,20 +175,21 @@ on createScripts  Framework, SuitePath
 			write return to file ScriptPath
 			write "//Workflow for" && SHN to file ScriptPath
 			----------------------------------------
-			(*
+			
 			write return to file ScriptPath
 			write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
 			write return to file ScriptPath
 			write <<wait 4>> to file ScriptPath
 			write return to file ScriptPath
-		*)
+			
 			----------------------------------------
 			write return to file ScriptPath 
 			write return to file ScriptPath 
 			write return to file ScriptPath 
 			write "end" && SHN to file ScriptPath 
-			write return to file ScriptPath 
+write return to file ScriptPath 
 			write return to file ScriptPath
+			//log ScriptName && SHN
 		end repeat
 		close file ScriptPath
 	end repeat
