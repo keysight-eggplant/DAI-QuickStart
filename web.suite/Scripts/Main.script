@@ -9,7 +9,7 @@
 
 //Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
 
-Utilities.BuildSuite "/Users/Pritesh/desktop","/Users/Pritesh/Desktop/moorefields.json"
+Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Desktop/1234.json"
 
 
 
