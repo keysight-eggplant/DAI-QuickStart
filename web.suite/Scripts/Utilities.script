@@ -66,7 +66,7 @@ to aiTOpl ResoucePather
 	repeat StateCount times
 		put item repeatindex() of StateKeys into SSK
 		put ListOfState.(SSK) into AA
-put ListOfAction.(AA) into ActionsinState
+		put ListOfAction.(AA) into ActionsinState
 		put SSK into StateName
 		put ActionsinState into  FrameworkData.(StateName)
 	end repeat
