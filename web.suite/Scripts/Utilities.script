@@ -54,7 +54,7 @@ to aiTOpl ResoucePather
 	
 	
 	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
-	
+
 	put AIModel into My AIModel
 	put  IDMapState into my IDMapState
 	put FrameworkData  into my FrameworkData
@@ -96,7 +96,7 @@ on BuildNewAIJson simplename
 			if SingleAIE.name = "Initial"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Error"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+	insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Cleanup"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Exit"
@@ -147,10 +147,6 @@ on createScripts  Framework, SuitePath
 	put my FrameworkData  into Framework
 	put my NewPathSuite into SuitePath
 	//-----------------
-	
-	
-	
-	
 	put keys(Framework) into  ScriptList
 	put the number  of items of ScriptList into  ScriptCount
 	repeat ScriptCount times
@@ -175,13 +171,14 @@ on createScripts  Framework, SuitePath
 			write return to file ScriptPath
 			write "//Workflow for" && SHN to file ScriptPath
 			----------------------------------------
-			
+			(*
 			write return to file ScriptPath
 			write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
-			write return to file ScriptPath
+write return to file ScriptPath
 			write <<wait 4>> to file ScriptPath
 			write return to file ScriptPath
 			
+*)
 			----------------------------------------
 			write return to file ScriptPath 
 			write return to file ScriptPath 
