@@ -1,7 +1,7 @@
 ﻿
 
 //Randy Hesse
-//FocusBuild v0.7
+//FocusBuild v0.8
 
 //Mark Frenee
 //Framework_Draft_A
@@ -9,7 +9,6 @@
 
 //Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
 
-Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Desktop/1234.json"
-
+Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Downloads/moorefields.json"
 
 
