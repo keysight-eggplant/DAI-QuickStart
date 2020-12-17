@@ -81,6 +81,8 @@ on BuildNewAIJson simplename
 		//********************************************
 		put SingleAIE.name into SingleName
 		replace space with "_" in SingleName
+		//----For TroubleShooting
+		//log SingleAIE
 		
 		//---
 		if SingleAIE.type = "Action" then //---Do something to Actions
@@ -93,11 +95,11 @@ on BuildNewAIJson simplename
 			insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			
 		else if  SingleAIE.type = "State" then //---Do something to States
-			if SingleAIE.name = "Initial"
+			if SingleAIE.stateType = "Start"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
-			else if SingleAIE.name = "Error"
-	insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
-			else if SingleAIE.name = "Cleanup"
+			else if SingleAIE.stateType = "Exception"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+			else if SingleAIE.stateType = "Cleanup"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Exit"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
@@ -184,7 +186,7 @@ write return to file ScriptPath
 			write return to file ScriptPath 
 			write return to file ScriptPath 
 			write "end" && SHN to file ScriptPath 
-write return to file ScriptPath 
+			write return to file ScriptPath 
 			write return to file ScriptPath
 			//log ScriptName && SHN
 		end repeat
