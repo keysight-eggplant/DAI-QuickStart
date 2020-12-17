@@ -5,13 +5,37 @@ on BuildSuite ( SuitePath,AIJson )
 	put  item -1 of AIJsonPath into simplename
 	delete ".json" in simplename
 	
+	me.CheckInformation SuitePath,simplename, AIJson
 	me.aiTOpl AIJson 
 	me.BuildNewAIJson  simplename
 	me.CreateNewSuite SuitePath,simplename
 	me.createScripts 
 	
 	
+	//delete file AIJson
+	
 end BuildSuite
+
+on CheckInformation BasePathSuite , simplename , ResoucePather
+	
+	if folder BasePathSuite exists then
+	else
+		logerror "Unable to Fine Folder:" && BasePathSuite
+		Exit all	
+	end if
+	
+	if file ResoucePather  exists then
+	else
+		logerror "Unable to Fine Model Json:" && ResoucePather
+		Exit all	
+	end if
+	
+	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
+	if folder NewPathSuite  exists then
+		logwarning "Deleting Existing Suite:"&& NewPathSuite
+		delete folder NewPathSuite
+	end if
+end CheckInformation
 
 to aiTOpl ResoucePather
 	//----------------------------
@@ -42,7 +66,7 @@ to aiTOpl ResoucePather
 	repeat StateCount times
 		put item repeatindex() of StateKeys into SSK
 		put ListOfState.(SSK) into AA
-		put ListOfAction.(AA) into ActionsinState
+put ListOfAction.(AA) into ActionsinState
 		put SSK into StateName
 		put ActionsinState into  FrameworkData.(StateName)
 	end repeat
@@ -127,25 +151,24 @@ end BuildNewAIJson
 
 on CreateNewSuite BasePathSuite , simplename
 	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
-	try
-		delete folder NewPathSuite
-	end try
-	Log "NewPathSuite:"&& NewPathSuite
-	wait 2
+	
 	copy folder ResourcePath() &"/TemplateSuite.suite" to BasePathSuite
 	rename folder BasePathSuite&"/TemplateSuite.suite" to simplename &".suite"
+	wait 2
+	Log "Created New Suite:"&& NewPathSuite
 	//-------------
 	put my AIModel into AIModel
 	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
 	move file ResourcePath (simplename&".json") to NewPathSuite & "/Resources/"
 	//-------------
 	
+	//--------
 	put NewPathSuite  into my NewPathSuite
 end CreateNewSuite
 
 
 
-on createScripts  Framework, SuitePath
+on createScripts 
 	put my FrameworkData  into Framework
 	put my NewPathSuite into SuitePath
 	//-----------------
@@ -193,3 +216,5 @@ write return to file ScriptPath
 		close file ScriptPath
 	end repeat
 end createScripts
+
+
