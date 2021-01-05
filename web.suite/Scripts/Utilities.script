@@ -47,7 +47,7 @@ end CheckInformation
 
 to aiTOpl ResoucePather
 	//----------------------------
-	put 0 into ListOfState.GlobalActions 
+	put "" into ListOfState.GlobalActions 
 	put "GlobalActions" into IDMapState."0"
 	//----------------------------
 	put JSONValue(file (ResoucePather)) into AIModel
@@ -61,51 +61,50 @@ to aiTOpl ResoucePather
 			replace space with "_" in ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
 			
-			else if  SingleAIE.type = "State" then
+		else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
 		end if
-end repeat
-//------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-put keys(ListOfState) into StateKeys
-put the number of items of StateKeys into StateCount
-repeat StateCount times
-	put item repeatindex() of StateKeys into SSK
-	put ListOfState.(SSK) into AA
-	put ListOfAction.(AA) into ActionsinState
-	put SSK into StateName
-	put ActionsinState into  FrameworkData.(StateName)
-end repeat
-
-//-----------Modify FrameworkData
-delete FrameworkData.Cleanup
-delete FrameworkData.Error
-delete FrameworkData.Exit
-
-put keys(FrameworkData) into KeysOfFD
-put the number of items of KeysOfFD into max2
-repeat max2 Times
-	put item repeatindex() of KeysOfFD into SKD
-	if SKD not equal "GlobalActions" then
-		insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
-	end if	
-end repeat
-put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
-//-----------Modify FrameworkData
-
-
-put AIModel into My AIModel
-put  IDMapState into my IDMapState
-put FrameworkData  into my FrameworkData
-
-//log "AIModel:" & AIModel
-//log "FrameworkData:" & FrameworkData
-//log "IDMapState:" & IDMapState
-//PauseScript
-
+	end repeat
+	//------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
+	put keys(ListOfState) into StateKeys
+	put the number of items of StateKeys into StateCount
+	repeat StateCount times
+		put item repeatindex() of StateKeys into SSK
+		put ListOfState.(SSK) into AA
+		put ListOfAction.(AA) into ActionsinState
+		put SSK into StateName
+		put ActionsinState into  FrameworkData.(StateName)
+	end repeat
+	
+	//-----------Modify FrameworkData
+	delete FrameworkData.Cleanup
+	delete FrameworkData.Error
+	delete FrameworkData.Exit
+	
+	put keys(FrameworkData) into KeysOfFD
+	put the number of items of KeysOfFD into max2
+	repeat max2 Times
+		put item repeatindex() of KeysOfFD into SKD
+		if SKD not equal "GlobalActions" then
+			insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+		end if	
+	end repeat
+	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
+	//-----------Modify FrameworkData
+	
+	
+	put AIModel into My AIModel
+	put  IDMapState into my IDMapState
+	put FrameworkData  into my FrameworkData
+	
+	log "FrameworkData:" & FrameworkData
+	log "IDMapState:" & IDMapState
+	PauseScript
+	
 end aiTOpl
 
 
@@ -125,7 +124,6 @@ on BuildNewAIJson simplename
 		replace space with "_" in SingleName
 		//----For TroubleShooting
 		//log SingleAIE
-		
 		//---
 		if SingleAIE.type = "Action" then //---Do something to Actions
 			put SingleAIE.parentid into IDS
@@ -135,7 +133,7 @@ on BuildNewAIJson simplename
 			
 			put StateName &".script:"& SingleName into AIScriptPath
 			insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
-	
+			
 		else if  SingleAIE.type = "State" then //---Do something to States
 			if SingleAIE.stateType = "Start"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
@@ -199,7 +197,7 @@ on createScripts
 		create folder SuitePath &"/Images/" & ScriptName
 		create file ScriptPath
 		open  file ScriptPath
-		
+		//------
 		put the number of  items  of HandlersNames into HandlerCount
 		repeat HandlerCount times
 			put   item repeatindex() of HandlersNames into SHN
