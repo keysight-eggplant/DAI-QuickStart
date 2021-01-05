@@ -1,0 +1,457 @@
+{
+  "actionCounter": 8,
+  "allowGlobalActionsInInitialStates": true,
+  "allSnippetsDisabled": false,
+  "elements": [
+    {
+      "id": 0,
+      "name": "MooreFields",
+      "parameters": [
+        {
+          "id": 1,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "type": "Root"
+    },
+    {
+      "id": 1,
+      "invisible": true,
+      "name": "Exit",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "snippets": [
+        {
+          "fullName": "ConfigFile",
+          "name": "ConfigFile",
+          "scriptPath": "Snippets/GlobalState.script:ExitModel",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "Z",
+      "stateType": "Normal",
+      "type": "State"
+    },
+    {
+      "id": 2,
+      "invisible": true,
+      "name": "Error",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "snippets": [
+        {
+          "fullName": "ConfigFile",
+          "name": "ConfigFile",
+          "scriptPath": "Snippets/GlobalState.script:ErrorModel",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "X",
+      "stateType": "Exception",
+      "type": "State"
+    },
+    {
+      "id": 3,
+      "invisible": true,
+      "name": "Cleanup",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "snippets": [
+        {
+          "fullName": "ConfigFile",
+          "name": "ConfigFile",
+          "scriptPath": "Snippets/GlobalState.script:Cleanup",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "Y",
+      "stateType": "Cleanup",
+      "type": "State"
+    },
+    {
+      "dx": 240,
+      "dy": 20,
+      "id": 4,
+      "invisible": false,
+      "name": "Device Connection",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "shapeHeight": 100,
+      "shapeWidth": 160,
+      "snippets": [
+        {
+          "fullName": "ConfigFile",
+          "name": "ConfigFile",
+          "scriptPath": "SetupEnv/ConfigFile.script",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "A",
+      "stateType": "Start",
+      "textX": 20,
+      "textY": 25,
+      "type": "State"
+    },
+    {
+      "dx": 200,
+      "dy": 340,
+      "id": 6,
+      "invisible": false,
+      "name": "Home Page",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "shapeHeight": 100,
+      "shapeWidth": 240,
+      "snippets": [
+        {
+          "fullName": "Home_Page",
+          "name": "Home_Page",
+          "scriptPath": "Snippets/Home_Page.script:StateCall",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "B",
+      "stateType": "Normal",
+      "textX": 20,
+      "textY": 25,
+      "type": "State"
+    },
+    {
+      "dx": 180,
+      "dy": 160,
+      "id": 11,
+      "invisible": false,
+      "name": "Login Page",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 0,
+      "shapeHeight": 100,
+      "shapeWidth": 380,
+      "snippets": [
+        {
+          "fullName": "Login_Page",
+          "name": "Login_Page",
+          "scriptPath": "Snippets/Login_Page.script:StateCall",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "B",
+      "stateType": "Normal",
+      "textX": 20,
+      "textY": 25,
+      "type": "State"
+    },
+    {
+      "actionType": "Normal",
+      "callLimit": 0,
+      "connectedStates": [
+        {
+          "stateRef": 11
+        }
+      ],
+      "dx": 20,
+      "dy": 40,
+      "id": 5,
+      "name": "OpenURL",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 4,
+      "shapeHeight": 40,
+      "shapeWidth": 80,
+      "snippets": [
+        {
+          "fullName": "OpenURL",
+          "name": "OpenURL",
+          "scriptPath": "Snippets/Device_Connection.script:OpenURL",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    },
+    {
+      "actionType": "Normal",
+      "callLimit": 0,
+      "dx": 20,
+      "dy": 40,
+      "id": 7,
+      "name": "Find Patient",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 6,
+      "shapeHeight": 40,
+      "shapeWidth": 83,
+      "snippets": [
+        {
+          "fullName": "Find_Patient",
+          "name": "Find_Patient",
+          "scriptPath": "Snippets/Home_Page.script:Find_Patient",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    },
+    {
+      "actionType": "Normal",
+      "callLimit": 0,
+      "dx": 140,
+      "dy": 40,
+      "id": 8,
+      "name": "Change Site",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 6,
+      "shapeHeight": 40,
+      "shapeWidth": 85,
+      "snippets": [
+        {
+          "fullName": "Change_Site",
+          "name": "Change_Site",
+          "scriptPath": "Snippets/Home_Page.script:Change_Site",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    },
+    {
+      "actionType": "Normal",
+      "callLimit": 0,
+      "connectedStates": [
+        {
+          "stateRef": 13
+        }
+      ],
+      "dx": 20,
+      "dy": 40,
+      "id": 12,
+      "name": "Username",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 11,
+      "shapeHeight": 40,
+      "shapeWidth": 80,
+      "snippets": [
+        {
+          "fullName": "Username",
+          "name": "Username",
+          "scriptPath": "Snippets/Login_Page.script:Username",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    },
+    {
+      "actionType": "Sequent",
+      "callLimit": 0,
+      "connectedStates": [
+        {
+          "stateRef": 14
+        }
+      ],
+      "dx": 160,
+      "dy": 40,
+      "id": 13,
+      "name": "Password",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 11,
+      "snippets": [
+        {
+          "fullName": "Password",
+          "name": "Password",
+          "scriptPath": "Snippets/Login_Page.script:Password",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    },
+    {
+      "actionType": "Sequent",
+      "callLimit": 0,
+      "connectedStates": [
+        {
+          "stateRef": 6
+        }
+      ],
+      "dx": 280,
+      "dy": 40,
+      "id": 14,
+      "name": "Login",
+      "parameters": [
+        {
+          "id": 0,
+          "initial": "",
+          "name": "",
+          "random": "",
+          "ranges": [
+          ],
+          "type": ""
+        }
+      ],
+      "parentId": 11,
+      "snippets": [
+        {
+          "fullName": "Login",
+          "name": "Login",
+          "scriptPath": "Snippets/Login_Page.script:Login",
+          "type": "normal"
+        }
+      ],
+      "sortingType": "C",
+      "textX": 15,
+      "textY": 22,
+      "type": "Action",
+      "weight": 100
+    }
+  ],
+  "ePFhost": "",
+  "ePFsuite": "",
+  "parameterCounter": 0,
+  "path": "",
+  "performanceTests": [
+  ],
+  "performanceTimings": false,
+  "runCleanupAfterAbort": false,
+  "snippetFull": false,
+  "stateCounter": 6,
+  "suitePath": "moorefields.suite",
+  "tags": [
+    {
+      "id": 1,
+      "name": "",
+      "values": ""
+    }
+  ],
+  "testcases": [
+  ],
+  "verbosity": 27392,
+  "version": "4.2.3"
+}

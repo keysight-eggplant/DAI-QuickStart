@@ -5,13 +5,45 @@ on BuildSuite ( SuitePath,AIJson )
 	put  item -1 of AIJsonPath into simplename
 	delete ".json" in simplename
 	
+	//-----Switches 
+	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
+	put False into my DeleteOriginalJson //Should I Delete the Original Json?
+	//-----
+	
+	
+	me.CheckInformation SuitePath,simplename, AIJson
 	me.aiTOpl AIJson 
 	me.BuildNewAIJson  simplename
 	me.CreateNewSuite SuitePath,simplename
 	me.createScripts 
 	
+	if my DeleteOriginalJson is True then
+		Logwarning "Deleting Original Json:"&& AIJson
+		delete file AIJson
+	end if
 	
 end BuildSuite
+
+on CheckInformation BasePathSuite , simplename , ResoucePather
+	
+	if folder BasePathSuite exists then
+	else
+		logerror "Unable to Fine Folder:" && BasePathSuite
+		Exit all	
+	end if
+	
+	if file ResoucePather  exists then
+	else
+		logerror "Unable to Fine Model Json:" && ResoucePather
+		Exit all	
+	end if
+	
+	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
+	if folder NewPathSuite  exists then
+		logwarning "Deleting Existing Suite:"&& NewPathSuite
+		delete folder NewPathSuite
+	end if
+end CheckInformation
 
 to aiTOpl ResoucePather
 	//----------------------------
@@ -28,42 +60,52 @@ to aiTOpl ResoucePather
 			put SingleAIE.name into ActionName
 			replace space with "_" in ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
-		else if  SingleAIE.type = "State" then
+			
+			else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
 		end if
-	end repeat
-	//------------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------------
-	put keys(ListOfState) into StateKeys
-	put the number of items of StateKeys into StateCount
-	repeat StateCount times
-		put item repeatindex() of StateKeys into SSK
-		put ListOfState.(SSK) into AA
-		put ListOfAction.(AA) into ActionsinState
-		put SSK into StateName
-		put ActionsinState into  FrameworkData.(StateName)
-	end repeat
-	//-----------
-	
-	delete FrameworkData.Cleanup
-	delete FrameworkData.Error
-	delete FrameworkData.Exit
-	
-	
-	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
+end repeat
+//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+put keys(ListOfState) into StateKeys
+put the number of items of StateKeys into StateCount
+repeat StateCount times
+	put item repeatindex() of StateKeys into SSK
+	put ListOfState.(SSK) into AA
+	put ListOfAction.(AA) into ActionsinState
+	put SSK into StateName
+	put ActionsinState into  FrameworkData.(StateName)
+end repeat
 
-	put AIModel into My AIModel
-	put  IDMapState into my IDMapState
-	put FrameworkData  into my FrameworkData
-	
-	//log "AIModel:" & AIModel
-	//log "FrameworkData:" & FrameworkData
-	//log "IDMapState:" & IDMapState
-	//PauseScript
-	
+//-----------Modify FrameworkData
+delete FrameworkData.Cleanup
+delete FrameworkData.Error
+delete FrameworkData.Exit
+
+put keys(FrameworkData) into KeysOfFD
+put the number of items of KeysOfFD into max2
+repeat max2 Times
+	put item repeatindex() of KeysOfFD into SKD
+	if SKD not equal "GlobalActions" then
+		insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+	end if	
+end repeat
+put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
+//-----------Modify FrameworkData
+
+
+put AIModel into My AIModel
+put  IDMapState into my IDMapState
+put FrameworkData  into my FrameworkData
+
+//log "AIModel:" & AIModel
+//log "FrameworkData:" & FrameworkData
+//log "IDMapState:" & IDMapState
+//PauseScript
+
 end aiTOpl
 
 
@@ -81,6 +123,8 @@ on BuildNewAIJson simplename
 		//********************************************
 		put SingleAIE.name into SingleName
 		replace space with "_" in SingleName
+		//----For TroubleShooting
+		//log SingleAIE
 		
 		//---
 		if SingleAIE.type = "Action" then //---Do something to Actions
@@ -91,13 +135,13 @@ on BuildNewAIJson simplename
 			
 			put StateName &".script:"& SingleName into AIScriptPath
 			insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
-			
+	
 		else if  SingleAIE.type = "State" then //---Do something to States
-			if SingleAIE.name = "Initial"
+			if SingleAIE.stateType = "Start"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
-			else if SingleAIE.name = "Error"
-	insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
-			else if SingleAIE.name = "Cleanup"
+			else if SingleAIE.stateType = "Exception"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+			else if SingleAIE.stateType = "Cleanup"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Exit"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
@@ -125,25 +169,24 @@ end BuildNewAIJson
 
 on CreateNewSuite BasePathSuite , simplename
 	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
-	try
-		delete folder NewPathSuite
-	end try
-	Log "NewPathSuite:"&& NewPathSuite
-	wait 2
+	
 	copy folder ResourcePath() &"/TemplateSuite.suite" to BasePathSuite
 	rename folder BasePathSuite&"/TemplateSuite.suite" to simplename &".suite"
+	wait 2
+	Log "Created New Suite:"&& NewPathSuite
 	//-------------
 	put my AIModel into AIModel
 	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
 	move file ResourcePath (simplename&".json") to NewPathSuite & "/Resources/"
 	//-------------
 	
+	//--------
 	put NewPathSuite  into my NewPathSuite
 end CreateNewSuite
 
 
 
-on createScripts  Framework, SuitePath
+on createScripts 
 	put my FrameworkData  into Framework
 	put my NewPathSuite into SuitePath
 	//-----------------
@@ -152,13 +195,6 @@ on createScripts  Framework, SuitePath
 	repeat ScriptCount times
 		put item  repeatindex() of ScriptList into ScriptName
 		put Framework.(ScriptName) into  HandlersNames
-		//------
-		
-		if ScriptName not equal "GlobalActions" and if ScriptName not equal "GlobalStates" then
-			insert "StateCall" before first item of  HandlersNames
-		end if
-		
-		//--------
 		put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
 		create folder SuitePath &"/Images/" & ScriptName
 		create file ScriptPath
@@ -171,23 +207,24 @@ on createScripts  Framework, SuitePath
 			write return to file ScriptPath
 			write "//Workflow for" && SHN to file ScriptPath
 			----------------------------------------
-			(*
-			write return to file ScriptPath
-			write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
-write return to file ScriptPath
-			write <<wait 4>> to file ScriptPath
-			write return to file ScriptPath
-			
-*)
+			if my WriteLogsSnippets = True then
+				write return to file ScriptPath
+				write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
+				write return to file ScriptPath
+				write <<wait 4>> to file ScriptPath
+				write return to file ScriptPath
+			end if
 			----------------------------------------
 			write return to file ScriptPath 
 			write return to file ScriptPath 
 			write return to file ScriptPath 
 			write "end" && SHN to file ScriptPath 
-write return to file ScriptPath 
+			write return to file ScriptPath 
 			write return to file ScriptPath
 			//log ScriptName && SHN
 		end repeat
 		close file ScriptPath
 	end repeat
 end createScripts
+
+
