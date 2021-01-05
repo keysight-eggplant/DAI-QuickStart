@@ -5,14 +5,22 @@ on BuildSuite ( SuitePath,AIJson )
 	put  item -1 of AIJsonPath into simplename
 	delete ".json" in simplename
 	
+	//-----Switches 
+	put False into my WriteLogsSnippets 
+	put True into my DeleteOriginalJson
+	//-----
+	
+	
 	me.CheckInformation SuitePath,simplename, AIJson
 	me.aiTOpl AIJson 
 	me.BuildNewAIJson  simplename
 	me.CreateNewSuite SuitePath,simplename
 	me.createScripts 
 	
-	
-	//delete file AIJson
+	if my DeleteOriginalJson is True then
+		Logwarning "Deleting Original Json:"&& AIJson
+		delete file AIJson
+	end if
 	
 end BuildSuite
 
@@ -62,7 +70,7 @@ to aiTOpl ResoucePather
 	//------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------
 	put keys(ListOfState) into StateKeys
-	put the number of items of StateKeys into StateCount
+put the number of items of StateKeys into StateCount
 	repeat StateCount times
 		put item repeatindex() of StateKeys into SSK
 		put ListOfState.(SSK) into AA
@@ -196,14 +204,13 @@ on createScripts
 			write return to file ScriptPath
 			write "//Workflow for" && SHN to file ScriptPath
 			----------------------------------------
-			(*
-			write return to file ScriptPath
-			write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
-write return to file ScriptPath
-			write <<wait 4>> to file ScriptPath
-			write return to file ScriptPath
-			
-*)
+			if my WriteLogsSnippets = True then
+				write return to file ScriptPath
+				write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
+				write return to file ScriptPath
+				write <<wait 4>> to file ScriptPath
+				write return to file ScriptPath
+			end if
 			----------------------------------------
 			write return to file ScriptPath 
 			write return to file ScriptPath 

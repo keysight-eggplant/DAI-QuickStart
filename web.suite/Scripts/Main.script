@@ -9,6 +9,6 @@
 
 //Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
 
-Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Downloads/moorefields.json"
+Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Desktop/gsk123.json"
 
 
