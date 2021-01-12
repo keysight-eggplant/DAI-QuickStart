@@ -6,9 +6,9 @@ on BuildSuite ( SuitePath,AIJson )
 	delete ".json" in simplename
 	
 	//-----Switches 
+	put False into my ShowFramework // Show I show the Customer Framework?
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
 	put False into my DeleteOriginalJson //Should I Delete the Original Json?
-	put False into my ShowFramework // Show I show the Customer Framework?
 	//-----
 	
 	
@@ -69,7 +69,7 @@ to BuildAIFrameWork ResoucePather
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
-		end if
+end if
 		
 		if SingleAIE.stateType = "Start"
 			insert SingleAIE.name into ListofStartStates
@@ -96,11 +96,12 @@ to BuildAIFrameWork ResoucePather
 	put the number of items of FDKeys into FDKeyCount
 	repeat FDKeyCount Times
 		put item repeatindex() of FDKeys into SKD //--Single Key Data
+		//replace "_" with space in SKD
 		if SKD not equal "GlobalActions"  then
-			if SKD contains ListofStartStates then
-			else
-				insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
-			end if
+			//if  SKD contains  ListofStartStates   then
+			//else
+			insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+			//end if
 		end if	
 	end repeat
 	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
@@ -148,8 +149,11 @@ on BuildNewAIJson simplename
 			insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			
 		else if  SingleAIE.type = "State" then //---Do something to States
+			put SingleName &".script:"& "StateCall" into AIScriptPath
+			
 			if SingleAIE.stateType = "Start"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/ConfigFile.script", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/Startup.script", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Exception"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Cleanup"
@@ -157,7 +161,6 @@ on BuildNewAIJson simplename
 			else if SingleAIE.name = "Exit"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
 			else 
-				put SingleName &".script:"& "StateCall" into AIScriptPath
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			end if
 			
