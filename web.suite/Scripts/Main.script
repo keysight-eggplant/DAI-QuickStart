@@ -1,14 +1,20 @@
 ﻿
 
-//Randy Hesse
-//FocusBuild v0.8
 
-//Mark Frenee
-//Framework_Draft_A
+//--Build the New Suite in this Location:
+put "/Users/ranhesse/desktop" into NewSuitePath
 
 
-//Utilizes.BuildSuite "The New  Suite  Path" , "the AI JSON Path"
+//--Path of the Explorted Json File from Eggplant DAI Suite
+put "/Users/ranhesse/Desktop/zivra.json" into ExportedJsonModel
 
-Utilities.BuildSuite "/Users/ranhesse/desktop","/Users/ranhesse/Desktop/gsk123.json"
 
 
+//------------------------------------------
+//------------------------------------------
+//---Do not Modified Below---------
+//------------------------------------------
+//------------------------------------------
+
+//--Build the New Suite and the New Model
+Utilities.BuildSuite NewSuitePath,ExportedJsonModel
