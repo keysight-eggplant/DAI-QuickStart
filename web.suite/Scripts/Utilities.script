@@ -8,11 +8,12 @@ on BuildSuite ( SuitePath,AIJson )
 	//-----Switches 
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
 	put False into my DeleteOriginalJson //Should I Delete the Original Json?
+	put False into my ShowFramework // Show I show the Customer Framework?
 	//-----
 	
 	
 	me.CheckInformation SuitePath,simplename, AIJson
-	me.aiTOpl AIJson 
+	me.BuildAIFrameWork AIJson 
 	me.BuildNewAIJson  simplename
 	me.CreateNewSuite SuitePath,simplename
 	me.createScripts 
@@ -25,7 +26,6 @@ on BuildSuite ( SuitePath,AIJson )
 end BuildSuite
 
 on CheckInformation BasePathSuite , simplename , ResoucePather
-	
 	if folder BasePathSuite exists then
 	else
 		logerror "Unable to Fine Folder:" && BasePathSuite
@@ -41,13 +41,17 @@ on CheckInformation BasePathSuite , simplename , ResoucePather
 	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
 	if folder NewPathSuite  exists then
 		logwarning "Deleting Existing Suite:"&& NewPathSuite
-		delete folder NewPathSuite
+		try
+			delete folder NewPathSuite
+		catch
+			logerror "Unable to Deleting Existing Suite:"&& NewPathSuite
+		end try
 	end if
 end CheckInformation
 
-to aiTOpl ResoucePather
+to BuildAIFrameWork ResoucePather
 	//----------------------------
-	put "" into ListOfState.GlobalActions 
+	put 0 into ListOfState.GlobalActions 
 	put "GlobalActions" into IDMapState."0"
 	//----------------------------
 	put JSONValue(file (ResoucePather)) into AIModel
@@ -60,24 +64,27 @@ to aiTOpl ResoucePather
 			put SingleAIE.name into ActionName
 			replace space with "_" in ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
-			
 		else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
 		end if
+		
+		if SingleAIE.stateType = "Start"
+			insert SingleAIE.name into ListofStartStates
+		end if
+		
 	end repeat
 	//------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------
 	put keys(ListOfState) into StateKeys
 	put the number of items of StateKeys into StateCount
 	repeat StateCount times
-		put item repeatindex() of StateKeys into SSK
-		put ListOfState.(SSK) into AA
-		put ListOfAction.(AA) into ActionsinState
-		put SSK into StateName
-		put ActionsinState into  FrameworkData.(StateName)
+		put item repeatindex() of StateKeys into SSK //--Single State Key
+		put ListOfState.(SSK) into TheID
+		put ListOfAction.(TheID) into ActionsinState
+		put ActionsinState into  FrameworkData.(SSK)
 	end repeat
 	
 	//-----------Modify FrameworkData
@@ -85,12 +92,15 @@ to aiTOpl ResoucePather
 	delete FrameworkData.Error
 	delete FrameworkData.Exit
 	
-	put keys(FrameworkData) into KeysOfFD
-	put the number of items of KeysOfFD into max2
-	repeat max2 Times
-		put item repeatindex() of KeysOfFD into SKD
-		if SKD not equal "GlobalActions" then
-			insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+	put keys(FrameworkData) into FDKeys
+	put the number of items of FDKeys into FDKeyCount
+	repeat FDKeyCount Times
+		put item repeatindex() of FDKeys into SKD //--Single Key Data
+		if SKD not equal "GlobalActions"  then
+			if SKD contains ListofStartStates then
+			else
+				insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+			end if
 		end if	
 	end repeat
 	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
@@ -101,11 +111,14 @@ to aiTOpl ResoucePather
 	put  IDMapState into my IDMapState
 	put FrameworkData  into my FrameworkData
 	
-	log "FrameworkData:" & FrameworkData
-	log "IDMapState:" & IDMapState
-	PauseScript
 	
-end aiTOpl
+	if my ShowFramework = True then
+		log "FrameworkData:" & FrameworkData
+		log "IDMapState:" & IDMapState
+		PauseScript
+	end if
+	
+end BuildAIFrameWork
 
 
 
@@ -194,7 +207,7 @@ on createScripts
 		put item  repeatindex() of ScriptList into ScriptName
 		put Framework.(ScriptName) into  HandlersNames
 		put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
-		create folder SuitePath &"/Images/" & ScriptName
+		//create folder SuitePath &"/Images/" & ScriptName //--Created Image Folders
 		create file ScriptPath
 		open  file ScriptPath
 		//------
