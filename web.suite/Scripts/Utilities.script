@@ -69,7 +69,7 @@ to BuildAIFrameWork ResoucePather
 			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
-end if
+		end if
 		
 		if SingleAIE.stateType = "Start"
 			insert SingleAIE.name into ListofStartStates
@@ -152,7 +152,7 @@ on BuildNewAIJson simplename
 			put SingleName &".script:"& "StateCall" into AIScriptPath
 			
 			if SingleAIE.stateType = "Start"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/Startup.script", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/StartupEnv.script", type:"normal"}]  into SingleAIE."snippets"
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Exception"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
