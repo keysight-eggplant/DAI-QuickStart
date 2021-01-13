@@ -13,7 +13,7 @@ to handle MouseOver ScreenObject,SearchArea,TStyle //used for hovering over elem
 	try 
 		MoveTo image:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea)
 	catch 
-		MoveTo text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+		MoveTo text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)
 	end try
 	Set the ScriptLogging to On 
 end MouseOver
@@ -26,7 +26,7 @@ to handle ClickEvent ScreenObject,SearchArea,ExpOutcome,VerificationArea,TStyle
 	try 
 		click image:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea)
 	catch 
-		click text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+		click text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)
 	end try 
 	wait 0.5 // to handle state transition better...
 	if ExpOutcome is not empty 
@@ -34,7 +34,7 @@ to handle ClickEvent ScreenObject,SearchArea,ExpOutcome,VerificationArea,TStyle
 		try 			
 			waitfor 20, image:ExpOutcome
 		catch 
-			waitfor 20, text:ExpOutcome,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+			waitfor 20, text:ExpOutcome,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)
 		end try 	
 	end if
 	Set the ScriptLogging to On
