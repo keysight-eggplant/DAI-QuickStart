@@ -34,7 +34,7 @@ to handle ClickEvent ScreenObject,SearchArea,ExpOutcome,VerificationArea,TStyle
 		try 			
 			waitfor 20, image:ExpOutcome
 		catch 
-			waitfor 20, text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+			waitfor 20, text:ExpOutcome,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
 		end try 	
 	end if
 	Set the ScriptLogging to On
