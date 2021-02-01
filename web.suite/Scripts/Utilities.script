@@ -50,8 +50,8 @@ on CheckInformation BasePathSuite , simplename , ResoucePather
 end CheckInformation
 
 to BuildAIFrameWork ResoucePather
-	//----------------------------
-	put 0 into ListOfState.GlobalActions 
+	//----------------------------Adding to Framework
+	put 0 into ListOfState."GlobalActions"
 	put "GlobalActions" into IDMapState."0"
 	//----------------------------
 	put JSONValue(file (ResoucePather)) into AIModel
@@ -155,11 +155,11 @@ on BuildNewAIJson simplename
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/StartupEnv.script", type:"normal"}]  into SingleAIE."snippets"
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Exception"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Cleanup"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.name = "Exit"
-				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalState.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
 			else 
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			end if
