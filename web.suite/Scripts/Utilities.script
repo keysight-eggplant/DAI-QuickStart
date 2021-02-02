@@ -6,7 +6,7 @@ on BuildSuite ( SuitePath,AIJson )
 	delete ".json" in simplename
 	
 	//-----Switches 
-	put False into my ShowFramework // Show I show the Customer Framework?
+	put True into my ShowFramework // Show I show the Customer Framework?
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
 	put False into my DeleteOriginalJson //Should I Delete the Original Json?
 	//-----
@@ -57,16 +57,15 @@ to BuildAIFrameWork ResoucePather
 	put JSONValue(file (ResoucePather)) into AIModel
 	put AIModel.elements into AIE
 	put the number of items of AIE into Max
+	replace space with "_" in AIE
 	
 	repeat max times
 		put item repeatindex() of AIE into SingleAIE
 		if SingleAIE.type = "Action" then
 			put SingleAIE.name into ActionName
-			replace space with "_" in ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
-		else if  SingleAIE.type = "State" then
+			else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
-			replace space with "_" in StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
 		end if
@@ -92,18 +91,24 @@ to BuildAIFrameWork ResoucePather
 	delete FrameworkData.Error
 	delete FrameworkData.Exit
 	
+	
 	put keys(FrameworkData) into FDKeys
 	put the number of items of FDKeys into FDKeyCount
 	repeat FDKeyCount Times
 		put item repeatindex() of FDKeys into SKD //--Single Key Data
-		//replace "_" with space in SKD
 		if SKD not equal "GlobalActions"  then
-			//if  SKD contains  ListofStartStates   then
-			//else
-			insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
-			//end if
+			if    ListofStartStates  contains SKD  then
+			else
+				if FrameworkData.(SKD) is a property list
+					insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+				else	
+					put "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+				end if
+			end if
 		end if	
 	end repeat
+	
+	
 	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
 	//-----------Modify FrameworkData
 	
@@ -142,7 +147,7 @@ on BuildNewAIJson simplename
 		if SingleAIE.type = "Action" then //---Do something to Actions
 			put SingleAIE.parentid into IDS
 			if IDS is not empty then
-				put IDMapState.(IDS) into StateName
+	put IDMapState.(IDS) into StateName
 			end if
 			
 			put StateName &".script:"& SingleName into AIScriptPath
