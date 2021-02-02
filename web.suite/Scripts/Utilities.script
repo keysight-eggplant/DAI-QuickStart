@@ -6,9 +6,9 @@ on BuildSuite ( SuitePath,AIJson )
 	delete ".json" in simplename
 	
 	//-----Switches 
-	put True into my ShowFramework // Show I show the Customer Framework?
+	put False into my ShowFramework // Show I show the Customer Framework?
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
-	put False into my DeleteOriginalJson //Should I Delete the Original Json?
+	put True into my DeleteOriginalJson //Should I Delete the Original Json?
 	//-----
 	
 	
@@ -64,7 +64,7 @@ to BuildAIFrameWork ResoucePather
 		if SingleAIE.type = "Action" then
 			put SingleAIE.name into ActionName
 			insert   ActionName into ListOfAction.(SingleAIE."parentid")
-			else if  SingleAIE.type = "State" then
+		else if  SingleAIE.type = "State" then
 			put SingleAIE.name into StateName
 			put  SingleAIE."id" into ListOfState.(StateName)
 			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
@@ -147,7 +147,7 @@ on BuildNewAIJson simplename
 		if SingleAIE.type = "Action" then //---Do something to Actions
 			put SingleAIE.parentid into IDS
 			if IDS is not empty then
-	put IDMapState.(IDS) into StateName
+				put IDMapState.(IDS) into StateName
 			end if
 			
 			put StateName &".script:"& SingleName into AIScriptPath
