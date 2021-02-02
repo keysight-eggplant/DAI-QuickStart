@@ -1,0 +1,12 @@
+﻿
+put "u" into SKD
+
+
+insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+
+
+
+put (a:2,b:4) into var
+
+
+log var is a property list
