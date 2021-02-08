@@ -6,9 +6,9 @@ on BuildSuite ( SuitePath,AIJson )
 	delete ".json" in simplename
 	
 	//-----Switches 
-	put False into my ShowFramework // Show I show the Customer Framework?
+	put True into my ShowFramework // Show I show the Customer Framework?
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
-	put True into my DeleteOriginalJson //Should I Delete the Original Json?
+	put False into my DeleteOriginalJson //Should I Delete the Original Json?
 	//-----
 	
 	
@@ -59,6 +59,7 @@ to BuildAIFrameWork ResoucePather
 	put the number of items of AIE into Max
 	replace space with "_" in AIE
 	
+	
 	repeat max times
 		put item repeatindex() of AIE into SingleAIE
 		if SingleAIE.type = "Action" then
@@ -99,7 +100,7 @@ to BuildAIFrameWork ResoucePather
 		if SKD not equal "GlobalActions"  then
 			if    ListofStartStates  contains SKD  then
 			else
-				if FrameworkData.(SKD) is a property list
+				if FrameworkData.(SKD) is a  list
 					insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
 				else	
 					put "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
