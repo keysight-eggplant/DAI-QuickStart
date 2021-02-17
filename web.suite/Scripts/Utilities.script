@@ -6,7 +6,7 @@ on BuildSuite ( SuitePath,AIJson )
 	delete ".json" in simplename
 	
 	//-----Switches 
-	put True into my ShowFramework // Show I show the Customer Framework?
+	put False into my ShowFramework // Show I show the Customer Framework?
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
 	put False into my DeleteOriginalJson //Should I Delete the Original Json?
 	//-----
@@ -98,14 +98,14 @@ to BuildAIFrameWork ResoucePather
 	repeat FDKeyCount Times
 		put item repeatindex() of FDKeys into SKD //--Single Key Data
 		if SKD not equal "GlobalActions"  then
-			if    ListofStartStates  contains SKD  then
-			else
-				if FrameworkData.(SKD) is a  list
-					insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
-				else	
-					put "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
-				end if
+			//if    ListofStartStates  contains SKD  then //-Removed on 2/17/2021
+			//else
+			if FrameworkData.(SKD) is a  list
+				insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+			else	
+				put "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
 			end if
+			//end if
 		end if	
 	end repeat
 	
