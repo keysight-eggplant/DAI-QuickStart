@@ -1,35 +1,35 @@
 ﻿--Variable Settings
-Set Universal timeLimit to 20
+Set Universal timeLimit to 20 //All modules of code use this central time event
+Set Universal Unfocus to [32,124] //this set of co-ordinates the ability to click out of a focused area. if required changed the co-ordinates
+Set Universal SearchArea to "BrowserBody" //we can use this to search a specific area for a component on the screen. this works with ScreenPart
 Set Universal DataType to "text"
-Set Universal Unfocus to (32,124)
-
 //Browser Settings
 Set Universal PrivateBrowsing to "WebFramework/BrowserMode"("public") --Switch to browser name to invoke private mode....
 
-///Below is for Horizonral_TextBoxes
-Set Universal TextBox_HxAxis to 60 --must always pass in a positive value...
-Set Universal TextBox_HyAxis to 0 --must always pass in a positive value...
-Set Universal HtxtBoxAlighnmment to "Right" --values should be Right or Left
-
-//Below is for Vertical_TextBoxes
-Set Universal TextBox_VxAxis to 100 --must always pass in a positive value...
-Set Universal TextBox_VyAxis to 0 --must always pass in a positive value...
-Set Universal VtxtBoxAlighnmment to "Right" --values should be Up or Bottom
-
-//Below is for RadioBtn
-Set Universal RadioBtnAlighnmment to "Left" --value should only be Left or Right
-Set Universal RadioBtn_xAxis to 12 --must always pass in a positive value...
-
-//Below is for Checkboxes
-Set Universal CheckBoxAlighnmment to "Left" --value should only be Left or Right
-Set Universal ChkBox_xAxis to 12 --must always pass in a positive value...
-
 --text stype settings
-Set the TextStyle.caseSensitive to true
-Set the TextStyle.IgnoreSpaces to "Yes"
-Set the TextStyle.IgnoreUnderscores to "Yes"
+Set the TextStyle.caseSensitive to true //this changes the global setting to force case sensitive matches
+//Set the TextStyle.IgnoreSpaces to "Yes" //this changes the global setting to ignore spaces when looking for text. uncomment these to activate this setting
+//Set the TextStyle.IgnoreUnderscores to "Yes" //this changes the global setting to ignore underscores for text. uncomment these to activate this setting
 
 //Config for Excel DataFile
 Set Universal FileName to "DataFile" 
 Set Universal SheetName to "Users"
 Set Universal RecordNumber to Random(1 - 100)
+
+///Below is for Horizonral_TextBoxes
+Set Universal TextBox_HxAxis to 60 -- Use the off set to move the cursor away from the point of origin. "-" values to goto the left, positive values to move to the right and use zero for no deviation
+Set Universal HtxtBoxAlighnmment to "Right" --values should be Center, CenterLeft, CenterRight
+
+//Below is for Vertical_TextBoxes
+Set Universal TextBox_VyAxis to 30 -- Use the off set to move the cursor away from the point of origin. "-" values to goto the up, positive values to move to the down and use zero for no deviation
+Set Universal VtxtBoxAlighnmment to "CenterBottom" --values should be CenterTop or CenterBottom
+
+//Below is for RadioBtn
+Set Universal RadioBtnAlighnmment to "Center" --value should only be Center, CenterLeft, CenterRight
+Set Universal RadioBtn_xAxis to -36 -- Use the off set to move the cursor away from the point of origin. "-" values to goto the left, positive values to move to the right and use zero for no deviation
+
+//Below is for Checkboxes
+Set Universal CheckBoxAlighnmment to "CenterLeft" --value should only be Center, CenterLeft, CenterRight
+Set Universal ChkBox_xAxis to 0 -- Use the off set to move the cursor away from the point of origin. "-" values to goto the left positive values to move to the right and use zero for no deviation
+
+Set Universal LoopCounter to 10 // this loop counter is for managing the number of itterations carried out by the scrolling functions in GenericFunctions.script

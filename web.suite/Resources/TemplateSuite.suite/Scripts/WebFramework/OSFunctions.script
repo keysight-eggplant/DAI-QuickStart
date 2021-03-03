@@ -1,11 +1,18 @@
 ﻿///SUT Functions.....
-to handle CloseApplications App
+to handle CloseApplications processID
 	Set the ScriptLogging to Silent
-	typetext Altkey,F2
-	wait 1
-	typetext controlkey,"a"
-	typetext "xkill",return
-	Click text:"Your Store"
+	if connectioninfo().Name contains "CloudSut"
+		typetext Altkey,F2
+		wait 1 
+		typetext controlkey,"a"
+		typetext "xkill",return
+		Click text:"Your Store"
+	else
+		Typetext windowsKey,"r"
+		wait 1
+		typetext controlkey,"a"
+		typetext "taskkill /IM"&&processID,return
+	end if
 	Set the ScriptLogging to On
 end CloseApplications
 
@@ -33,6 +40,5 @@ to handle OpenURL MyBrowser, MyURL
 	waitfor 20,"Logos"
 	Set the ScriptLogging to On
 end OpenURL
-
 
 
