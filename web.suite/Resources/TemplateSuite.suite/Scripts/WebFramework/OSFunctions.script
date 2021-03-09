@@ -2,11 +2,10 @@
 to handle CloseApplications processID
 	Set the ScriptLogging to Silent
 	if connectioninfo().Name contains "CloudSut"
-		typetext Altkey,F2
-		wait 1 
-		typetext controlkey,"a"
-		typetext "xkill",return
-		Click text:"Your Store"
+		repeat until imagefound(0,image:"Icons/Desktop")
+			typetext Altkey,F4
+			wait 0.5
+		end repeat
 	else
 		Typetext windowsKey,"r"
 		wait 1
@@ -34,10 +33,8 @@ to handle OpenURL MyBrowser, MyURL
 	else
 		Typetext windowsKey,"r"
 		wait 1
-		typetext controlkey,"a"
 		typetext MyBrowser && MyURL&&Universal PrivateBrowsing,return
 	end if
-	waitfor 20,"Logos"
 	Set the ScriptLogging to On
 end OpenURL
 
