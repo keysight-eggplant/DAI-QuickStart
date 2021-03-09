@@ -2,11 +2,11 @@
 
 
 //--Build the New Suite in this Location:
-set  NewSuitePath to  "/Users/ranhesse/desktop" 
+set  NewSuitePath to  "/Users/pritmodi/desktop/eggPlantAI/" 
 
 
 //--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/ranhesse/Desktop/123tester.json"
+set ExportedJsonModel to "/Users/pritmodi/Desktop/nopcomm_test.json"
 
 
 //------------------------------------------

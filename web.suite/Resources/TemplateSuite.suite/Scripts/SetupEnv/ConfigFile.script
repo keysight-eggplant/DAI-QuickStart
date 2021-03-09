@@ -4,7 +4,8 @@ Set Universal Unfocus to [32,124] //this set of co-ordinates the ability to clic
 Set Universal SearchArea to "BrowserBody" //we can use this to search a specific area for a component on the screen. this works with ScreenPart
 Set Universal DataType to "text"
 //Browser Settings
-Set Universal PrivateBrowsing to "WebFramework/BrowserMode"("public") --Switch to browser name to invoke private mode....
+Set Universal PrivateBrowsing to "WebFramework/BrowserMode"("public") 
+--Switch to browser name to invoke private mode....
 
 --text stype settings
 Set the TextStyle.caseSensitive to true //this changes the global setting to force case sensitive matches
