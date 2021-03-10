@@ -6,7 +6,7 @@ set  NewSuitePath to  "/Users/pritmodi/desktop/eggPlantAI/"
 
 
 //--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/pritmodi/Desktop/nopcomm_test.json"
+set ExportedJsonModel to "/Users/pritmodi/Desktop/nopcomtestwin.json"
 
 
 //------------------------------------------

@@ -1,8 +1,12 @@
 ﻿
 to handle WaitForItem MyItem
 	Set the ScriptLogging to Silent
-	waitfor Universal timeLimit,{(Universal DataType):MyItem,searchrectangle:"WebFramework/ScreenPart".ScreenPart(Universal SearchArea)}
-	if foundimagelocation().value = true then LogSuccess "Found Item at location:" && foundimagelocation()
+	set the searchrectangle to "WebFramework/ScreenPart".ScreenPart (Universal SearchArea)
+	try 
+		MoveTo {image:MyItem,waitfor:20}
+	catch 
+		MoveTo {text:MyItem,waitfor:20}
+	end try
 	Run "WebFramework/ResetVariables"
 	Set the ScriptLogging to On 
 end WaitForItem
@@ -11,9 +15,9 @@ to handle MouseOver ScreenObject //used for hovering over elements to bring up s
 	// if you need to isolate a specific area then set the searchrectangle (global property) in your snippet of code  
 	Set the ScriptLogging to Silent
 	try 
-		MoveTo {image:ScreenObject}
+		MoveTo {image:ScreenObject,waitfor:20}
 	catch 
-		MoveTo {text:ScreenObject}
+		MoveTo {text:ScreenObject,waitfor:20}
 	end try
 	Run "WebFramework/ResetVariables"
 	Set the ScriptLogging to On 
@@ -29,8 +33,8 @@ to handle ClickEvent ScreenObject,ExpOutcome
 	end try 
 	wait 0.5 // to handle state transition better...
 	if ExpOutcome is not empty 
-		set the searchrectangle to Universal SearchArea
-		try 			
+		set the searchrectangle to "WebFramework/ScreenPart".ScreenPart (Universal SearchArea)
+		try 					
 			waitfor 20, image:ExpOutcome
 		catch 
 			waitfor 20, text:ExpOutcome
