@@ -2,8 +2,10 @@
 	Set MyExcelFile to (type:"excel",file:ResourcePath(Universal FileName&".xlsx"),name: Universal SheetName)
 	put the records of MyExcelFile into MyData
 	Set SelectedRow to Item MyRow of MyData
+	if SelectedRow.(ColumnHeading) is empty then LogError "No data found in data file"
 	Return SelectedRow.(ColumnHeading)
 end CollectData
+
 
 to handle InsertionOfData DataRecord
 	Set MyExcelFile to (type:"excel",file:ResourcePath(Universal FileName&".xlsx"),name: Universal SheetName,Writable:yes)

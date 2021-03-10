@@ -1,8 +1,7 @@
-﻿
-to handle TextBox_Horizontal Label,Input
+﻿to handle TextBox_Horizontal Label,Input
 	//Horizontal txtboxes are by enlarge always positioned to the right of the form label
 	// All universal variable can be found in the SetupEnv/ConfigFile.script
-	Click imagerectangle(text:Label).(Universal HtxtBoxAlighnmment)+[Universal TextBox_HxAxis,0] //the click event that click away from the label 
+	Click imagerectangle({text:Label}).(Universal HtxtBoxAlighnmment)+[Universal TextBox_HxAxis,0] //the click event that click away from the label 
 	"WebFramework/GenericFunctions".TextEntry Input //calling the TextEntry to enter the value inside the variable...
 end TextBox_Horizontal
 
@@ -16,7 +15,9 @@ end TextBox_Vertical
 to handle radioBtn Label
 	//to handle radio buttons to the left or right of the label
 	// All universal variable can be found in the SetupEnv/ConfigFile.script
-	Click imagerectangle(text:Label).(Universal RadioBtnAlighnmment)+[Universal RadioBtn_xAxis,0] //the click event that click away from the label 
+	--Click imagerectangle(text:"Male").CenterLeft+[-12,0]
+	
+	Click imagerectangle({text:Label}).(Universal RadioBtnAlighnmment)+[Universal RadioBtn_xAxis,0] //the click event that click away from the label 
 end radioBtn
 
 to handle CheckBtn Label
@@ -24,9 +25,3 @@ to handle CheckBtn Label
 	// All universal variable can be found in the SetupEnv/ConfigFile.script
 	Click imagerectangle(text:Label).(Universal CheckBoxAlighnmment)+[Universal ChkBox_xAxis,0] //the click event that click away from the label 
 end CheckBtn
-
-
-
-
-
-
