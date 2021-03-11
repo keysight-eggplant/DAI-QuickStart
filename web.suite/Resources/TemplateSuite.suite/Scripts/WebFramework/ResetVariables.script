@@ -1,4 +1,4 @@
-﻿Set Universal DataTpe to "text" //this resets the datatype variable back to text if the variable has changed
+﻿Set Universal DataType to "text" //this resets the datatype variable back to text if the variable has changed
 Set Universal timeLimit to 20 //resets the timelimit variable back to the default
 
 //resetting the Universal SearchArea
