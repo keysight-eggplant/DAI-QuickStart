@@ -1,0 +1,19 @@
+﻿
+//Date: Feb 23 , 2021
+
+//--Build the New Suite in this Location:
+set  NewSuitePath to  "/Users/ranhesse/desktop" 
+
+
+//--Path of the Explorted Json File from Eggplant DAI Suite
+set ExportedJsonModel to "/Users/ranhesse/Desktop/123tester.json"
+
+
+//------------------------------------------
+//------------------------------------------
+//---Do not Modified Below---------
+//------------------------------------------
+//------------------------------------------
+
+//--Build the New Suite and the New Model
+Utilities.BuildSuite NewSuitePath,ExportedJsonModel
