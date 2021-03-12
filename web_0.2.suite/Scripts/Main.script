@@ -1,19 +1,9 @@
 ﻿
-//Date: Feb 23 , 2021
+//Date: Marhc 12 , 2021
 
 //--Build the New Suite in this Location:
-set  NewSuitePath to  "/Users/ranhesse/desktop" 
+set global NewSuitePath to  "/Users/ranhesse/desktop" 
+set global DAIServer to"https://eval50.dai.eggplant.cloud"
+set global username to "randy.hesse@eggplant.io"
+set global password to "Spr1ng2016"
 
-
-//--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/ranhesse/Desktop/123tester.json"
-
-
-//------------------------------------------
-//------------------------------------------
-//---Do not Modified Below---------
-//------------------------------------------
-//------------------------------------------
-
-//--Build the New Suite and the New Model
-Utilities.BuildSuite NewSuitePath,ExportedJsonModel

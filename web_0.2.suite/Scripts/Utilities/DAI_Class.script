@@ -1,0 +1,106 @@
+﻿
+(*
+properties
+	DAIServer:"https://eval50.dai.eggplant.cloud",
+	Username:"randy.hesse@eggplant.io",
+	Password:"Spr1ng2016",
+end properties
+*)
+
+on GrabModelFromDAI
+	me.GetAccessToken
+	me.GetModels
+	me.ChooseModel
+end GrabModelFromDAI
+
+on GetAccessToken
+	put My DAIServer & "/ai/auth" into URL
+	put my Username into RB.username
+	put my Password into RB.password
+	
+	DAI_API(httpMethod:"POST",url:URL,requestBody:RB)
+	put JSONValue(api().responsebody) into responsebody
+	put responsebody."access_token" into my access_token
+	
+	
+end GetAccessToken
+
+on GetModels
+	log "Grabbing information about Your Models"
+	
+	put My DAIServer & "/ai/models" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ModelList
+	
+	put the number of items of ModelList into ModelCount
+	repeat ModelCount Times
+		put item repeatindex() of ModelList into Modelinfo
+		if Modelinfo.group.name = my Username then
+			insert (name:Modelinfo.name,ID:Modelinfo.modeluuid) into UserModels
+		end if
+	end repeat
+	
+	put UserModels into my ListofModels
+end GetModels
+
+
+
+on ChooseModel
+	put me.ListofModels into UserModels
+	
+	put the number of items of UserModels into ModelCount
+	repeat ModelCount times
+		put item repeatindex() of UserModels into InfoOnModel
+		insert (InfoOnModel.name) into ModelChooseList
+		put InfoOnModel.id into ModelListID.(InfoOnModel.name)
+		
+	end repeat
+	answer "Your Model to Build a Suite From"  from list ModelChooseList with "Ok" or "Cancel" title "Please Choose"
+	put it into PickedModel
+	put empty into it
+	if PickedModel = "Cancel" then
+		logwarning "User did not pick a Model"
+		exit script
+	end if
+	
+	put ModelListID.(PickedModel) into my ModelUID
+end ChooseModel
+
+
+
+function GetModelJSON 
+	put my ModelUID into Model_ID
+	put My DAIServer & "/ai/models/"&Model_ID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into Model
+	return Model
+end GetModelJSON
+
+
+
+on UpdateModel
+	put ModelJson.group.name into RBGroup
+	put ModelJson.name into RBName
+	put  ModelJson.modeljson into PreRBMJ
+	///---THE REPLACE
+	replace "BOX" with "TheBOxingMatch" in PreRBMJ
+	///---THE REPLACE
+	put JSONFormat(PreRBMJ) into RBMJ
+	
+	put "https://eval50.dai.eggplant.cloud/ai/models/"&Modelid into URL
+	put "bearer" && responsebody.access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	//DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:(ModelJson))
+	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":RBMJ))
+	put JSONValue(api().responseBody) into responsebody
+
+	log responsebody
+	
+end UpdateModel
+
+
+

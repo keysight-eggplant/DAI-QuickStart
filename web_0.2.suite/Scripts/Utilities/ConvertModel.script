@@ -1,0 +1,36 @@
+﻿
+log "Loading Model Info"
+
+put global NewSuitePath into NewSuitePath
+put global DAIServer into DAIServer
+put global username into username
+put  global password into password
+
+//-----------------------------------------------------
+put (DAIServer:DAIServer,username:username,password:password) into InfoDAI
+put empty into global NewSuitePath
+put empty into global DAIServer 
+put empty into global username 
+put empty into global password 
+//-------------------------------------------------------------
+
+
+put new "Utilities/DAI_Class" with (InfoDAI) into DC
+put new "Utilities/Suite_Class" into SC
+(DC)."GrabModelFromDAI"
+
+put (DC)."GetModelJSON" into ModelJson
+
+
+
+//(SC).CheckInformation SuitePath,simplename, AIJson
+
+(SC).BuildAIFrameWork ModelJson 
+
+(*
+
+(SC).BuildNewAIJson  simplename
+(SC).CreateNewSuite SuitePath,simplename
+(SC).createScripts 
+
+*)
