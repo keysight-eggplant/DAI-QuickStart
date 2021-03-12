@@ -54,7 +54,7 @@ to BuildAIFrameWork ResoucePather
 	put 0 into ListOfState."GlobalActions"
 	put "GlobalActions" into IDMapState."0"
 	//----------------------------
-	put JSONValue(file (ResoucePather)) into AIModel
+	put ResoucePather."modeljson" into AIModel
 	put AIModel.elements into AIE
 	put the number of items of AIE into Max
 	replace space with "_" in AIE
@@ -119,11 +119,11 @@ to BuildAIFrameWork ResoucePather
 	put FrameworkData  into my FrameworkData
 	
 	
-	if my ShowFramework = True then
-		log "FrameworkData:" & FrameworkData
-		log "IDMapState:" & IDMapState
-		PauseScript
-	end if
+	//if my ShowFramework = True then
+	log "FrameworkData:" & FrameworkData
+	log "IDMapState:" & IDMapState
+	PauseScript
+	//end if
 	
 end BuildAIFrameWork
 
@@ -196,6 +196,8 @@ on CreateNewSuite BasePathSuite , simplename
 	Log "Created New Suite:"&& NewPathSuite
 	//-------------
 	put my AIModel into AIModel
+	
+	
 	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
 	move file ResourcePath (simplename&".json") to NewPathSuite & "/Resources/"
 	//-------------
