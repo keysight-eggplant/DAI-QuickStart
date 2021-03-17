@@ -6,7 +6,7 @@ set  NewSuitePath to  "/Users/ranhesse/desktop"
 
 
 //--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/ranhesse/Desktop/carlos_eggy_poc.json"
+set ExportedJsonModel to "/Users/ranhesse/Desktop/amazon.json"
 
 
 //------------------------------------------

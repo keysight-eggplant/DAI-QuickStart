@@ -1,9 +1,9 @@
 ﻿
-on BuildSuite ( SuitePath,AIJson )
+on BuildSuite ( SuitePath,ModelJson )
 	put AIJson into AIJsonPath
 	split AIJsonPath by "/"
-	put  item -1 of AIJsonPath into simplename
-	delete ".json" in simplename
+	put  ModelJson.name into simplename
+	
 	
 	//-----Switches 
 	put False into my ShowFramework // Show I show the Customer Framework?
@@ -12,8 +12,8 @@ on BuildSuite ( SuitePath,AIJson )
 	//-----
 	
 	
-	me.CheckInformation SuitePath,simplename, AIJson
-	me.BuildAIFrameWork AIJson 
+	me.CheckInformation SuitePath,simplename
+	me.BuildAIFrameWork ModelJson 
 	me.BuildNewAIJson  simplename
 	me.CreateNewSuite SuitePath,simplename
 	me.createScripts 
@@ -25,16 +25,10 @@ on BuildSuite ( SuitePath,AIJson )
 	
 end BuildSuite
 
-on CheckInformation BasePathSuite , simplename , ResoucePather
+on CheckInformation BasePathSuite , simplename 
 	if folder BasePathSuite exists then
 	else
 		logerror "Unable to Fine Folder:" && BasePathSuite
-		Exit all	
-	end if
-	
-	if file ResoucePather  exists then
-	else
-		logerror "Unable to Fine Model Json:" && ResoucePather
 		Exit all	
 	end if
 	
@@ -115,15 +109,15 @@ to BuildAIFrameWork ResoucePather
 	
 	
 	put AIModel into My AIModel
-	put  IDMapState into my IDMapState
+	put IDMapState into my IDMapState
 	put FrameworkData  into my FrameworkData
 	
 	
-	//if my ShowFramework = True then
-	log "FrameworkData:" & FrameworkData
-	log "IDMapState:" & IDMapState
-	PauseScript
-	//end if
+	if my ShowFramework = True then
+		log "FrameworkData:" & FrameworkData
+		log "IDMapState:" & IDMapState
+		PauseScript
+	end if
 	
 end BuildAIFrameWork
 
@@ -181,7 +175,7 @@ on BuildNewAIJson simplename
 	put simplename &".suite" into AIModel.suitePath
 	
 	
-	put AIModel into my AIModel
+	put AIModel into my FullAiModel
 	
 end BuildNewAIJson
 
@@ -189,6 +183,7 @@ end BuildNewAIJson
 
 on CreateNewSuite BasePathSuite , simplename
 	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
+	
 	
 	copy folder ResourcePath() &"/TemplateSuite.suite" to BasePathSuite
 	rename folder BasePathSuite&"/TemplateSuite.suite" to simplename &".suite"
