@@ -19,6 +19,37 @@ on GetAccessToken
 	
 end GetAccessToken
 
+
+function GetGroups
+
+	put My DAIServer & "/ai/groups" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into GroupList
+	
+	put the number of items of GroupList into GroupCount
+	repeat GroupCount times
+		put item repeatindex() of GroupList into GroupName
+		insert GroupName.groupname into PickGroupList.(GroupName.id)
+		insert GroupName.groupname  into DisplayGroupPick
+	end repeat
+	
+	
+	
+	answer "Your Group to Filter though the Models"  from list DisplayGroupPick with "Ok" or "Cancel" title "Please Choose"
+	put it into PickedGroup
+	put empty into it	
+	if PickedGroup = "Cancel" or if PickedGroup is empty then
+		logwarning "User did not pick a Group"
+		exit all
+	end if
+	return PickedGroup
+end GetGroups
+
+
+
+
 on GetModels
 	log "Grabbing information about Your Models"
 	
@@ -29,9 +60,12 @@ on GetModels
 	put JSONValue(api().responseBody) into ModelList
 	
 	put the number of items of ModelList into ModelCount
+	put me.GetGroups into PickedGroup
+	
+	//-----------
 	repeat ModelCount Times
 		put item repeatindex() of ModelList into Modelinfo
-		if Modelinfo.group.name = my Username then
+		if Modelinfo.group.name = PickedGroup then
 			insert (name:Modelinfo.name,ID:Modelinfo.modeluuid) into UserModels
 		end if
 	end repeat
@@ -79,22 +113,23 @@ end GetModelJSON
 
 
 on UpdateModel  PreRBMJ
-	put my ModelUID into Modelid
+	put my ModelUID into Model_ID
 	put my PickedModelName into RBName
 	put my FullAiModel.group.name into RBGroup
 	put JSONFormat(PreRBMJ) into RBMJ
 	
 	
-	
-	put "https://eval50.dai.eggplant.cloud/ai/models/"&Modelid into URL
+	put My DAIServer & "/ai/models/"&Model_ID into URL
 	put "bearer" && my access_token into RH."Authorization"
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
 	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":RBMJ))
 	put JSONValue(api().responseBody) into responsebody
 	if api().statusCode = "200" then
-	Log "Model Updated:" && RBName
+		Log "Model Updated:" && RBName
 	else
+		logerror "Model Could not Update"
 		logwarning responsebody
+		logwarning API()
 	end if
 	
 end UpdateModel
