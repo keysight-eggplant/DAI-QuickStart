@@ -1,0 +1,23 @@
+﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
+set  DAIServer to"https://eval50.dai.eggplant.cloud"
+set  username to "randy.hesse@eggplant.io"
+set  password to "Spr1ng2016"
+//------------------------------
+log "Loading Model Info"
+//-----------------------------------------------------
+put (DAIServer:DAIServer,username:username,password:password) into InfoDAI
+
+
+
+put new "Utilities/DAI_Class" with (InfoDAI) into DC
+put new "Utilities/Suite_Class" into SC
+put (DC)."GrabModelFromDAI" into ModelJson
+(SC).BuildSuite NewSuitePath,ModelJson
+
+put (SC).FullAiModel into TheAiModel
+(DC).UpdateModel (TheAiModel)
+
+
+
+
+

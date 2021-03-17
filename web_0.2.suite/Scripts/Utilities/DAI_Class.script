@@ -1,16 +1,10 @@
-﻿
-(*
-properties
-	DAIServer:"https://eval50.dai.eggplant.cloud",
-	Username:"randy.hesse@eggplant.io",
-	Password:"Spr1ng2016",
-end properties
-*)
-
-on GrabModelFromDAI
+﻿function GrabModelFromDAI
 	me.GetAccessToken
 	me.GetModels
 	me.ChooseModel
+	
+	put me.GetModelJSON into AiFullModel
+	return AiFullModel
 end GrabModelFromDAI
 
 on GetAccessToken
@@ -59,17 +53,17 @@ on ChooseModel
 	end repeat
 	answer "Your Model to Build a Suite From"  from list ModelChooseList with "Ok" or "Cancel" title "Please Choose"
 	put it into PickedModel
-	put empty into it
-	if PickedModel = "Cancel" then
+	put empty into it	
+	if PickedModel = "Cancel" or if PickedModel is empty then
 		logwarning "User did not pick a Model"
-		exit script
+		exit all
 	end if
 	
 	put ModelListID.(PickedModel) into my ModelUID
+	put PickedModel into my PickedModelName
 end ChooseModel
 
-
-
+//--------------------------------------------
 function GetModelJSON 
 	put my ModelUID into Model_ID
 	put My DAIServer & "/ai/models/"&Model_ID into URL
@@ -77,28 +71,31 @@ function GetModelJSON
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
 	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
 	put JSONValue(api().responseBody) into Model
+	
+	put Model into my FullAiModel
 	return Model
 end GetModelJSON
 
 
 
-on UpdateModel
-	put ModelJson.group.name into RBGroup
-	put ModelJson.name into RBName
-	put  ModelJson.modeljson into PreRBMJ
-	///---THE REPLACE
-	replace "BOX" with "TheBOxingMatch" in PreRBMJ
-	///---THE REPLACE
+on UpdateModel  PreRBMJ
+	put my ModelUID into Modelid
+	put my PickedModelName into RBName
+	put my FullAiModel.group.name into RBGroup
 	put JSONFormat(PreRBMJ) into RBMJ
 	
+	
+	
 	put "https://eval50.dai.eggplant.cloud/ai/models/"&Modelid into URL
-	put "bearer" && responsebody.access_token into RH."Authorization"
+	put "bearer" && my access_token into RH."Authorization"
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
-	//DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:(ModelJson))
 	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":RBMJ))
 	put JSONValue(api().responseBody) into responsebody
-
-	log responsebody
+	if api().statusCode = "200" then
+	Log "Model Updated:" && RBName
+	else
+		logwarning responsebody
+	end if
 	
 end UpdateModel
 
