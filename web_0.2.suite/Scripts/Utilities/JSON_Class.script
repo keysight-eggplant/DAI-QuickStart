@@ -43,7 +43,7 @@ on BuildJson (InfoDAIModel)
 			
 		end if
 		//********************************************
-		insert SingleAIE into NEWAIModel.elements 
+		insert SingleAIE into NEWAIModel 
 	end repeat
 	
 	
