@@ -1,8 +1,17 @@
 ﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
 
+(*
 set  DAIServer to"https://eval50.dai.eggplant.cloud"
 set  DAIusername to "anna.domascan@eggplantsoftware.com"
 set  DAIpassword to "MX3fra@20ep"
+*)
+
+
+set  DAIServer to"https://eval50.dai.eggplant.cloud"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
 //------------------------------
 log "Loading Model Info"
 //-----------------------------------------------------
@@ -15,22 +24,17 @@ put new "Utilities/Json_Class" into JC
 
 
 (AC)."GrabModelFromDAI" (DAIServer,DAIusername,DAIpassword)
-put (AC)."GetModelJson" into DAIModel
+put (AC)."GetModelJson" into OriginalDAIModel
 
 
 
-(FC)."BuildFramework" (DAIModel)
+(FC)."BuildFramework" (OriginalDAIModel)
 put (FC).GetFramework into  (SuiteMapping,JsonMapping)
-
 //-----------------------------------------------------------------------------------
-(JC)."BuildJson" (JsonMapping,DAIModel)
+(JC)."BuildJson" (JsonMapping,OriginalDAIModel)
 put (JC).GetJson into  (NewDAIModel)
-log JSONFormat(DAIModel)
-log JSONFormat(NewDAIModel)
+//-----------------------------------------------------------------------------------
+(SC).BuildSuite (NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel)
+(AC).UpdateModel (OriginalDAIModel)
 
 
-
-(SC).BuildSuite (NewSuitePath,SuiteMapping,DAIModel,NewDAIModel)
-(*
-(AC).UpdateModel (TheAiModel)
-*)

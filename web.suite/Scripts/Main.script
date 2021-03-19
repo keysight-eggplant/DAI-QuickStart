@@ -6,9 +6,7 @@ set  NewSuitePath to  "/Users/ranhesse/desktop"
 
 
 //--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/ranhesse/Desktop/sap_hana_purchase.json"
-
-
+set ExportedJsonModel to "/Users/ranhesse/Desktop/prebuild.json"
 //------------------------------------------
 //------------------------------------------
 //---Do not Modified Below---------

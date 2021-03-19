@@ -68,7 +68,7 @@ on GetModels
 		if Modelinfo.group.name = PickedGroup then
 			insert (name:Modelinfo.name,ID:Modelinfo.modeluuid) into UserModels
 		end if
-end repeat
+	end repeat
 	
 	put UserModels into my ListofModels
 end GetModels
@@ -111,13 +111,11 @@ end GetModelJSON
 
 
 
-on UpdateModel  PreRBMJ
+on UpdateModel  DAIModel
 	put my ModelUID into Model_ID
 	put my PickedModelName into RBName
-	//put my FullAiModel.group.name into RBGroup
 	put my PickedGroup into RBGroup
-	log "Group:" && my PickedGroup
-	put JSONFormat(PreRBMJ) into RBMJ
+	put JSONFormat(DAIModel.modeljson) into RBMJ
 	
 	
 	put My DAIServer & "/ai/models/"&Model_ID into URL

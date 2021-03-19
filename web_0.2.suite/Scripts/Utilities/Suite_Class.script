@@ -1,69 +1,74 @@
-﻿
-on BuildSuite ( BasePathSuite,DAI_Framework )
+﻿on initialize
+	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
+end initialize
+
+on BuildSuite BuildSuiteInfo
+
+	put item 1 of BuildSuiteInfo into my SuiteLocation
+	put item 2 of BuildSuiteInfo into my SuiteMapping
+	put item 3 of BuildSuiteInfo into my OriginalDAIModel
+	put item 4 of BuildSuiteInfo into my NewDAIModel
+	put (my NewDAIModel).name into my SimpleName
+	put my SuiteLocation &"/"& (my SimpleName) &".suite" into my SuitePath
 	
-	
-	log "BasePathSuite" && BasePathSuite
-	log "DAI_Framework" && DAI_Framework
-	
-	PauseScript
-	
-	
-	me.CheckInformation SuitePath,simplename
-	me.CreateNewSuite SuitePath,simplename
+	me.CheckInformation 
+	me.CreateNewSuite 
+	me.CreateAndMoveJson
 	me.createScripts 
-	
-	if my DeleteOriginalJson is True then
-		Logwarning "Deleting Original Json:"&& AIJson
-		delete file AIJson
-	end if
-	
 end BuildSuite
 
-on CheckInformation BasePathSuite , simplename 
-	if folder BasePathSuite exists then
+on CheckInformation
+	put my SuiteLocation into SuiteLocation
+	put my SuitePath into SuitePath
+	if folder SuiteLocation exists then
 	else
-		logerror "Unable to Fine Folder:" && BasePathSuite
+		logerror "Unable to Fine Folder:" && SuiteLocation
 		Exit all	
 	end if
 	
-	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
-	if folder NewPathSuite  exists then
-		logwarning "Deleting Existing Suite:"&& NewPathSuite
+	if folder SuitePath  exists then
+		logwarning "Deleting Existing Suite:"&& SuitePath
 		try
-			delete folder NewPathSuite
+			delete folder SuitePath
 		catch
-			logerror "Unable to Deleting Existing Suite:"&& NewPathSuite
+			logerror "Unable to Deleting Existing Suite:"&& SuitePath
+			Exit All
 		end try
 	end if
 end CheckInformation
 
 
 
-on CreateNewSuite BasePathSuite , simplename
-	put BasePathSuite &"/" &simplename &".suite" into NewPathSuite
+on CreateNewSuite 
+	put my SuiteLocation into SuiteLocation
+	put my SuitePath into SuitePath
+	put my SimpleName into SimpleName
 	
+	copy folder ResourcePath() &"/TemplateSuite.suite" to SuiteLocation
+	rename folder SuiteLocation&"/TemplateSuite.suite" to SimpleName &".suite"
 	
-	copy folder ResourcePath() &"/TemplateSuite.suite" to BasePathSuite
-	rename folder BasePathSuite&"/TemplateSuite.suite" to simplename &".suite"
-	wait 2
-	Log "Created New Suite:"&& NewPathSuite
+	if folder SuitePath  exists then
+		Log "Created New Suite:"&& SuitePath
+	else
+		logerror "Unable to Creat New Suite:" && SuitePath
+	end if
 	//-------------
-	put my AIModel into AIModel
-	
-	
-	put JSONFormat (AIModel) into file ResourcePath (simplename& ".JSON")
-	move file ResourcePath (simplename&".json") to NewPathSuite & "/Resources/"
-	//-------------
-	
-	//--------
-	put NewPathSuite  into my NewPathSuite
 end CreateNewSuite
+
+on CreateAndMoveJson
+	put my SuitePath & "/Resources/" into SuitePathResouce
+	put my SimpleName into SimpleName 
+	
+	put JSONFormat ((my OriginalDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_Original.json")
+	put JSONFormat ((my NewDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_New.json")
+	
+end CreateAndMoveJson
 
 
 
 on createScripts 
-	put my FrameworkData  into Framework
-	put my NewPathSuite into SuitePath
+	put my SuiteMapping  into Framework
+	put my SuitePath into SuitePath
 	//-----------------
 	put keys(Framework) into  ScriptList
 	put the number  of items of ScriptList into  ScriptCount
