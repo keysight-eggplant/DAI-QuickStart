@@ -1,10 +1,12 @@
-﻿function GrabModelFromDAI
+﻿on GrabModelFromDAI infoDAI
+	put item 1 of infoDAI into My DAIServer
+	put item 2 of infoDAI into my Username
+	put item 3 of infoDAI into my Password
+	
 	me.GetAccessToken
 	me.GetModels
 	me.ChooseModel
 	
-	put me.GetModelJSON into AiFullModel
-	return AiFullModel
 end GrabModelFromDAI
 
 on GetAccessToken
@@ -15,13 +17,10 @@ on GetAccessToken
 	DAI_API(httpMethod:"POST",url:URL,requestBody:RB)
 	put JSONValue(api().responsebody) into responsebody
 	put responsebody."access_token" into my access_token
-	
-	
 end GetAccessToken
 
 
 function GetGroups
-
 	put My DAIServer & "/ai/groups" into URL
 	put "bearer" && my access_token into RH."Authorization"
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
@@ -35,8 +34,6 @@ function GetGroups
 		insert GroupName.groupname  into DisplayGroupPick
 	end repeat
 	
-	
-	
 	answer "Your Group to Filter though the Models"  from list DisplayGroupPick with "Ok" or "Cancel" title "Please Choose"
 	put it into PickedGroup
 	put empty into it	
@@ -44,6 +41,9 @@ function GetGroups
 		logwarning "User did not pick a Group"
 		exit all
 	end if
+	
+	put PickedGroup into my PickedGroup
+	
 	return PickedGroup
 end GetGroups
 
@@ -68,7 +68,7 @@ on GetModels
 		if Modelinfo.group.name = PickedGroup then
 			insert (name:Modelinfo.name,ID:Modelinfo.modeluuid) into UserModels
 		end if
-	end repeat
+end repeat
 	
 	put UserModels into my ListofModels
 end GetModels
@@ -106,7 +106,6 @@ function GetModelJSON
 	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
 	put JSONValue(api().responseBody) into Model
 	
-	put Model into my FullAiModel
 	return Model
 end GetModelJSON
 
@@ -115,7 +114,9 @@ end GetModelJSON
 on UpdateModel  PreRBMJ
 	put my ModelUID into Model_ID
 	put my PickedModelName into RBName
-	put my FullAiModel.group.name into RBGroup
+	//put my FullAiModel.group.name into RBGroup
+	put my PickedGroup into RBGroup
+	log "Group:" && my PickedGroup
 	put JSONFormat(PreRBMJ) into RBMJ
 	
 	
