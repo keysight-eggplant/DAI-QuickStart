@@ -1,59 +1,27 @@
-﻿to handle TextBox_Horizontal Label,Input,SearchArea,TStyle
+﻿to handle TextBox_Horizontal Label,Input
 	//Horizontal txtboxes are by enlarge always positioned to the right of the form label
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	if TStyle is empty then Set TStyle to "Default"
-	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal HtxtBoxAlighnmment ...
-		... is "Left" then 
-			click x.CenterLeft + (Universal TextBox_HxAxis,Universal TextBox_HyAxis)
-		... is "Right" then 
-			click x.CenterRight + (Universal TextBox_HxAxis,Universal TextBox_HyAxis)
-	end if
-	GenericFunctions.TextEntry Input
+	// All universal variable can be found in the SetupEnv/ConfigFile.script
+	Click imagerectangle({text:Label}).(Universal HtxtBoxAlighnmment)+[Universal TextBox_HxAxis,0] //the click event that click away from the label 
+	"WebFramework/GenericFunctions".TextEntry Input //calling the TextEntry to enter the value inside the variable...
 end TextBox_Horizontal
 
-to handle TextBox_Vertical Label,Input,SearchArea,TStyle
-	//Vertical txtboxes could be above or below the label
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	if TStyle is empty then Set TStyle to "Default"
-	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal VtxtBoxAlighnmment ...
-		... is "Top" then 
-			click x.CenterTop - (Universal TextBox_VxAxis,Universal TextBox_VyAxis)
-		... is "Bottom" then 
-			click x.CenterBottom + (Universal TextBox_VxAxis,Universal TextBox_VyAxis)
-	end if
-	GenericFunctions.TextEntry Input
+to handle TextBox_Vertical Label,Input
+	//Horizontal txtboxes are by enlarge always positioned to the right of the form label
+	// All universal variable can be found in the SetupEnv/ConfigFile.script
+	Click imagerectangle(text:Label).(Universal VtxtBoxAlighnmment)+[0,Universal TextBox_VyAxis] //the click event that click away from the label 
+	"WebFramework/GenericFunctions".TextEntry Input //calling the TextEntry to enter the value inside the variable...
 end TextBox_Vertical
 
-to handle radioBtn Label,SearchArea,TStyle
+to handle radioBtn Label
 	//to handle radio buttons to the left or right of the label
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	if TStyle is empty then Set TStyle to "Default"
-	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal RadioBtnAlighnmment ...
-		... is "Left" then 
-			click x.CenterLeft - (Universal RadioBtn_xAxis,0)
-		... is "Right" then 
-			click x.CenterRight + (Universal RadioBtn_xAxis,0)
-	end if
+	// All universal variable can be found in the SetupEnv/ConfigFile.script
+	--Click imagerectangle(text:"Male").CenterLeft+[-12,0]
+	
+	Click imagerectangle({text:Label}).(Universal RadioBtnAlighnmment)+[Universal RadioBtn_xAxis,0] //the click event that click away from the label 
 end radioBtn
 
-to handle CheckBtn Label,SearchArea,TStyle
-	//to handle Checkbox buttons to the left or right of the label
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	if TStyle is empty then Set TStyle to "Default"
-	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal CheckBoxAlighnmment ...
-		... is "Left" then 
-			click x.CenterLeft - (Universal ChkBox_xAxis,0)
-		... is "Right" then 
-			click x.CenterRight + (Universal ChkBox_xAxis,0)
-	end if 
+to handle CheckBtn Label
+	//to handle radio buttons to the left or right of the label
+	// All universal variable can be found in the SetupEnv/ConfigFile.script
+	Click imagerectangle(text:Label).(Universal CheckBoxAlighnmment)+[Universal ChkBox_xAxis,0] //the click event that click away from the label 
 end CheckBtn
-
-
-
-
-
-

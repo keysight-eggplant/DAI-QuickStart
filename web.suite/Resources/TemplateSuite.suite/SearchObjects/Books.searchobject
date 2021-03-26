@@ -1,0 +1,47 @@
+{
+  "lastmodifieddate" : 1613133757.7971101,
+  "ocrcapturestring" : "Books",
+  "testlocationdata" : [
+    {
+      "name" : "Books.png",
+      "sutinfo" : {
+        "type" : "Unknown VNC"
+      },
+      "connectionname" : "Win10vnc",
+      "connectionportnum" : 5900,
+      "capturedocrtext" : "Books",
+      "properties" : {
+        "Rotate" : 0,
+        "Scale" : "    1",
+        "SearchType" : "Smoothed for Text",
+        "Discrepancy" : "_0",
+        "Tolerance" : "_54",
+        "HotSpot" : "[52,23]",
+        "CropRectangle" : "[0,0,0,0]"
+      },
+      "type" : 1,
+      "connectionserverid" : "10.211.55.5",
+      "capturerect" : [
+        679,
+        418,
+        104,
+        47
+      ]
+    }
+  ],
+  "createddate" : 1613133757.7971091,
+  "lastfoundlocation" : [
+    679,
+    418,
+    104,
+    47
+  ],
+  "originalcapturelocation" : [
+    679,
+    418,
+    104,
+    47
+  ],
+  "lastfounddate" : 1613133833.8220091,
+  "name" : "Books"
+}

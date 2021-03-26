@@ -1,42 +1,46 @@
 ﻿
-to handle WaitForItem MyItem,SearchArea,TStyle
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	if TStyle is empty then set TStyle to "Default" -- change made descuss with mark
-	waitfor Universal timeLimit,((Universal DataType):MyItem,Searchrectangle:SearchArea,TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle))
-	if foundimagelocation().value = true then LogSuccess "Found Item at location:" && foundimagelocation()
+to handle WaitForItem MyItem
+	Set the ScriptLogging to Silent
+	set the searchrectangle to "WebFramework/ScreenPart".ScreenPart (Universal SearchArea)
+	try 
+		MoveTo {image:MyItem,waitfor:20}
+	catch 
+		MoveTo {text:MyItem,waitfor:20}
+	end try
+	Run "WebFramework/ResetVariables"
+	Set the ScriptLogging to On 
 end WaitForItem
 
-to handle MouseOver ScreenObject,SearchArea,TStyle //used for hovering over elements to bing up sub menus or transient elements
+to handle MouseOver ScreenObject //used for hovering over elements to bring up sub menus or transient elements
+	// if you need to isolate a specific area then set the searchrectangle (global property) in your snippet of code  
 	Set the ScriptLogging to Silent
-	if TStyle is empty then set TStyle to "Default" -- change made descuss with mark
-	if SearchArea is empty then Set SearchArea to "FullScreen"
 	try 
-		MoveTo image:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea)
+		MoveTo {image:ScreenObject,waitfor:20}
 	catch 
-		MoveTo text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+		MoveTo {text:ScreenObject,waitfor:20}
 	end try
+	Run "WebFramework/ResetVariables"
 	Set the ScriptLogging to On 
 end MouseOver
 
-to handle ClickEvent ScreenObject,SearchArea,ExpOutcome,VerificationArea,TStyle
+to handle ClickEvent ScreenObject,ExpOutcome
 	//to handle all click event type actions navigation as well as standalone click events....
 	Set the ScriptLogging to Silent
-	if TStyle is empty then set TStyle to "Default" -- change made descuss with mark
-	if SearchArea is empty then Set SearchArea to "FullScreen"
 	try 
-		click image:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea)
+		click image:ScreenObject
 	catch 
-		click text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+		click text:ScreenObject
 	end try 
 	wait 0.5 // to handle state transition better...
 	if ExpOutcome is not empty 
-		if VerificationArea is empty then Set VerificationArea to "FullScreen"
-		try 			
+		set the searchrectangle to "WebFramework/ScreenPart".ScreenPart (Universal SearchArea)
+		try 					
 			waitfor 20, image:ExpOutcome
 		catch 
-			waitfor 20, text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TSyle)
+			waitfor 20, text:ExpOutcome
 		end try 	
 	end if
+	Run "WebFramework/ResetVariables"
 	Set the ScriptLogging to On
 end ClickEvent
 
@@ -46,30 +50,29 @@ to handle TextEntry MyItem
 	Click Universal Unfocus
 end TextEntry
 
-to handle ScrollingDown ScreenObject,SearchArea
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	repeat until imagefound(0,text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea))
-		Typetext downArrow repeated 10 times
-		if repeatindex() > 11 then 
+to handle ScrollingDown ScreenObject
+	repeat until imagefound(0,(Universal DataType):ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(Universal SearchArea))
+		Typetext downArrow repeated Universal LoopCounter times -- the loopCounter variable can be configured in the configfile.script 
+		log repeatindex()
+		if repeatindex() > Universal LoopCounter then 
 			typetext homeKey
 			exit repeat
 		end if
-		wait 0.2
+		wait 0.5
 	end repeat
-	//Click foundimagelocation()
+	Run "WebFramework/ResetVariables"
 end ScrollingDown
 
-to handle ScrollingUp ScreenObject,SearchArea
-	if SearchArea is empty then Set SearchArea to "FullScreen"
-	repeat until imagefound(0,text:ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea))
-		Typetext upArrow repeated 10 times
-		if repeatindex() > 11 then 
-			typetext homeKey
+to handle ScrollingUp ScreenObject
+	repeat until imagefound(0,(Universal DataType):ScreenObject,searchrectangle:"WebFramework/ScreenPart".ScreenPart(Universal SearchArea))
+		Typetext upArrow repeated Universal LoopCounter times -- the loopCounter variable can be configured in the configfile.script 
+		if repeatindex() > Universal LoopCounter then 
+			typetext endKey
 			exit repeat
 		end if
-		wait 0.2
+		wait 0.5
 	end repeat
-	//Click foundimagelocation()
+	Run "WebFramework/ResetVariables"
 end ScrollingUp
 
 
