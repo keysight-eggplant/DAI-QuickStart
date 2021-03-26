@@ -1,7 +1,7 @@
 ﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
 
 
-set  DAIServer to"https://eval50.dai.eggplant.cloud"
+set  DAIServer to"https://eval510.dai.eggplant.cloud"
 set  DAIusername to "randy.hesse@eggplant.io"
 set  DAIpassword to "Spr1ng2016"
 (*
@@ -29,8 +29,6 @@ put new "Utilities/Json_Class" into JC
 
 (AC)."GrabModelFromDAI" (DAIServer,DAIusername,DAIpassword)
 put (AC)."GetModelJson" into OriginalDAIModel
-
-
 
 (FC)."BuildFramework" (OriginalDAIModel)
 put (FC).GetFramework into  (SuiteMapping,JsonMapping)
