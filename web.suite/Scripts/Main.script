@@ -2,11 +2,13 @@
 //Date: Feb 23 , 2021
 
 //--Build the New Suite in this Location:
-set  NewSuitePath to  "/Users/ranhesse/desktop" 
+set  NewSuitePath to  "/Users/pritmodi/desktop/eggPlantAI/" 
 
 
 //--Path of the Explorted Json File from Eggplant DAI Suite
-set ExportedJsonModel to "/Users/ranhesse/Desktop/prebuild.json"
+
+set ExportedJsonModel to "/Users/pritmodi/Desktop/testModelv1.json"
+
 //------------------------------------------
 //------------------------------------------
 //---Do not Modified Below---------
