@@ -1,19 +1,23 @@
 ﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
 
-(*
-set  DAIServer to"https://eval50.dai.eggplant.cloud"
-set  DAIusername to "anna.domascan@eggplantsoftware.com"
-set  DAIpassword to "MX3fra@20ep"
-*)
-
 
 set  DAIServer to"https://eval50.dai.eggplant.cloud"
 set  DAIusername to "randy.hesse@eggplant.io"
 set  DAIpassword to "Spr1ng2016"
+(*
 
+set DAIServer to "https://eggplant-partners.dai.eggplant.cloud"
+set DAIUsername to "training@eggplant.io"
+set DAIPassword to "keysight"
+
+set  DAIServer to"https://eval50.dai.eggplant.cloud"
+set  DAIusername to "anna.domascan@eggplantsoftware.com"
+set  DAIpassword to "MX3fra@20ep"
+
+*)
 
 //------------------------------
-log "Loading Model Info"
+log "Building Suites and Model"
 //-----------------------------------------------------
 
 
@@ -35,6 +39,6 @@ put (FC).GetFramework into  (SuiteMapping,JsonMapping)
 put (JC).GetJson into  (NewDAIModel)
 //-----------------------------------------------------------------------------------
 (SC).BuildSuite (NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel)
-(AC).UpdateModel (OriginalDAIModel)
+(AC).UpdateModel (NewDAIModel) 
 
 

@@ -40,7 +40,7 @@ on BuildJson (InfoDAIModel)
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
 			else 
 				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
-			end if
+end if
 			
 		end if
 		//********************************************

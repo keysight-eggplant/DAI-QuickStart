@@ -1,10 +1,18 @@
-﻿on GrabModelFromDAI infoDAI
+﻿on initialize
+	
+end initialize
+
+on GrabModelFromDAI infoDAI
 	put item 1 of infoDAI into My DAIServer
 	put item 2 of infoDAI into my Username
 	put item 3 of infoDAI into my Password
 	
 	me.GetAccessToken
-	me.GetModels
+	
+	me.GetGroup
+	me.ChooseGroup
+	
+	me.GetModel
 	me.ChooseModel
 	
 end GrabModelFromDAI
@@ -17,16 +25,30 @@ on GetAccessToken
 	DAI_API(httpMethod:"POST",url:URL,requestBody:RB)
 	put JSONValue(api().responsebody) into responsebody
 	put responsebody."access_token" into my access_token
+	
+	if api().statusCode = "200" then
+		Log "Able to Access DAI Server"
+	else
+		logerror "Unable to Access DAI Server (Bad Username,Password, or DAI Server)"
+		logwarning responsebody
+		logwarning API()
+		exit all
+	end if
 end GetAccessToken
 
 
-function GetGroups
+on GetGroup
 	put My DAIServer & "/ai/groups" into URL
 	put "bearer" && my access_token into RH."Authorization"
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
 	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
 	put JSONValue(api().responseBody) into GroupList
-	
+	put GroupList into my GroupList
+end GetGroup
+
+
+to ChooseGroup
+	put my GroupList into GroupList
 	put the number of items of GroupList into GroupCount
 	repeat GroupCount times
 		put item repeatindex() of GroupList into GroupName
@@ -42,15 +64,13 @@ function GetGroups
 		exit all
 	end if
 	
+	log "Group Picked:"&& PickedGroup
 	put PickedGroup into my PickedGroup
-	
 	return PickedGroup
-end GetGroups
+end ChooseGroup
 
 
-
-
-on GetModels
+on GetModel
 	log "Grabbing information about Your Models"
 	
 	put My DAIServer & "/ai/models" into URL
@@ -60,7 +80,8 @@ on GetModels
 	put JSONValue(api().responseBody) into ModelList
 	
 	put the number of items of ModelList into ModelCount
-	put me.GetGroups into PickedGroup
+	//-------------
+	put my PickedGroup into PickedGroup
 	
 	//-----------
 	repeat ModelCount Times
@@ -70,8 +91,13 @@ on GetModels
 		end if
 	end repeat
 	
+	if  UserModels is not a list then
+		LogError "No Models in the Group"
+		Exit all
+	end if
+	
 	put UserModels into my ListofModels
-end GetModels
+end GetModel
 
 
 
@@ -115,22 +141,24 @@ on UpdateModel  DAIModel
 	put my ModelUID into Model_ID
 	put my PickedModelName into RBName
 	put my PickedGroup into RBGroup
-	put JSONFormat(DAIModel.modeljson) into RBMJ
+	put JSONFormat(DAIModel.modeljson) into RBJFMJ
 	
-	
+	//-------------------------------------
 	put My DAIServer & "/ai/models/"&Model_ID into URL
 	put "bearer" && my access_token into RH."Authorization"
 	put "application/x-www-form-urlencoded" into RH."Content-Type"
-	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":RBMJ))
+	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":RBJFMJ))
 	put JSONValue(api().responseBody) into responsebody
 	if api().statusCode = "200" then
 		Log "Model Updated:" && RBName
 	else
-		logerror "Model Could not Update"
+		logerror "Could not update Model:" && RBName
 		logwarning responsebody
 		logwarning API()
+		
 	end if
 	
+	put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
 end UpdateModel
 
 
