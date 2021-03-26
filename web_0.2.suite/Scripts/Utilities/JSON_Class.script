@@ -1,0 +1,63 @@
+﻿on initialize
+
+end initialize
+
+on BuildJson (InfoDAIModel)
+	put item 1 of InfoDAIModel into IDMapState
+	put item 2 of  InfoDAIModel into AIModel
+	
+	//-----------------------------------------------
+	put AIModel.modeljson.elements into AIE
+	put the number of items of AIE into Max
+	repeat max times
+		put item repeatindex() of AIE into SingleAIE
+		//********************************************
+		put SingleAIE.name into SingleName
+		replace space with "_" in SingleName
+		//----For TroubleShooting
+		//log SingleAIE
+		//---
+		if SingleAIE.type = "Action" then //---Do something to Actions
+			put SingleAIE.parentid into IDS
+			if IDS is not empty then
+				put IDMapState.(IDS) into StateName
+			end if
+			
+			put StateName &".script:"& SingleName into AIScriptPath
+			insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
+			
+		else if  SingleAIE.type = "State" then //---Do something to States
+			put SingleName &".script:"& "StateCall" into AIScriptPath
+			
+			if SingleAIE.stateType = "Start"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/StartupEnv.script", type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
+			else if SingleAIE.stateType = "Exception"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:ErrorModel", type:"normal"}]  into SingleAIE."snippets"
+			else if SingleAIE.stateType = "Cleanup"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:Cleanup", type:"normal"}]  into SingleAIE."snippets"
+			else if SingleAIE.name = "Exit"
+				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/GlobalStates.script:ExitModel", type:"normal"}]  into SingleAIE."snippets"
+			else 
+				insert [{fullName:SingleName, name:SingleName, scriptPath:"Snippets/"&AIScriptPath, type:"normal"}]  into SingleAIE."snippets"
+			end if
+			
+		end if
+		//********************************************
+		insert SingleAIE into NEWAIModel 
+	end repeat
+	
+	
+	delete AIModel.modeljson.elements
+	put NEWAIModel into AIModel.modeljson.elements
+	put AIModel.name & ".suite" into  AIModel.modeljson.suitePath
+	
+	put AIModel into my AIModel
+	
+end BuildJson
+
+
+
+function GetJson
+	return my AIModel
+end GetJson
