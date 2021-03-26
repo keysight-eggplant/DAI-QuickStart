@@ -1,0 +1,87 @@
+﻿on initialize
+	put False into my ShowFramework // Show I show the Customer Framework?
+	
+end initialize
+
+to BuildFramework DAIModel
+	//----------------------------Adding to Framework
+	put 0 into ListOfState."GlobalActions"
+	put "GlobalActions" into IDMapState."0"
+	//----------------------------
+	put DAIModel."modeljson"."elements" into AIE
+	put the number of items of AIE into Max
+	replace space with "_" in AIE
+	
+	repeat max times
+		put item repeatindex() of AIE into SingleAIE
+		if SingleAIE.type = "Action" then
+			put SingleAIE.name into ActionName
+			insert   ActionName into ListOfAction.(SingleAIE."parentid")
+		else if  SingleAIE.type = "State" then
+			put SingleAIE.name into StateName
+			put  SingleAIE."id" into ListOfState.(StateName)
+			put StateName into IDMapState.(SingleAIE."id") //--ID Mapping
+		end if
+		
+		if SingleAIE.stateType = "Start"
+			insert SingleAIE.name into ListofStartStates
+		end if
+		
+	end repeat
+	//------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
+	put keys(ListOfState) into StateKeys
+	put the number of items of StateKeys into StateCount
+	repeat StateCount times
+		put item repeatindex() of StateKeys into SSK //--Single State Key
+		put ListOfState.(SSK) into TheID
+		put ListOfAction.(TheID) into ActionsinState
+		put ActionsinState into  FrameworkData.(SSK)
+	end repeat
+	
+	//-----------Last Modifications FrameworkData
+	delete FrameworkData.Cleanup
+	delete FrameworkData.Error
+	delete FrameworkData.Exit
+	
+	
+	put keys(FrameworkData) into FDKeys
+	put the number of items of FDKeys into FDKeyCount
+	repeat FDKeyCount Times
+		put item repeatindex() of FDKeys into SKD //--Single Key Data
+		if SKD not equal "GlobalActions"  then
+			//if    ListofStartStates  contains SKD  then //-Removed on 2/17/2021
+			//else
+			if FrameworkData.(SKD) is a  list
+				insert "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+			else	
+				put "StateCall" before first item of  FrameworkData.(SKD) //--Add StateCall
+			end if
+			//end if
+		end if	
+	end repeat
+	
+	
+	put ["Cleanup","ExitModel","ErrorModel"]  into FrameworkData.GlobalStates
+	//-----------Last Modifications FrameworkData
+	
+	
+	
+	put FrameworkData  into my SuiteMapping
+	put IDMapState into my JsonMapping
+	
+	
+	if my ShowFramework = True then
+		log "SuiteMapping:" & my SuiteMapping
+		log "JsonMapping:" & my JsonMapping
+		PauseScript
+	end if
+	
+end BuildFramework
+
+
+function GetFramework
+	return (my SuiteMapping,my JsonMapping)
+end GetFramework
+
+
