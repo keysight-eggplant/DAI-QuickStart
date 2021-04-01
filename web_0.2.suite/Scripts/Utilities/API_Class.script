@@ -158,7 +158,7 @@ on UpdateModel  DAIModel
 		
 	end if
 	
-	put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
+	//put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
 end UpdateModel
 
 
