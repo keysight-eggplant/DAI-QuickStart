@@ -27,6 +27,11 @@ on BuildSuite BuildSuiteInfo
 		me.ScriptsAndHandlers
 	else if my FrameworkType = "FlatFiles"
 		me.FlatFiles
+	else if my FrameworkType = "ScriptsAndFolders"
+		me.ScriptsAndFolders
+	else
+		logerror "Issue with choosing Framework TYpe"
+		exit all
 	end if
 	
 end BuildSuite
@@ -74,9 +79,15 @@ on CreateAndMoveJson
 	put my SimpleName into SimpleName 
 	
 	put JSONFormat ((my OriginalDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_Original.json")
-put JSONFormat ((my NewDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_New.json")
-
+	put JSONFormat ((my NewDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_New.json")
+	
 end CreateAndMoveJson
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 
 on ScriptsAndHandlers 
@@ -126,7 +137,7 @@ on FlatFiles
 	put my SuiteMapping  into Framework
 	put my SuitePath into SuitePath
 	put keys(Framework) into FrameworkKeys
-	insert FrameworkKeys into ScriptList
+	//insert FrameworkKeys into ScriptList
 	put the number of items of   FrameworkKeys into ActionNameCount
 	
 	repeat ActionNameCount times
@@ -165,3 +176,38 @@ on FlatFiles
 		close file ScriptPath
 	end repeat
 end FlatFiles
+
+on ScriptsAndFolders 
+	put my SuiteMapping  into Framework
+	put my SuitePath into SuitePath
+	//-----------------
+	
+	put keys(Framework) into  ScriptList
+	put the number  of items of ScriptList into  ScriptCount
+	repeat ScriptCount times
+		put item  repeatindex() of ScriptList into ScriptName
+		put Framework.(ScriptName) into  HandlersNames
+		put SuitePath &"/Scripts/Snippets/" & ScriptName  into FolderPath
+		create folder FolderPath
+		//------
+		put the number of  items  of HandlersNames into HandlerCount
+		repeat HandlerCount times
+			put   item repeatindex() of HandlersNames into SHN
+			put FolderPath&"/"& SHN & ".script" into ScriptPath
+			create file ScriptPath
+			open file ScriptPath
+			write "//Workflow for" && SHN to file ScriptPath
+			----------------------------------------
+			if my WriteLogsSnippets = True then
+				write return to file ScriptPath
+				write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
+				write return to file ScriptPath
+				write <<wait 4>> to file ScriptPath
+				write return to file ScriptPath
+			end if
+			----------------------------------------
+			//log ScriptName && SHN
+		end repeat
+		close file ScriptPath
+	end repeat
+end ScriptsAndFolders

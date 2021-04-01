@@ -46,6 +46,12 @@ on BuildElements IDMapState,AIModel
 			put "GlobalStates_ErrorModel.script" into ErrorScriptPath
 			put "GlobalStates_Cleanup.script" into CleanupScriptPath
 			put "GlobalStates_ExitModel.script:ExitModel" into ExitModelScriptPath
+		else if  my FrameworkType = "ScriptsAndFolders" then
+			put StateName &"/"&ActionName&".script" into ActionScriptPath
+			put ActionName &"/StateCall.script"  into StateScriptPath
+			put "GlobalStates/ErrorModel.script" into ErrorScriptPath
+			put "GlobalStates/Cleanup.script" into CleanupScriptPath
+			put "GlobalStates/ExitModel.script:ExitModel" into ExitModelScriptPath
 		else
 			logError "Issues with Finding FrameworkType"
 			exit all
@@ -57,7 +63,7 @@ on BuildElements IDMapState,AIModel
 		else if  SingleAIE.type = "State" then //---Do something to States
 			if SingleAIE.stateType = "Start"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"SetupEnv/StartupEnv.script", type:"normal"}]  into SingleAIE."snippets"
-insert [{fullName:ActionName, name:ActionName, scriptPath:"Snippets/"&StateScriptPath, type:"normal"}]  into SingleAIE."snippets"
+				insert [{fullName:ActionName, name:ActionName, scriptPath:"Snippets/"&StateScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Exception"
 				insert [{fullName:"ConfigFile", name:"ConfigFile", scriptPath:"Snippets/"&ErrorScriptPath, type:"normal"}]  into SingleAIE."snippets"
 			else if SingleAIE.stateType = "Cleanup"
