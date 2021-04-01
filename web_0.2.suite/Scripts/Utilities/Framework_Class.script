@@ -85,3 +85,27 @@ function GetFramework
 end GetFramework
 
 
+
+on ChooseFrameworkType
+
+	//put ("ScriptsAndHandlers","FlatFiles", "ScriptsAndFolders") into FrameworkType
+	put ("Scripts and Handlers (Default)","Flat Files", "Scripts And Folders") into FrameworkTypeDisplay
+	
+	answer "Choose Your Framework Type:"  from list FrameworkTypeDisplay with "Ok" or "Cancel" title "Please Choose"
+	put it into PickedFramework
+	
+	log "Choosen Framework:"&& PickedFramework
+	if PickedFramework is ... 
+		"Scripts and Handlers (Default)" : put "ScriptsAndHandlers" into ChoosenFramework
+		"Flat Files" : put "FlatFiles" into ChoosenFramework
+		"Scripts And Folders" : put "ScriptsAndFolders" into ChoosenFramework
+		else :
+			Logerror "Did not Choose a Framework"
+			exit all
+	end if
+	put ChoosenFramework into global FrameworkType
+end ChooseFrameworkType
+
+
+
+
