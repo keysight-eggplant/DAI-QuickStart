@@ -1,24 +1,21 @@
-﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
+﻿params DAIServer, DAIusername , DAIpassword, NewSuitePath
 
 
+(*
+
+set  NewSuitePath to  "/Users/ranhesse/desktop" 
 set  DAIServer to"https://eval510.dai.eggplant.cloud"
 set  DAIusername to "randy.hesse@eggplant.io"
 set  DAIpassword to "Spr1ng2016"
-(*
-
-set DAIServer to "https://eggplant-partners.dai.eggplant.cloud"
-set DAIUsername to "training@eggplant.io"
-set DAIPassword to "keysight"
-
-set  DAIServer to"https://eval50.dai.eggplant.cloud"
-set  DAIusername to "anna.domascan@eggplantsoftware.com"
-set  DAIpassword to "MX3fra@20ep"
 
 *)
+
+
 
 //------------------------------
 log "Building Suites and Model"
 //-----------------------------------------------------
+"Utilities/Framework_Class".ChooseFrameworkType
 
 
 put new "Utilities/API_Class"  into AC
@@ -33,6 +30,7 @@ put (AC)."GetModelJson" into OriginalDAIModel
 (FC)."BuildFramework" (OriginalDAIModel)
 put (FC).GetFramework into  (SuiteMapping,JsonMapping)
 //-----------------------------------------------------------------------------------
+
 (JC)."BuildJson" (JsonMapping,OriginalDAIModel)
 put (JC).GetJson into  (NewDAIModel)
 //-----------------------------------------------------------------------------------
