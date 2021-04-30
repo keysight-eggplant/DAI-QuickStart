@@ -1,0 +1,213 @@
+﻿on initialize
+	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
+	
+	
+	if global FrameworkType is empty then
+		put ("ScriptsAndHandlers","FlatFiles", "ScriptsAndFolders") into FrameworkType
+		put item 1 of FrameworkType into my FrameworkType
+	else
+		put global FrameworkType into my FrameworkType
+	end if
+	
+end initialize
+
+on BuildSuite BuildSuiteInfo
+
+	put item 1 of BuildSuiteInfo into my SuiteLocation
+	put item 2 of BuildSuiteInfo into my SuiteMapping
+	put item 3 of BuildSuiteInfo into my OriginalDAIModel
+	put item 4 of BuildSuiteInfo into my NewDAIModel
+	put (my NewDAIModel).name into my SimpleName
+	put my SuiteLocation &"/"& (my SimpleName) &".suite" into my SuitePath
+	
+	me.CheckInformation 
+	me.CreateNewSuite 
+	me.CreateAndMoveJson
+	if my FrameworkType = "ScriptsAndHandlers" then
+		me.ScriptsAndHandlers
+	else if my FrameworkType = "FlatFiles"
+		me.FlatFiles
+	else if my FrameworkType = "ScriptsAndFolders"
+		me.ScriptsAndFolders
+	else
+		logerror "Issue with choosing Framework TYpe"
+		exit all
+	end if
+	
+end BuildSuite
+
+on CheckInformation
+	put my SuiteLocation into SuiteLocation
+	put my SuitePath into SuitePath
+	if folder SuiteLocation exists then
+	else
+		logerror "Unable to Fine Folder:" && SuiteLocation
+		Exit all	
+	end if
+	
+	if folder SuitePath  exists then
+		logwarning "Deleting Existing Suite:"&& SuitePath
+		try
+			delete folder SuitePath
+		catch
+			logerror "Unable to Deleting Existing Suite:"&& SuitePath
+			Exit All
+		end try
+	end if
+end CheckInformation
+
+
+
+on CreateNewSuite 
+	put my SuiteLocation into SuiteLocation
+	put my SuitePath into SuitePath
+	put my SimpleName into SimpleName
+	
+	copy folder ResourcePath() &"/TemplateSuite.suite" to SuiteLocation
+	rename folder SuiteLocation&"/TemplateSuite.suite" to SimpleName &".suite"
+	
+	if folder SuitePath  exists then
+		Log "Created New Suite:"&& SuitePath
+	else
+		logerror "Unable to Creat New Suite:" && SuitePath
+	end if
+	//-------------
+end CreateNewSuite
+
+on CreateAndMoveJson
+	put my SuitePath & "/Resources/" into SuitePathResouce
+	put my SimpleName into SimpleName 
+	
+	put JSONFormat ((my OriginalDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_Original.json")
+	put JSONFormat ((my NewDAIModel).modeljson) into file (SuitePathResouce &"/"&simplename& "_New.json")
+	
+end CreateAndMoveJson
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+
+on ScriptsAndHandlers 
+	put my SuiteMapping  into Framework
+	put my SuitePath into SuitePath
+	//-----------------
+	
+	put keys(Framework) into  ScriptList
+	put the number  of items of ScriptList into  ScriptCount
+	repeat ScriptCount times
+		put item  repeatindex() of ScriptList into ScriptName
+		put Framework.(ScriptName) into  HandlersNames
+		put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
+		//create folder SuitePath &"/Images/" & ScriptName //--Created Image Folders
+		create file ScriptPath
+		open  file ScriptPath
+		//------
+		put the number of  items  of HandlersNames into HandlerCount
+		repeat HandlerCount times
+			put   item repeatindex() of HandlersNames into SHN
+			write "on" && SHN to file ScriptPath 
+			write return to file ScriptPath
+			write "//Workflow for" && SHN to file ScriptPath
+			----------------------------------------
+			if my WriteLogsSnippets = True then
+				write return to file ScriptPath
+				write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
+				write return to file ScriptPath
+				write <<wait 4>> to file ScriptPath
+				write return to file ScriptPath
+			end if
+			----------------------------------------
+			write return to file ScriptPath 
+			write return to file ScriptPath 
+			write return to file ScriptPath 
+			write "end" && SHN to file ScriptPath 
+			write return to file ScriptPath 
+			write return to file ScriptPath
+			//log ScriptName && SHN
+		end repeat
+		close file ScriptPath
+	end repeat
+end ScriptsAndHandlers
+
+
+on FlatFiles
+	put my SuiteMapping  into Framework
+	put my SuitePath into SuitePath
+	put keys(Framework) into FrameworkKeys
+	//insert FrameworkKeys into ScriptList
+	put the number of items of   FrameworkKeys into ActionNameCount
+	
+	repeat ActionNameCount times
+		
+		put  item repeatindex() of FrameworkKeys into FK
+		put Framework.(FK) into ActionList
+		put the number of items of ActionList into ActionListCount
+		repeat ActionListCount times
+			put item repeatindex() of ActionList  into ScriptName
+			if ScriptName = "StateCall" then
+				insert FK &"_"& item repeatindex() of ActionList  into ScriptList
+			else
+				insert item repeatindex() of ActionList into ScriptList
+			end if
+		end repeat
+	end repeat
+	
+	
+	put the number  of items of ScriptList into  ScriptCount
+	repeat ScriptCount times
+		put item  repeatindex() of ScriptList into ScriptName
+		put SuitePath &"/Scripts/Snippets/" & ScriptName &".script" into ScriptPath
+		create file ScriptPath
+		open  file ScriptPath
+		//------
+		write "//Workflow for" && ScriptName to file ScriptPath
+		----------------------------------------
+		if my WriteLogsSnippets = True then
+			write return to file ScriptPath
+			write <<log "Called from (>>&ScriptName&<<)">> to file ScriptPath
+			write return to file ScriptPath
+			write <<wait 4>> to file ScriptPath
+			write return to file ScriptPath
+		end if
+		----------------------------------------
+		close file ScriptPath
+	end repeat
+end FlatFiles
+
+on ScriptsAndFolders 
+	put my SuiteMapping  into Framework
+	put my SuitePath into SuitePath
+	//-----------------
+	
+	put keys(Framework) into  ScriptList
+	put the number  of items of ScriptList into  ScriptCount
+	repeat ScriptCount times
+		put item  repeatindex() of ScriptList into ScriptName
+		put Framework.(ScriptName) into  HandlersNames
+		put SuitePath &"/Scripts/Snippets/" & ScriptName  into FolderPath
+		create folder FolderPath
+		//------
+		put the number of  items  of HandlersNames into HandlerCount
+		repeat HandlerCount times
+			put   item repeatindex() of HandlersNames into SHN
+			put FolderPath&"/"& SHN & ".script" into ScriptPath
+			create file ScriptPath
+			open file ScriptPath
+			write "//Workflow for" && SHN to file ScriptPath
+			----------------------------------------
+			if my WriteLogsSnippets = True then
+				write return to file ScriptPath
+				write <<log "Called from (>>&ScriptName&<<:>>&SHN&<<)">> to file ScriptPath
+				write return to file ScriptPath
+				write <<wait 4>> to file ScriptPath
+				write return to file ScriptPath
+			end if
+			----------------------------------------
+			//log ScriptName && SHN
+		end repeat
+		close file ScriptPath
+	end repeat
+end ScriptsAndFolders

@@ -1,0 +1,9 @@
+﻿
+//Date: Marhc 12 , 2021
+
+//--Build the New Suite in this Location:
+set global NewSuitePath to  "/Users/ranhesse/desktop" 
+set global DAIServer to"https://eval50.dai.eggplant.cloud"
+set global username to "randy.hesse@eggplant.io"
+set global password to "Spr1ng2016"
+
