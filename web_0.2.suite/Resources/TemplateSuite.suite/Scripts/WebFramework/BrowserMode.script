@@ -1,3 +1,0 @@
-﻿params Mode
-Set ModeSetting to (chrome:"-incognito",firefox:"-private",edge:"-inprivate",iexplore:"-private",public:"")
-return ModeSetting.(Mode)

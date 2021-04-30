@@ -1,48 +1,0 @@
-{
-  "lastmodifieddate" : 1614783444.7857661,
-  "ocrcapturestring" : "Script Launch Chrome\/Firefox? Chrome TypeText AltKey, F2 TypeText “google-chrome” TypeText return o Firefox TypeText AltKey, F2 TypeText “firefox\" TypeText return",
-  "testlocationdata" : [
-    {
-      "connectionserverid" : "ec2-34-255-119-151.eu-west-1.compute.amazonaws.com",
-      "sutinfo" : {
-        "type" : "Unknown RDP"
-      },
-      "connectionname" : "CloudSut1",
-      "connectionportnum" : 3389,
-      "connectiontype" : "RDP",
-      "capturedocrtext" : "Script Launch Chrome\/Firefox? Chrome TypeText AltKey, F2 TypeText “google-chrome” TypeText return o Firefox TypeText AltKey, F2 TypeText “firefox\" TypeText return",
-      "properties" : {
-        "Rotate" : 0,
-        "Scale" : "    1",
-        "SearchType" : "Smoothed for Text",
-        "Discrepancy" : "_0",
-        "Tolerance" : "_57",
-        "HotSpot" : "[394,163]",
-        "CropRectangle" : "[0,0,0,0]"
-      },
-      "type" : 1,
-      "name" : "Icons\/Desktop.png",
-      "capturerect" : [
-        560,
-        354,
-        789,
-        327
-      ]
-    }
-  ],
-  "createddate" : 1614783444.7857652,
-  "lastfoundlocation" : [
-    560,
-    354,
-    789,
-    327
-  ],
-  "originalcapturelocation" : [
-    560,
-    354,
-    789,
-    327
-  ],
-  "lastfounddate" : 1614783516.957561,
-  "name" : "Icons\/Desktop"
-}
