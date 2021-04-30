@@ -1,0 +1,31 @@
+﻿put a new ("PtoAI") into BABM
+
+
+put (name:"State ONE",description:"Websites") into AIC.state
+insert (name:"Progressive",description:"http:/www.progressive.com", variable:(nameone:"var2",nametwo:"var1")) into AIC.action
+insert (name:"Facebook",description:"http://www.facebook.com", variable:(foo:"222")) into AIC.action
+insert (name:"Twitter",description:"http://www.twitter.com", variable:(goo:"333")) into AIC.action
+(BABM).BuildModel (AIC)
+
+//------------------------------------------------------------------------------------------------------------
+put empty into AIC
+
+
+put (name:"State TWO",description:"More Websites") into AIC.state
+insert (name:"Ciscio action 1",description:"http://cnn.it/go2") into AIC.action
+insert (name:"Ciscio action 2",description:"http://www.apple.com") into AIC.action
+insert (name:"Ciscio action 3",description:"http://www.honda.com") into AIC.action
+(BABM).BuildModel (AIC)
+
+
+
+(BABM).BuildFile "test7"
+
+
+
+//------------------------------------------------------------------------------------------------------------
+
+
+
+
+put ()

@@ -1,0 +1,21 @@
+﻿insert {id:6,invisible:false, name:"Another State01", parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
+insert {id:7,invisible:false, name:"Another State02", parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
+insert {id:8,invisible:false, name:"Another State03", parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
+//--------------------------------
+insert {id:09,name:"TheActionment01", parentId:6,type:"Action"} into ElementLists
+insert {id:10,name:"TheActionment02", parentId:6,type:"Action"} into ElementLists
+insert {id:11,name:"TheActionment03", parentId:6,type:"Action"} into ElementLists
+insert {id:12,name:"TheActionment04", parentId:6,type:"Action"} into ElementLists
+insert {id:13,name:"TheActionment05", parentId:6,type:"Action"} into ElementLists
+insert {id:14,name:"TheActionment06", parentId:6,type:"Action"} into ElementLists
+insert {id:15,name:"TheActionment07", parentId:7,type:"Action"} into ElementLists
+insert {id:16,name:"TheActionment08", parentId:7,type:"Action"} into ElementLists
+insert {id:17,name:"TheActionment09", parentId:7,type:"Action"} into ElementLists
+insert {id:18,name:"TheActionment10", parentId:7,type:"Action"} into ElementLists
+insert {id:19,name:"TheActionment11", parentId:8,type:"Action"} into ElementLists
+insert {id:20,name:"TheActionment12", parentId:8,type:"Action"} into ElementLists
+insert {id:21,name:"TheActionment13", parentId:8,type:"Action"} into ElementLists
+insert {id:22,name:"TheActionment14", parentId:8,type:"Action"} into ElementLists
+
+
+log ElementLists

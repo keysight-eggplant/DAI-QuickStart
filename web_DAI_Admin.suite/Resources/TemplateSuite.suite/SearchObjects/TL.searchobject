@@ -1,0 +1,72 @@
+{
+  "lastmodifieddate" : 1607435313.121918,
+  "testlocationdata" : [
+    {
+      "name" : "TL.png",
+      "sutinfo" : {
+        "type" : "Unknown RDP"
+      },
+      "connectionname" : "CloudSut1",
+      "connectionportnum" : 3389,
+      "connectiontype" : "RDP",
+      "properties" : {
+        "Rotate" : 0,
+        "Scale" : "    1",
+        "SearchType" : "Smoothed for Text",
+        "Discrepancy" : "_0",
+        "Tolerance" : "_57",
+        "HotSpot" : "[13,6]",
+        "CropRectangle" : "[0,0,0,0]"
+      },
+      "type" : 1,
+      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
+      "capturerect" : [
+        755,
+        447,
+        27,
+        13
+      ]
+    },
+    {
+      "name" : "TL.png",
+      "sutinfo" : {
+        "type" : "Unknown RDP"
+      },
+      "connectionname" : "CloudSut1",
+      "connectionportnum" : 3389,
+      "connectiontype" : "RDP",
+      "properties" : {
+        "Rotate" : 0,
+        "Scale" : "    1",
+        "SearchType" : "Smoothed for Text",
+        "Discrepancy" : "_0",
+        "Tolerance" : 16,
+        "HotSpot" : "[13,6]",
+        "CropRectangle" : "[0,0,0,0]"
+      },
+      "type" : 1,
+      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
+      "capturerect" : [
+        755,
+        447,
+        27,
+        13
+      ]
+    }
+  ],
+  "createddate" : 1607433670.729583,
+  "lastfoundlocation" : [
+    755,
+    527,
+    27,
+    13
+  ],
+  "originalcapturelocation" : [
+    755,
+    447,
+    27,
+    13
+  ],
+  "lastfounddate" : 1607449134.570694,
+  "name" : "TL"
+}

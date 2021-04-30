@@ -1,0 +1,48 @@
+{
+  "lastmodifieddate" : 1604665723.85864,
+  "ocrcapturestring" : "SS Windows Server 2012 R2",
+  "testlocationdata" : [
+    {
+      "connectionserverid" : "eval-lab.testplant.com",
+      "sutinfo" : {
+        "type" : "Unknown RDP"
+      },
+      "connectionname" : "training 12",
+      "connectionportnum" : 6034,
+      "connectiontype" : "rdp",
+      "capturedocrtext" : "SS Windows Server 2012 R2",
+      "properties" : {
+        "Rotate" : 0,
+        "Scale" : "    1",
+        "SearchType" : "Smoothed for Text",
+        "Discrepancy" : "_0",
+        "Tolerance" : "_71",
+        "HotSpot" : "[288,92]",
+        "CropRectangle" : "[0,0,0,0]"
+      },
+      "type" : 1,
+      "name" : "Desktop\/WindowsServer_2012_R2.png",
+      "capturerect" : [
+        1108,
+        725,
+        577,
+        185
+      ]
+    }
+  ],
+  "createddate" : 1604665723.858639,
+  "lastfoundlocation" : [
+    1108,
+    725,
+    577,
+    185
+  ],
+  "originalcapturelocation" : [
+    1108,
+    725,
+    577,
+    185
+  ],
+  "lastfounddate" : 1606397306.4496078,
+  "name" : "Desktop\/WindowsServer_2012_R2"
+}

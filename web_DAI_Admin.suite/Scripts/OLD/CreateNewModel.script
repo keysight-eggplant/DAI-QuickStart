@@ -1,0 +1,37 @@
+﻿
+
+
+
+set  DAIServer to"https://eval510.dai.eggplant.cloud"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
+put new "Utilities/API_Class"  into AC
+
+put DAIServer into (AC).DAIServer 
+put DAIusername into (AC).username 
+put DAIpassword into (AC).password
+(AC)."GetAccessToken"
+
+put "3fcf831e-fec2-415a-b048-135813b0c1ed" into Model_ID
+put (AC).DAIServer & "/ai/models/"&Model_ID into URL
+put "bearer" && (AC).access_token into RH."Authorization"
+put "application/x-www-form-urlencoded" into RH."Content-Type"
+DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+put JSONValue(api().responseBody) into RunLogs
+//------------------------
+put JSONFormat (RunLogs) into file (ResourcePath() &"/requestbody.json")
+
+
+
+set myModelJson to JSONFormat({"modeluuid":null,"stateCounter":4,"actionCounter":1,"parameterCounter":0,"ePFhost":"","ePFsuite":"","suitePath":"","path":"","verbosity":27392,"snippetFull":false,"allSnippetsDisabled":false,"runCleanupAfterAbort":false,"allowGlobalActionsInInitialStates":true,"performanceTimings":false,"elements":[{"name":"zzzzzzzzzzzzzzzz","type":"Root","id":0,"parameters":[{"id":1,"name":"","type":"","initial":"","random":"","ranges":[]}]},{"name":"Exit","type":"State","id":1,"parentId":0,"stateType":"Normal","invisible":true,"sortingType":"Z","parameters":[{"id":0,"name":"","type":"","initial":"","random":"","ranges":[]}]},{"name":"Error","type":"State","id":2,"parentId":0,"stateType":"Exception","invisible":true,"sortingType":"X","parameters":[{"id":0,"name":"","type":"","initial":"","random":"","ranges":[]}]},{"name":"Cleanup","type":"State","id":3,"parentId":0,"stateType":"Cleanup","invisible":true,"sortingType":"Y","parameters":[{"id":0,"name":"","type":"","initial":"","random":"","ranges":[]}]},{"name":"Initial","type":"State","id":4,"parentId":0,"dx":20,"dy":20,"textX":20,"textY":25,"shapeWidth":120,"shapeHeight":120,"stateType":"Start","invisible":false,"sortingType":"A","parameters":[{"id":0,"name":"","type":"","initial":"","random":"","ranges":[]}]},{"name":"Action0","type":"Action","id":5,"parentId":4,"dx":20,"dy":40,"textX":15,"textY":22,"shapeWidth":80,"shapeHeight":40,"actionType":"Normal","sortingType":"C","parameters":[{"id":0,"name":"","type":"","initial":"","random":"","ranges":[]}],"connectedStates":[{"stateRef":1}],"callLimit":0,"weight":100}],"testcases":[],"performanceTests":[],"tags":[],"version":"develop"})
+
+put (AC).DAIServer & "/ai/models" into URL
+put "bearer" && (AC).access_token into RH."Authorization"
+put "application/x-www-form-urlencoded" into RH."Content-Type"
+DAI_API(httpMethod:"POST",url:URL,requestheaders:RH,requestbody:(group:"randy.hesse@eggplant.io","name":"THEMODEL2","modeljson":myModelJson))
+
+put (api()) into OUTP
+
+log OUTP

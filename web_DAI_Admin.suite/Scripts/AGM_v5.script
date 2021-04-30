@@ -1,0 +1,94 @@
+﻿put "9_Test" into NewModelName
+
+
+put {agent:0, group:{id:15, name:"randy.hesse@eggplant.io"}, modeljson:{actionCounter:1, allowGlobalActionsInInitialStates:True, allSnippetsDisabled:false, ePFhost:"", ePFsuite:"", parameterCounter:0, path:"", performanceTests:[], performanceTimings:false, runCleanupAfterAbort:false, snippetFull:false, stateCounter:1, suitePath:"", tags:[], testcases:[], verbosity:27392, version:"dai-5.1.0"}} into DAIJSON
+
+
+
+
+insert  {id:0, name:NewModelName, parameters:[{id:1, initial:"", name:"", random:"", ranges:[], type:""}], type:"Root"} into DAIJSON.modeljson.elements
+insert {id:1, invisible:True, name:"Exit", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"Z", stateType:"Normal", type:"State"} into DAIJSON.modeljson.elements
+insert {id:2, invisible:True, name:"Error", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"X", stateType:"Exception", type:"State"} into DAIJSON.modeljson.elements
+insert {id:3, invisible:True, name:"Cleanup", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"Y", stateType:"Cleanup", type:"State"} into DAIJSON.modeljson.elements
+
+
+
+
+
+//--------------------------
+insert {id:4,invisible:false, name:"Initial", parentId:0, sortingType:"A", stateType:"Start",type:"State"} into DAIJSON.modeljson.elements
+insert {id:5,name:"Start", parentId:4,  type:"Action"} into ElementLists
+//-------------------
+insert {id:6,invisible:false, name:"Another State01", parentId:0, type:"State"} into ElementLists
+insert {id:7,invisible:false, name:"Another State02", parentId:0, type:"State"} into ElementLists
+insert {id:8,invisible:false, name:"Another State03",  type:"State"} into ElementLists
+//--------------------------------
+insert {id:09,name:"TheActionment01", parentId:6,type:"Action"} into ElementLists
+insert {id:10,name:"TheActionment02", parentId:6,type:"Action"} into ElementLists
+insert {id:11,name:"TheActionment03", parentId:6,type:"Action"} into ElementLists
+insert {id:12,name:"TheActionment04", parentId:6,type:"Action"} into ElementLists
+insert {id:13,name:"TheActionment05", parentId:6,type:"Action"} into ElementLists
+insert {id:14,name:"TheActionment06", parentId:6,type:"Action"} into ElementLists
+insert {id:15,name:"TheActionment07", parentId:7,type:"Action"} into ElementLists
+insert {id:16,name:"TheActionment08", parentId:7,type:"Action"} into ElementLists
+insert {id:17,name:"TheActionment09", parentId:7,type:"Action"} into ElementLists
+insert {id:18,name:"TheActionment10", parentId:7,type:"Action"} into ElementLists
+insert {id:19,name:"TheActionment11", parentId:8,type:"Action"} into ElementLists
+insert {id:20,name:"TheActionment12", parentId:8,type:"Action"} into ElementLists
+insert {id:21,name:"TheActionment13", parentId:8,type:"Action"} into ElementLists
+insert {id:22,name:"TheActionment14", parentId:8,type:"Action"} into ElementLists
+
+
+
+
+put 10 into StartingDX //Starting Postion of the Action and or State
+put 20 into StartingDY //Starting Postion of the Action and or State
+
+put the number of items in ElementLists into ElementCount
+repeat ElementCount times
+	
+	
+	put item repeatindex() of ElementLists into SingleElement
+	if  SingleElement.type = "State" then
+		put StartingDX into (SingleElement).dx
+		put StartingDY into (SingleElement).dy
+		
+		put StartingDX + 150 into StartingDX
+		put StartingDY + 00 into StartingDY
+		
+		put "B" into (SingleElement).sortingType
+		put "Normal" into (SingleElement).stateType
+		put 0 into (SingleElement).parentId
+	else if SingleElement.type = "Action" then
+		
+		put "C" into (SingleElement).sortingType
+		
+	end if
+	
+	put 100 into (SingleElement).shapeHeight
+	put 100 into (SingleElement).shapeWidth
+	put 20 into (SingleElement).textX
+	put 20 into (SingleElement).texty
+	put 0 into (SingleElement).callLimit
+	put "Normal" into (SingleElement).actionType
+	put "C" into (SingleElement).sortingType
+	put 100 into (SingleElement).weight
+	put [{id:0, initial:"", name:"", random:"", ranges:[], type:""}] into (SingleElement).parameters
+	//------------------------------
+	//------------------------------
+	//------------------------------
+	
+	insert  SingleElement into DAIJSON.modeljson.elements
+end repeat
+
+
+///---------------------------
+set  DAIServer to"https://eval510.dai.eggplant.cloud"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+put new "Utilities/API_Class"  into AC
+put DAIServer into (AC).DAIServer 
+put DAIusername into (AC).username 
+put DAIpassword into (AC).password
+(AC)."GetAccessToken"
+(AC)."CreateModel" DAIJSON ,NewModelName
