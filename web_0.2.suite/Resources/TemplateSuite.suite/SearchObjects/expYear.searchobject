@@ -1,48 +1,0 @@
-{
-  "lastmodifieddate" : 1607448285.5275531,
-  "ocrcapturestring" : "2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034",
-  "testlocationdata" : [
-    {
-      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
-      "sutinfo" : {
-        "type" : "Unknown RDP"
-      },
-      "connectionname" : "CloudSut1",
-      "connectionportnum" : 3389,
-      "connectiontype" : "RDP",
-      "capturedocrtext" : "2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034",
-      "properties" : {
-        "Rotate" : 0,
-        "Scale" : "    1",
-        "SearchType" : "Smoothed for Text",
-        "Discrepancy" : "_0",
-        "Tolerance" : "_57",
-        "HotSpot" : "[37,138]",
-        "CropRectangle" : "[0,0,0,0]"
-      },
-      "type" : 1,
-      "name" : "expYear.png",
-      "capturerect" : [
-        847,
-        531,
-        75,
-        277
-      ]
-    }
-  ],
-  "createddate" : 1607448102.194417,
-  "lastfoundlocation" : [
-    847,
-    531,
-    75,
-    277
-  ],
-  "originalcapturelocation" : [
-    847,
-    531,
-    75,
-    277
-  ],
-  "lastfounddate" : 1607449725.9350219,
-  "name" : "expYear"
-}

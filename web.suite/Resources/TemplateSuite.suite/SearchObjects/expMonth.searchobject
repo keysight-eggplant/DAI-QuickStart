@@ -1,75 +1,0 @@
-{
-  "lastmodifieddate" : 1607448868.665818,
-  "ocrcapturestring" : "01 02 03 04 05 06 07 08 09 10 11 12",
-  "testlocationdata" : [
-    {
-      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
-      "sutinfo" : {
-        "type" : "Unknown RDP"
-      },
-      "connectionname" : "CloudSut1",
-      "connectionportnum" : 3389,
-      "connectiontype" : "RDP",
-      "capturedocrtext" : "01 02 03 04 05 06 07 08 09 10 11 12",
-      "properties" : {
-        "Rotate" : 0,
-        "Scale" : "    1",
-        "SearchType" : "Smoothed for Text",
-        "Discrepancy" : "_0",
-        "Tolerance" : "_57",
-        "HotSpot" : "[38,112]",
-        "CropRectangle" : "[0,0,0,0]"
-      },
-      "type" : 1,
-      "name" : "expMonth.png",
-      "capturerect" : [
-        765,
-        530,
-        76,
-        224
-      ]
-    },
-    {
-      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
-      "sutinfo" : {
-        "type" : "Unknown RDP"
-      },
-      "connectionname" : "CloudSut1",
-      "connectionportnum" : 3389,
-      "connectiontype" : "RDP",
-      "capturedocrtext" : "01 02 03 04 05 06 07 08 09 10 11 12",
-      "properties" : {
-        "Rotate" : 0,
-        "Scale" : "    1",
-        "SearchType" : "Smoothed for Text",
-        "Discrepancy" : "_0",
-        "Tolerance" : 53,
-        "HotSpot" : "[38,112]",
-        "CropRectangle" : "[0,0,0,0]"
-      },
-      "type" : 1,
-      "name" : "expMonth.png",
-      "capturerect" : [
-        765,
-        530,
-        76,
-        224
-      ]
-    }
-  ],
-  "createddate" : 1607448033.0369802,
-  "lastfoundlocation" : [
-    0,
-    0,
-    76,
-    224
-  ],
-  "originalcapturelocation" : [
-    765,
-    530,
-    76,
-    224
-  ],
-  "lastfounddate" : 1607448881.0250101,
-  "name" : "expMonth"
-}

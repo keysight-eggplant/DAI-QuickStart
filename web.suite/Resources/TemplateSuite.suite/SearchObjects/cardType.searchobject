@@ -1,48 +1,0 @@
-{
-  "lastmodifieddate" : 1607447648.697479,
-  "ocrcapturestring" : "Visa Master card Discover Amex",
-  "testlocationdata" : [
-    {
-      "connectionserverid" : "ec2-34-255-193-56.eu-west-1.compute.amazonaws.com",
-      "sutinfo" : {
-        "type" : "Unknown RDP"
-      },
-      "connectionname" : "CloudSut1",
-      "connectionportnum" : 3389,
-      "connectiontype" : "RDP",
-      "capturedocrtext" : "Visa Master card Discover Amex",
-      "properties" : {
-        "Rotate" : 0,
-        "Scale" : "    1",
-        "SearchType" : "Smoothed for Text",
-        "Discrepancy" : "_0",
-        "Tolerance" : "_57",
-        "HotSpot" : "[58,40]",
-        "CropRectangle" : "[0,0,0,0]"
-      },
-      "type" : 1,
-      "name" : "cardType.png",
-      "capturerect" : [
-        765,
-        380,
-        116,
-        80
-      ]
-    }
-  ],
-  "createddate" : 1607447612.0864491,
-  "lastfoundlocation" : [
-    765,
-    380,
-    116,
-    80
-  ],
-  "originalcapturelocation" : [
-    765,
-    380,
-    116,
-    80
-  ],
-  "lastfounddate" : 1607447937.4776249,
-  "name" : "cardType"
-}
