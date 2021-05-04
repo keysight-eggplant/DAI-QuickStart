@@ -5,6 +5,9 @@ put (name:"State ONE",description:"Websites") into AIC.state
 insert (name:"Progressive",description:"http:/www.progressive.com", variable:(nameone:"var2",nametwo:"var1")) into AIC.action
 insert (name:"Facebook",description:"http://www.facebook.com", variable:(foo:"222")) into AIC.action
 insert (name:"Twitter",description:"http://www.twitter.com", variable:(goo:"333")) into AIC.action
+
+
+log AIC
 (BABM).BuildModel (AIC)
 
 //------------------------------------------------------------------------------------------------------------
@@ -28,4 +31,5 @@ insert (name:"Ciscio action 3",description:"http://www.honda.com") into AIC.acti
 
 
 
-put ()
+put (State:(action1,action2,action3))
+put(action1: state,action2: state,action3: state)

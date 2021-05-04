@@ -1,0 +1,474 @@
+{
+  "State 1": [
+    {
+      "description": "Log into Powerchart as User A",
+      "Name": "Step 1"
+    },
+    {
+      "description": "Navigate to message center,From the communicate open message option",
+      "Name": "Step 2"
+    },
+    {
+      "description": "Load the patient with the specific encounter",
+      "Name": "Step 3"
+    },
+    {
+      "description": "Click on the summary view",
+      "Name": "Step 4"
+    },
+    {
+      "description": "Click on any of the relationship on the patient",
+      "Name": "Step 5"
+    },
+    {
+      "description": "Load the patient with 2nd encounter and click on the summary view",
+      "Name": "Step 6"
+    },
+    {
+      "description": "Load user B and send the message",
+      "Name": "Step 7"
+    },
+    {
+      "description": "\u00a0Go to view menu and select Home option. Select Inbox tab and any item..",
+      "Name": "Step 8"
+    },
+    {
+      "description": "Click on Change icon from the Framework toolbar.  Enter User B\u2019s credentials.",
+      "Name": "Step 9"
+    },
+    {
+      "description": "Navigate to message center,Open sent message and click on summary view",
+      "Name": "Step 10"
+    }
+  ],
+  "State 10": [
+    {
+      "description": "Open the reminders folder under Work Items.",
+      "Name": "Step 91"
+    },
+    {
+      "description": "Select reminder from the communication dropdown.",
+      "Name": "Step 92"
+    },
+    {
+      "description": "In show-up field enter 3 and select the week(s) from the drop down",
+      "Name": "Step 93"
+    },
+    {
+      "description": "In Show-up field enter 7 and select month(s) from the drop down",
+      "Name": "Step 94"
+    },
+    {
+      "description": "close the reminder",
+      "Name": "Step 95"
+    },
+    {
+      "description": "Open the messages folder.",
+      "Name": "Step 96"
+    },
+    {
+      "description": "Highlight the CC message identified in the prerequisites. Right click. Select open patient chart and select clinical note tab",
+      "Name": "Step 97"
+    },
+    {
+      "description": "Return to the Message Center. From the Inbox menu select Manage Configuration.",
+      "Name": "Step 98"
+    },
+    {
+      "description": "Select the messages folder & re-order the columns",
+      "Name": "Step 99"
+    },
+    {
+      "description": "Remove any one column from the active columns list for the messages folder.",
+      "Name": "Step 100"
+    }
+  ],
+  "State 11": [
+    {
+      "description": "Deselect the reminders folder from the configuration.",
+      "Name": "Step 101"
+    },
+    {
+      "description": "Click OK.",
+      "Name": "Step 102"
+    },
+    {
+      "description": "Click OK. Open the messages folder.",
+      "Name": "Step 103"
+    },
+    {
+      "description": "Exit the application.",
+      "Name": "Step 104"
+    },
+    {
+      "description": "Login to Preferences Maintenance Tool (PrefMaint.exe), set Full Message Center as Pane 1 for the home view and set Scheduling as Pane 2 for User A\u2019s Position",
+      "Name": "Step 105"
+    },
+    {
+      "description": "Login to Powerchart Application as User A, navigate to message center, Select Home from view menu.  Open the prerequisite message with lengthy text  in the body.",
+      "Name": "Step 106"
+    },
+    {
+      "description": "Click the right arrow to maximize the opened message.",
+      "Name": "Step 107"
+    },
+    {
+      "description": "Click the left arrow to minimize the message.",
+      "Name": "Step 108"
+    },
+    {
+      "description": "Select Message center from View menu and go to messages folder.",
+      "Name": "Step 109"
+    },
+    {
+      "description": "Resize the Inbox summary by dragging towards right.",
+      "Name": "Step 110"
+    }
+  ],
+  "State 12": [
+    {
+      "description": "Click on Pool tab and Select Pool B, go messages folder, Drag the inbox  summary to resize.",
+      "Name": "Step 111"
+    },
+    {
+      "description": "Exit powerchart",
+      "Name": "Step 112"
+    }
+  ],
+  "State 2": [
+    {
+      "description": "Click on the forward icon",
+      "Name": "Step 11"
+    },
+    {
+      "description": "Click on the summary view",
+      "Name": "Step 12"
+    },
+    {
+      "description": "Close the summary view and click on reply button",
+      "Name": "Step 13"
+    },
+    {
+      "description": "click on the summary view\u00a0",
+      "Name": "Step 14"
+    },
+    {
+      "description": "close the reply window",
+      "Name": "Step 15"
+    },
+    {
+      "description": "Navigate to message center, go to messages folder and open any message.",
+      "Name": "Step 16"
+    },
+    {
+      "description": "Go to task menu, Select Exit option.",
+      "Name": "Step 17"
+    },
+    {
+      "description": "Launch Powerchart as User A.",
+      "Name": "Step 18"
+    },
+    {
+      "description": "Select any Key notification from the framework.",
+      "Name": "Step 19"
+    },
+    {
+      "description": "Go to view menu and select Home option",
+      "Name": "Step 20"
+    }
+  ],
+  "State 3": [
+    {
+      "description": "Select the Documents category",
+      "Name": "Step 21"
+    },
+    {
+      "description": "Hit the  key to highlight the document.  Select Inbox from the Menu and select Preview  Pane option",
+      "Name": "Step 22"
+    },
+    {
+      "description": "Resize the preview pane",
+      "Name": "Step 23"
+    },
+    {
+      "description": "Exit the application",
+      "Name": "Step 24"
+    },
+    {
+      "description": "Relaunch PowerChart as user A, Navigate to  message center. 'Under the Inbox menu select  View read only inbox.",
+      "Name": "Step 25"
+    },
+    {
+      "description": "Select yes.",
+      "Name": "Step 26"
+    },
+    {
+      "description": "Enter user B in the field",
+      "Name": "Step 27"
+    },
+    {
+      "description": "Add the user to the Send to field, and click ok.",
+      "Name": "Step 28"
+    },
+    {
+      "description": "Load the messages folder. Select any item",
+      "Name": "Step 29"
+    },
+    {
+      "description": "Right click on the item",
+      "Name": "Step 30"
+    }
+  ],
+  "State 4": [
+    {
+      "description": "Select item information.",
+      "Name": "Step 31"
+    },
+    {
+      "description": "Close the item information",
+      "Name": "Step 32"
+    },
+    {
+      "description": "Select the personnel search option within the Read Only tab TOC, search for Pool A, and click ok in the address book.",
+      "Name": "Step 33"
+    },
+    {
+      "description": "Load the results folder. Select any item",
+      "Name": "Step 34"
+    },
+    {
+      "description": "Double click on a result",
+      "Name": "Step 35"
+    },
+    {
+      "description": "Click on ENTER Key",
+      "Name": "Step 36"
+    },
+    {
+      "description": "Under the Inbox menu select View read only inbox.",
+      "Name": "Step 37"
+    },
+    {
+      "description": "Select the Home component from View menu, go to Results folder, with the prerequisite result.",
+      "Name": "Step 38"
+    },
+    {
+      "description": "Select the  key to move focus to the TOC.  Use the arrow keys on the keyboard to navigate  to another category or subfolder within Inbox  Items. Select the  key.",
+      "Name": "Step 39"
+    },
+    {
+      "description": "Return to the Results, go to the inbox menu and select manage configuration.",
+      "Name": "Step 40"
+    }
+  ],
+  "State 5": [
+    {
+      "description": "Select results folder",
+      "Name": "Step 41"
+    },
+    {
+      "description": "Re-order the selected columns.",
+      "Name": "Step 42"
+    },
+    {
+      "description": "Click ok.",
+      "Name": "Step 43"
+    },
+    {
+      "description": "Click Ok in commit progress popup.",
+      "Name": "Step 44"
+    },
+    {
+      "description": "Open the Renewal Request subfolder under Priority Items.",
+      "Name": "Step 45"
+    },
+    {
+      "description": "Highlight the pre-requisite renewal request  message",
+      "Name": "Step 46"
+    },
+    {
+      "description": "Open the Cosign orders subfolder.",
+      "Name": "Step 47"
+    },
+    {
+      "description": "Open the consult reminder folder.",
+      "Name": "Step 48"
+    },
+    {
+      "description": "Open Consult 1, click complete icon",
+      "Name": "Step 49"
+    },
+    {
+      "description": "Search for Patient A and Navigate to Patient A\u2019s Chart Overview tab, Click on This visit tab",
+      "Name": "Step 50"
+    }
+  ],
+  "State 6": [
+    {
+      "description": "Click on 1 Messages under the Communication section.",
+      "Name": "Step 51"
+    },
+    {
+      "description": "Open Message 2.",
+      "Name": "Step 52"
+    },
+    {
+      "description": "Click the Reply icon.",
+      "Name": "Step 53"
+    },
+    {
+      "description": "Type some text.  Check the delete  checkbox &  send the message.",
+      "Name": "Step 54"
+    },
+    {
+      "description": "Refresh the message center.",
+      "Name": "Step 55"
+    },
+    {
+      "description": "Go back chart for Pt A.",
+      "Name": "Step 56"
+    },
+    {
+      "description": "Refresh Overview and wait 1 minute.",
+      "Name": "Step 57"
+    },
+    {
+      "description": "Click on the Consult Reminder link under the communicate dropdown.",
+      "Name": "Step 58"
+    },
+    {
+      "description": "Change the Display field for the date range to  Last 1 day.",
+      "Name": "Step 59"
+    },
+    {
+      "description": "Click the Select Patient icon.",
+      "Name": "Step 60"
+    }
+  ],
+  "State 7": [
+    {
+      "description": "Change the Display field for the date range back to 60 days.",
+      "Name": "Step 61"
+    },
+    {
+      "description": "Launch the Date Control and select a custom date from the calendar.",
+      "Name": "Step 62"
+    },
+    {
+      "description": "Change the Display field for the date range back to 60 days.",
+      "Name": "Step 63"
+    },
+    {
+      "description": "Launch the Date Control and select the custom  date from the calendar as in the previous step 53.",
+      "Name": "Step 64"
+    },
+    {
+      "description": "From the Inbox menu, select Manage Configuration.",
+      "Name": "Step 65"
+    },
+    {
+      "description": "Select results folder, Re-order the columns by clicking up and down arrow",
+      "Name": "Step 66"
+    },
+    {
+      "description": "Attempt to remove a column from the results",
+      "Name": "Step 67"
+    },
+    {
+      "description": "Attempt to deselect one of the active categories for the configuration",
+      "Name": "Step 68"
+    },
+    {
+      "description": "Click OK.",
+      "Name": "Step 69"
+    },
+    {
+      "description": "Click OK in commit progress popup.",
+      "Name": "Step 70"
+    }
+  ],
+  "State 8": [
+    {
+      "description": "Change user & log in as User B. Navigate to  message center. Enable Preview Pane for User B by selecting  Inbox Menu -> Show Preview Pane.",
+      "Name": "Step 71"
+    },
+    {
+      "description": "Open the Home Component.",
+      "Name": "Step 72"
+    },
+    {
+      "description": "Select Manage on the Pool tab.",
+      "Name": "Step 73"
+    },
+    {
+      "description": "Close the setup dialog of Manage the Pool.",
+      "Name": "Step 74"
+    },
+    {
+      "description": "Go to Priority Reminders folder.",
+      "Name": "Step 75"
+    },
+    {
+      "description": "Open the priority reminder 1",
+      "Name": "Step 76"
+    },
+    {
+      "description": "Right click on the demographic bar.",
+      "Name": "Step 77"
+    },
+    {
+      "description": "Deselect one of the existing fields and add a new field in its place to the demographic bar.  Select OK to ensure the changes.",
+      "Name": "Step 78"
+    },
+    {
+      "description": "Refresh the Message Center and reopen the reminder",
+      "Name": "Step 79"
+    },
+    {
+      "description": "Close Reminder 1.  Highlight the reminder. Press  key on the keyboard.",
+      "Name": "Step 80"
+    }
+  ],
+  "State 9": [
+    {
+      "description": "Open the Results folder.",
+      "Name": "Step 81"
+    },
+    {
+      "description": "Select Message folder and from the Display field, select the Load All option.",
+      "Name": "Step 82"
+    },
+    {
+      "description": "Re-select the default date range from calendar. Open a patient chart and from framework within the chart, click on key notification CRIT 2.",
+      "Name": "Step 83"
+    },
+    {
+      "description": "Select the result item in the list view",
+      "Name": "Step 84"
+    },
+    {
+      "description": "Hit the  key to open the result or double click to open the result.",
+      "Name": "Step 85"
+    },
+    {
+      "description": "Select the Summary View Toggle Button",
+      "Name": "Step 86"
+    },
+    {
+      "description": "Toggle back to the inbox view and Endorse  the result",
+      "Name": "Step 87"
+    },
+    {
+      "description": "Close the result",
+      "Name": "Step 88"
+    },
+    {
+      "description": "Click on the Inbox tab.",
+      "Name": "Step 89"
+    },
+    {
+      "description": "Note the categories",
+      "Name": "Step 90"
+    }
+  ]
+}

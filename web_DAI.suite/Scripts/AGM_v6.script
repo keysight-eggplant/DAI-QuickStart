@@ -1,0 +1,26 @@
+﻿put new  "Utilities/ElementJson_Class" into EJC
+(EJC)."BuildALL"
+put (EJC).DAIJSON into DAIJson
+
+
+
+put "992_Test" into NewModelName
+
+
+
+
+
+
+
+
+
+///---------------------------
+set  DAIServer to"https://eval510.dai.eggplant.cloud"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+put new "Utilities/API_Class"  into AC
+put DAIServer into (AC).DAIServer 
+put DAIusername into (AC).username 
+put DAIpassword into (AC).password
+(AC)."GetAccessToken"
+(AC)."CreateModel" DAIJSON ,NewModelName
