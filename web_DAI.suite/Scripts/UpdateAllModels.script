@@ -33,10 +33,10 @@ repeat IDModelCount times
 	(FC)."BuildFramework" (OriginalDAIModel)
 	put (FC).GetFramework into  (SuiteMapping,JsonMapping)
 	//-----------------------------------------------------------------------------------
-	(JC)."BuildJson" (JsonMapping,OriginalDAIModel)
+	(JC)."BuildJson" JsonMapping,OriginalDAIModel
 	put (JC).GetJson into  (NewDAIModel)
 	//-----------------------------------------------------------------------------------
-	(SC).BuildSuite (NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel)
+	(SC).BuildSuite NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel
 	(AC).UpdateModel (NewDAIModel) 
 	
 end repeat

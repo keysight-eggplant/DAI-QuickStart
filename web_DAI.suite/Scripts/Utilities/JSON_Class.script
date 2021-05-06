@@ -13,10 +13,9 @@
 end initialize
 
 
-on BuildJson (InfoDAIModel)
-	put item 1 of InfoDAIModel into IDMapState
-	put item 2 of  InfoDAIModel into AIModel
-	
+on BuildJson IDMapState,AIModel
+
+
 	BuildElements IDMapState,AIModel
 	
 end BuildJson

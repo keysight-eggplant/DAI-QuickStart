@@ -1,16 +1,17 @@
-﻿put new  "Utilities/ElementJson_Class" into EJC
-(EJC)."BuildALL"
+﻿
+
+put "10_Test" into NewModelName
+
+
+put new  "Utilities/ElementJson_Class" into EJC
+
+
+(EJC).SetModelName NewModelName
+
+(EJC).BuildFromBasicJson "SampleModelBuild.json"
 put (EJC).DAIJSON into DAIJson
 
-
-
-put "992_Test" into NewModelName
-
-
-
-
-
-
+log DAIJson
 
 
 

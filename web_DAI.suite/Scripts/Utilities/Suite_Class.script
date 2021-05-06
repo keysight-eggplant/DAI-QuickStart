@@ -11,12 +11,13 @@
 	
 end initialize
 
-on BuildSuite BuildSuiteInfo
+on BuildSuite SuiteLocation,SuiteMapping,OriginalDAIModel,NewDAIModel
 
-	put item 1 of BuildSuiteInfo into my SuiteLocation
-	put item 2 of BuildSuiteInfo into my SuiteMapping
-	put item 3 of BuildSuiteInfo into my OriginalDAIModel
-	put item 4 of BuildSuiteInfo into my NewDAIModel
+	put SuiteLocation into my SuiteLocation
+	put SuiteMapping into my SuiteMapping
+	put OriginalDAIModel into my OriginalDAIModel
+	put NewDAIModel into my NewDAIModel
+	
 	put (my NewDAIModel).name into my SimpleName
 	put my SuiteLocation &"/"& (my SimpleName) &".suite" into my SuitePath
 	
