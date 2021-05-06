@@ -1,18 +1,26 @@
-﻿on BuildAll
+﻿on BuildSample
 
 	me.Buildinitial
-	//me.SampleBuild
-	me.JasonBuild
+	me.SampleBuild
 	me. Design
+end BuildSample
+
+
+on BuildFromBasicJson JSONFile
+	me.Buildinitial
+	me.JasonBuild JSONFile
+	me. Design
+end BuildFromBasicJson
+
+on SetModelName NewModelName
+	put NewModelName into my NewModelName
+end SetModelName
+
+
+on Buildinitial 
+
+	put my NewModelName into  NewModelName
 	
-	
-	
-end BuildAll
-
-
-
-on Buildinitial
-
 	put {agent:0, group:{id:15, name:"randy.hesse@eggplant.io"}, modeljson:{actionCounter:1, allowGlobalActionsInInitialStates:True, allSnippetsDisabled:false, ePFhost:"", ePFsuite:"", parameterCounter:0, path:"", performanceTests:[], performanceTimings:false, runCleanupAfterAbort:false, snippetFull:false, stateCounter:1, suitePath:"", tags:[], testcases:[], verbosity:27392, version:"dai-5.1.0"}} into DAIJSON
 
 
@@ -59,15 +67,19 @@ on SampleBuild
 end SampleBuild
 
 
-on JasonBuild
+on JasonBuild JSONFile
 
-	put JSONValue(file ResourcePath("SampleModelBuild.json")) into MBJ
+	insert {id:5,name:"Start", parentId:4,  type:"Action"} into ElementLists
+
+
+	put JSONValue(file ResourcePath(JSONFile)) into MBJ
 	put 6 into startingStateID
 	put keys(MBJ) into ListOfStates
 	put the number of items of ListOfStates into StateCount
 	put startingStateID + StateCount into StartingActionID
 	repeat StateCount times
 		put item repeatindex() of ListOfStates into StateName
+		//--Create the State
 		insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
 
 		
@@ -75,6 +87,7 @@ on JasonBuild
 		put the number of Items of  ActionList into ActionCount
 		repeat ActionCount times
 			put item repeatindex() of ActionList into ActionInformation
+			//--Creates the Action
 			insert {id:StartingActionID,name:ActionInformation.name, parentId:startingStateID,type:"Action"} into ElementLists
 			add 1 to StartingActionID
 		end repeat
@@ -90,8 +103,9 @@ end JasonBuild
 on Design
 	put My ElementLists into  ElementLists
 	
-	put 10 into StartingDX //Starting Postion of the Action and or State
+	put 170 into StartingDX //Starting Postion of the Action and or State
 	put 20 into StartingDY //Starting Postion of the Action and or State
+	put 0 into StateCount
 	
 	put the number of items in ElementLists into ElementCount
 	repeat ElementCount times
@@ -99,19 +113,27 @@ on Design
 		
 		put item repeatindex() of ElementLists into SingleElement
 		if  SingleElement.type = "State" then
+			
+			
+			
+			
+			
 			put StartingDX into (SingleElement).dx
 			put StartingDY into (SingleElement).dy
-			
-			put StartingDX + 150 into StartingDX
-			put StartingDY + 00 into StartingDY
-			
 			put "B" into (SingleElement).sortingType
 			put "Normal" into (SingleElement).stateType
 			put 0 into (SingleElement).parentId
+			
+			if StartingDX >= 1300  then
+				put 00 into StartingDX //-Starting Reset
+				put 250 +StartingDY into StartingDY //-Shift a littoe down
+			else
+				put StartingDX + 450 into StartingDX // Move  over
+				put StartingDY + 000 into StartingDY
+			end if
+			
 		else if SingleElement.type = "Action" then
-			
 			put "C" into (SingleElement).sortingType
-			
 		end if
 		
 		put 100 into (SingleElement).shapeHeight
@@ -128,6 +150,12 @@ on Design
 		//------------------------------
 		
 		insert  SingleElement into My DAIJSON.modeljson.elements
+		
+		
+		
+		
+		
+		
 	end repeat
 	
 	
