@@ -80,15 +80,23 @@ on JasonBuild JSONFile
 	repeat StateCount times
 		put item repeatindex() of ListOfStates into StateName
 		//--Create the State
-		insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
-
+		insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementBuild
+		put  "this is some description about the State." into ElementBuild."description"
+		insert ElementBuild into ElementLists
+		put empty into ElementBuild
+		//--Create the State
 		
 		put MBJ.(StateName) into ActionList
 		put the number of Items of  ActionList into ActionCount
 		repeat ActionCount times
 			put item repeatindex() of ActionList into ActionInformation
 			//--Creates the Action
-			insert {id:StartingActionID,name:ActionInformation.name, parentId:startingStateID,type:"Action"} into ElementLists
+			insert {id:StartingActionID,name:ActionInformation.name, parentId:startingStateID,type:"Action"} into ElementBuild
+			put  "this is some descriptio about the action." into ElementBuild."description"
+			insert ElementBuild into ElementLists
+			put empty into ElementBuild
+			//--Creates the Action
+			
 			add 1 to StartingActionID
 		end repeat
 		add 1 to startingStateID
@@ -96,7 +104,6 @@ on JasonBuild JSONFile
 	
 	
 	put ElementLists into My ElementLists
-	
 end JasonBuild
 
 
