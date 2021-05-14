@@ -1,6 +1,6 @@
 ﻿
 
-put "10_Test" into NewModelName
+put "14_Test" into NewModelName
 
 
 put new  "Utilities/ElementJson_Class" into EJC
@@ -11,8 +11,9 @@ put new  "Utilities/ElementJson_Class" into EJC
 (EJC).BuildFromBasicJson "SampleModelBuild.json"
 put (EJC).DAIJSON into DAIJson
 
-log DAIJson
+//log DAIJson
 
+(*
 
 
 ///---------------------------
@@ -25,3 +26,4 @@ put DAIusername into (AC).username
 put DAIpassword into (AC).password
 (AC)."GetAccessToken"
 (AC)."CreateModel" DAIJSON ,NewModelName
+*)

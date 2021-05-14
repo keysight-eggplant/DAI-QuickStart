@@ -1,0 +1,21 @@
+﻿
+insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementLists
+
+
+log ElementLists
+
+
+put empty into ElementLists
+
+put startingStateID into ElementLists."id"
+put "false"into ElementLists.invisible
+put StateName into ElementLists.name
+put  0 into ElementLists.parentid
+put "B" into ElementLists.sortingType
+put "Normal"into ElementLists.stateType
+put "State"into ElementLists."type"
+put  "this is some XXXXXXXXXXXXXXXXXXXXXXXXXXXX" into ElementLists."description"
+
+
+log ElementLists
+
