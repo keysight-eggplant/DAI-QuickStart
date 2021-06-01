@@ -18,6 +18,13 @@ on GrabModelFromDAI DAIServer, Username ,Password
 end GrabModelFromDAI
 
 
+on SetDAIcredentials DAIServer, Username ,Password
+	put DAIServer into My DAIServer
+	put Username into my Username
+	put Password into my Password
+end SetDAIcredentials
+
+
 on GetAccessToken
 	put My DAIServer & "/ai/auth" into URL
 	put my Username into RB.username
@@ -153,6 +160,17 @@ function GetRuns
 	
 	return RunLogs
 end GetRuns
+
+function GetLogs TestID
+	put my DAIServer & "/ai/runlogs/"&TestID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into RunLogs
+	
+	return RunLogs
+end GetLogs
+
 
 
 on UpdateModel  DAIModel
