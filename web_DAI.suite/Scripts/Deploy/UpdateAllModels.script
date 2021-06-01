@@ -14,9 +14,9 @@ put new "Utilities/Framework_Class" into FC
 put new "Utilities/Json_Class" into JC
 put new "Utilities/Suite_Class" into SC
 
-put DAIServer into (AC).DAIServer 
-put DAIusername into (AC).username 
-put DAIpassword into (AC).password
+
+(AC)."SetDAIcredentials" DAIServer,DAIusername,DAIpassword
+
 put DAIusername into (AC).PickedGroup
 (AC)."GetAccessToken"
 (AC)."GetModels"

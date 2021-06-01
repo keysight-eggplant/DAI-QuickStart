@@ -67,12 +67,12 @@ on SampleBuild
 end SampleBuild
 
 
-on JasonBuild JSONFile
+on JasonBuild JsonData
 
 	insert {id:5,name:"Start", parentId:4,  type:"Action"} into ElementLists
 
 
-	put JSONValue(file ResourcePath(JSONFile)) into MBJ
+	put JSONValue(JsonData) into MBJ
 	put 6 into startingStateID
 	put keys(MBJ) into ListOfStates
 	put the number of items of ListOfStates into StateCount
@@ -81,7 +81,7 @@ on JasonBuild JSONFile
 		put item repeatindex() of ListOfStates into StateName
 		//--Create the State
 		insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementBuild
-		put  "this is some description about the State." into ElementBuild."description"
+		put  StateName into ElementBuild."description"
 		insert ElementBuild into ElementLists
 		put empty into ElementBuild
 		//--Create the State
@@ -92,7 +92,7 @@ on JasonBuild JSONFile
 			put item repeatindex() of ActionList into ActionInformation
 			//--Creates the Action
 			insert {id:StartingActionID,name:ActionInformation.name, parentId:startingStateID,type:"Action"} into ElementBuild
-			put  "this is some descriptio about the action." into ElementBuild."description"
+			put  ActionInformation."description" into ElementBuild."description"
 			insert ElementBuild into ElementLists
 			put empty into ElementBuild
 			//--Creates the Action

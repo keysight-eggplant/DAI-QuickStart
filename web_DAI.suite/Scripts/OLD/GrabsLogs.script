@@ -1,0 +1,13 @@
+﻿
+set  DAIServer to"https://eval510.dai.eggplant.cloud/"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
+
+
+put new "Utilities/API_Class"  into AC
+
+(AC)."SetDAIcredentials" DAIServer,DAIusername,DAIpassword
+(AC).GetModels
+
