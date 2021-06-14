@@ -1,10 +1,15 @@
-﻿
+﻿//Create a Model and a Suite from CODE
+
 put "TestModel4" into NewModelName
 set  NewSuitePath to  "/Users/randallhesse/desktop" 
+
 put ((name:"Step 01",description:"A"),(name:"Step 02",description:"B"),(name:"Step03",description:"C")) into SimpleModel."state01"
+put ((name:"Step 03",description:"D"),(name:"Step05",description:"F")) into SimpleModel."state03"
 put ((name:"Step 03",description:"D"),(name:"Step 04",description:"E"),(name:"Step05",description:"F")) into SimpleModel."state02"
 
 
+
+//-------------------------------
 put JSONFormat(SimpleModel) into SMJSON
 
 ///---------------------------

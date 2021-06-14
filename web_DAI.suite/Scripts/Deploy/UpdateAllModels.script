@@ -1,4 +1,10 @@
-﻿set  NewSuitePath to  "/Users/ranhesse/desktop" 
+﻿//Will Auto Create all Suite for All Model and Modifey all Model
+//Very dangeous
+
+
+
+
+set  NewSuitePath to  "/Users/ranhesse/desktop" 
 
 set  DAIServer to"https://eval510.dai.eggplant.cloud"
 set  DAIusername to "randy.hesse@eggplant.io"

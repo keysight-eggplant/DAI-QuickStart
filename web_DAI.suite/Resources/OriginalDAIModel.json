@@ -1,17 +1,19 @@
 {
   "agent": 0,
+  "created": "2021-04-01T19:59:09.757158",
   "group": {
     "id": 15,
     "name": "randy.hesse@eggplant.io"
   },
+  "id": 101,
   "modeljson": {
-    "actionCounter": 1,
+    "actionCounter": 2,
     "allowGlobalActionsInInitialStates": true,
     "allSnippetsDisabled": false,
     "elements": [
       {
         "id": 0,
-        "name": "13_Test",
+        "name": "dhmtest1",
         "parameters": [
           {
             "id": 1,
@@ -41,6 +43,50 @@
           }
         ],
         "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates_ExitModel.script:ExitModel",
+            "type": "normal"
+          }
+        ],
         "sortingType": "Z",
         "stateType": "Normal",
         "type": "State"
@@ -61,6 +107,50 @@
           }
         ],
         "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates_ErrorModel.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "X",
         "stateType": "Exception",
         "type": "State"
@@ -81,12 +171,56 @@
           }
         ],
         "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates_Cleanup.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "Y",
         "stateType": "Cleanup",
         "type": "State"
       },
       {
-        "dx": 10,
+        "dx": 20,
         "dy": 20,
         "id": 4,
         "invisible": false,
@@ -104,11 +238,97 @@
         ],
         "parentId": 0,
         "shapeHeight": 100,
-        "shapeWidth": 100,
+        "shapeWidth": 120,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "Initial",
+            "name": "Initial",
+            "scriptPath": "Snippets/Initial_StateCall.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "A",
         "stateType": "Start",
         "textX": 20,
-        "texty": 20,
+        "textY": 25,
         "type": "State"
       },
       {
@@ -116,7 +336,7 @@
         "dy": 20,
         "id": 5,
         "invisible": false,
-        "name": "Some State",
+        "name": "State4",
         "parameters": [
           {
             "id": 0,
@@ -129,68 +349,78 @@
           }
         ],
         "parentId": 0,
-        "shapeHeight": 100,
-        "shapeWidth": 100,
+        "shapeHeight": 120,
+        "shapeWidth": 120,
+        "snippets": [
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "State4",
+            "name": "State4",
+            "scriptPath": "Snippets/State4_StateCall.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "B",
         "stateType": "Normal",
         "textX": 20,
-        "texty": 20,
+        "textY": 25,
         "type": "State"
       },
       {
-        "dx": 310,
-        "dy": 20,
+        "actionType": "Normal",
+        "callLimit": 0,
+        "checks": [
+          {
+            "condition": "==",
+            "message": "",
+            "parameterName": "currentState",
+            "value": "Initial"
+          }
+        ],
+        "connectedStates": [
+          {
+            "stateRef": 1
+          }
+        ],
+        "dx": 20,
+        "dy": 40,
         "id": 6,
-        "invisible": false,
-        "name": "Another State",
-        "parameters": [
-          {
-            "id": 0,
-            "initial": "",
-            "name": "",
-            "random": "",
-            "ranges": [
-            ],
-            "type": ""
-          }
-        ],
-        "parentId": 0,
-        "shapeHeight": 100,
-        "shapeWidth": 100,
-        "sortingType": "B",
-        "stateType": "Normal",
-        "textX": 20,
-        "texty": 20,
-        "type": "State"
-      },
-      {
-        "actionType": "Normal",
-        "callLimit": 0,
-        "name": "Start",
-        "parameters": [
-          {
-            "id": 0,
-            "initial": "",
-            "name": "",
-            "random": "",
-            "ranges": [
-            ],
-            "type": ""
-          }
-        ],
-        "parentId": 4,
-        "shapeHeight": 100,
-        "shapeWidth": 100,
-        "sortingType": "C",
-        "textX": 20,
-        "texty": 20,
-        "type": "Action",
-        "weight": 100
-      },
-      {
-        "actionType": "Normal",
-        "callLimit": 0,
-        "name": "TheActionment",
+        "name": "Action0",
         "parameters": [
           {
             "id": 0,
@@ -203,18 +433,70 @@
           }
         ],
         "parentId": 5,
-        "shapeHeight": 100,
-        "shapeWidth": 100,
+        "shapeHeight": 40,
+        "shapeWidth": 80,
+        "snippets": [
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4.script:Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action0",
+            "name": "Action0",
+            "scriptPath": "Snippets/State4_Action0.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "C",
-        "textX": 20,
-        "texty": 20,
+        "textX": 15,
+        "textY": 22,
         "type": "Action",
         "weight": 100
       },
       {
         "actionType": "Normal",
         "callLimit": 0,
-        "name": "TheActionment",
+        "connectedStates": [
+          {
+            "stateRef": 5
+          }
+        ],
+        "dx": 20,
+        "dy": 40,
+        "id": 7,
+        "name": "Action1",
         "parameters": [
           {
             "id": 0,
@@ -226,18 +508,63 @@
             "type": ""
           }
         ],
-        "parentId": 6,
-        "shapeHeight": 100,
-        "shapeWidth": 100,
+        "parentId": 4,
+        "shapeHeight": 40,
+        "shapeWidth": 80,
+        "snippets": [
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial.script:Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "Action1",
+            "name": "Action1",
+            "scriptPath": "Snippets/Initial_Action1.script",
+            "type": "normal"
+          }
+        ],
         "sortingType": "C",
-        "textX": 20,
-        "texty": 20,
+        "textX": 15,
+        "textY": 22,
         "type": "Action",
         "weight": 100
       }
     ],
     "ePFhost": "",
     "ePFsuite": "",
+    "modeluuid": "862ce5e7-e7d6-4e2e-b73a-7e66fd9d3097",
     "parameterCounter": 0,
     "path": "",
     "performanceTests": [
@@ -245,13 +572,21 @@
     "performanceTimings": false,
     "runCleanupAfterAbort": false,
     "snippetFull": false,
-    "stateCounter": 1,
-    "suitePath": "",
+    "stateCounter": 5,
+    "suitePath": "dhmtest1.suite",
     "tags": [
+      {
+        "id": 1,
+        "name": "",
+        "values": ""
+      }
     ],
     "testcases": [
     ],
     "verbosity": 27392,
     "version": "dai-5.1.0"
-  }
+  },
+  "modeluuid": "862ce5e7-e7d6-4e2e-b73a-7e66fd9d3097",
+  "name": "dhmtest1",
+  "updated": "2021-04-13T16:01:45.979278"
 }
