@@ -121,10 +121,6 @@ on Design
 		put item repeatindex() of ElementLists into SingleElement
 		if  SingleElement.type = "State" then
 			
-			
-			
-			
-			
 			put StartingDX into (SingleElement).dx
 			put StartingDY into (SingleElement).dy
 			put "B" into (SingleElement).sortingType
@@ -157,13 +153,7 @@ on Design
 		//------------------------------
 		
 		insert  SingleElement into My DAIJSON.modeljson.elements
-		
-		
-		
-		
-		
-		
 	end repeat
-	
-	
 end Design
+
+

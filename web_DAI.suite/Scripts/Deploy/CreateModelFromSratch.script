@@ -1,29 +1,44 @@
-﻿
+﻿//Create a Model and a Suite from CODE
 
-
-put "TestModel" into NewModelName
+put "TestModel4" into NewModelName
+set  NewSuitePath to  "/Users/randallhesse/desktop" 
 
 put ((name:"Step 01",description:"A"),(name:"Step 02",description:"B"),(name:"Step03",description:"C")) into SimpleModel."state01"
+put ((name:"Step 03",description:"D"),(name:"Step05",description:"F")) into SimpleModel."state03"
 put ((name:"Step 03",description:"D"),(name:"Step 04",description:"E"),(name:"Step05",description:"F")) into SimpleModel."state02"
 
 
 
-
+//-------------------------------
 put JSONFormat(SimpleModel) into SMJSON
-
-
 
 ///---------------------------
 put new  "Utilities/ElementJson_Class" into EJC
+(EJC).SetModelName NewModelName
 (EJC)."BuildFromBasicJson" SMJSON
 put (EJC).DAIJSON into DAIJSON
+///---------------------------
+put new "Utilities/Framework_Class" into FC
+put new "Utilities/Json_Class" into JC
+put new "Utilities/Suite_Class" into SC
+put new "Utilities/API_Class"  into AC
+
 ///---------------------------
 set  DAIServer to"https://eval510.dai.eggplant.cloud"
 set  DAIusername to "randy.hesse@eggplant.io"
 set  DAIpassword to "Spr1ng2016"
-put new "Utilities/API_Class"  into AC
 put DAIServer into (AC).DAIServer 
 put DAIusername into (AC).username 
 put DAIpassword into (AC).password
 (AC)."GetAccessToken"
 (AC)."CreateModel" DAIJSON ,NewModelName
+
+
+(FC)."BuildFramework" DAIJSON
+put (FC).GetFramework into  (SuiteMapping,JsonMapping)
+
+
+
+put NewModelName into DAIJSON.name
+(SC).BuildSuite NewSuitePath,SuiteMapping,SMJSON,DAIJSON
+

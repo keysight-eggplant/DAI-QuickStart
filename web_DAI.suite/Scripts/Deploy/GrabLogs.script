@@ -1,4 +1,5 @@
-﻿
+﻿///--Grab all the Logs about your Model Based on the UID
+
 
 set  DAIServer to"https://eval510.dai.eggplant.cloud/"
 set  DAIusername to "randy.hesse@eggplant.io"
