@@ -1,4 +1,7 @@
-﻿set  NewSuitePath to  "/Users/randallhesse/desktop" 
+﻿// Testing the Master CovertModel Script with Preset Creds
+
+
+set  NewSuitePath to  "/Users/randallhesse/desktop" 
 set  DAIServer to"https://eval510.dai.eggplant.cloud/"
 set  DAIusername to "randy.hesse@eggplant.io"
 set  DAIpassword to "Spr1ng2016"
