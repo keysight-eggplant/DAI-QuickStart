@@ -3,13 +3,13 @@
 	if SearchArea is empty then Set SearchArea to "FullScreen"
 	if TStyle is empty then Set TStyle to "Default"
 	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal HtxtBoxAlighnmment ...
+	if Universal HtxtBoxAlignment ...
 		... is "Left" then 
 			click x.CenterLeft + (Universal TextBox_HxAxis,Universal TextBox_HyAxis)
 		... is "Right" then 
 			click x.CenterRight + (Universal TextBox_HxAxis,Universal TextBox_HyAxis)
 	end if
-	GenericFunctions.TextEntry Input
+	"WebFramework/GenericFunctions".TextEntry Input
 end TextBox_Horizontal
 
 to handle TextBox_Vertical Label,Input,SearchArea,TStyle
@@ -17,13 +17,13 @@ to handle TextBox_Vertical Label,Input,SearchArea,TStyle
 	if SearchArea is empty then Set SearchArea to "FullScreen"
 	if TStyle is empty then Set TStyle to "Default"
 	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal VtxtBoxAlighnmment ...
+	if Universal VtxtBoxAlignment ...
 		... is "Top" then 
 			click x.CenterTop - (Universal TextBox_VxAxis,Universal TextBox_VyAxis)
 		... is "Bottom" then 
 			click x.CenterBottom + (Universal TextBox_VxAxis,Universal TextBox_VyAxis)
 	end if
-	GenericFunctions.TextEntry Input
+	"WebFramework/GenericFunctions".TextEntry Input
 end TextBox_Vertical
 
 to handle radioBtn Label,SearchArea,TStyle
@@ -31,7 +31,7 @@ to handle radioBtn Label,SearchArea,TStyle
 	if SearchArea is empty then Set SearchArea to "FullScreen"
 	if TStyle is empty then Set TStyle to "Default"
 	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal RadioBtnAlighnmment ...
+	if Universal RadioBtnAlignment ...
 		... is "Left" then 
 			click x.CenterLeft - (Universal RadioBtn_xAxis,0)
 		... is "Right" then 
@@ -44,7 +44,7 @@ to handle CheckBtn Label,SearchArea,TStyle
 	if SearchArea is empty then Set SearchArea to "FullScreen"
 	if TStyle is empty then Set TStyle to "Default"
 	put imagerectangle(text:Label,searchrectangle:"WebFramework/ScreenPart".ScreenPart(SearchArea),TextStyle:"WebFramework/textStyleConfig".SelectedTextStyle(TStyle)) into x
-	if Universal CheckBoxAlighnmment ...
+	if Universal CheckBoxAlignment ...
 		... is "Left" then 
 			click x.CenterLeft - (Universal ChkBox_xAxis,0)
 		... is "Right" then 
