@@ -1,11 +1,16 @@
 ﻿///SUT Functions.....
 to handle CloseApplications App
 	Set the ScriptLogging to Silent
-	typetext Altkey,F2
-	wait 1
-	typetext controlkey,"a"
-	typetext "xkill",return
-	Click text:"Your Store"
+	if connectioninfo().Name contains "Cloud" then
+		typetext Altkey,F2
+		wait 1
+		typetext controlkey,"a"
+		typetext "xkill",return
+		Click text:"Your Store"
+	else
+		TypeText altKey,F4
+	end if
+	
 	Set the ScriptLogging to On
 end CloseApplications
 
@@ -18,7 +23,7 @@ end DeviceConnection
 
 to handle OpenURL MyBrowser, MyURL
 	Set the ScriptLogging to Silent
-	if connectioninfo().Name contains "CloudSut" then
+	if connectioninfo().Name contains "Cloud" then
 		typetext Altkey,F2
 		wait 1
 		typetext MyBrowser,return

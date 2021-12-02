@@ -4,24 +4,24 @@ Set Universal DataType to "text"
 Set Universal Unfocus to (32,124)
 
 //Browser Settings
-Set Universal PrivateBrowsing to BrowserMode("public") --Switch to browser name to invoke private mode....
+Set Universal PrivateBrowsing to "WebFramework/BrowserMode"("public") --Switch to browser name to invoke private mode....
 
 ///Below is for Horizonral_TextBoxes
 Set Universal TextBox_HxAxis to 60 --must always pass in a positive value...
 Set Universal TextBox_HyAxis to 0 --must always pass in a positive value...
-Set Universal HtxtBoxAlighnmment to "Right" --values should be Right or Left
+Set Universal HtxtBoxAlignment to "Right" --values should be Right or Left
 
 //Below is for Vertical_TextBoxes
 Set Universal TextBox_VxAxis to 100 --must always pass in a positive value...
 Set Universal TextBox_VyAxis to 0 --must always pass in a positive value...
-Set Universal VtxtBoxAlighnmment to "Right" --values should be Up or Bottom
+Set Universal VtxtBoxAlignment to "Right" --values should be Up or Bottom
 
 //Below is for RadioBtn
-Set Universal RadioBtnAlighnmment to "Left" --value should only be Left or Right
+Set Universal RadioBtnAlignment to "Left" --value should only be Left or Right
 Set Universal RadioBtn_xAxis to 12 --must always pass in a positive value...
 
 //Below is for Checkboxes
-Set Universal CheckBoxAlighnmment to "Left" --value should only be Left or Right
+Set Universal CheckBoxAlignment to "Left" --value should only be Left or Right
 Set Universal ChkBox_xAxis to 12 --must always pass in a positive value...
 
 --text stype settings
