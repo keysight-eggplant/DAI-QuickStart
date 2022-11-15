@@ -1,0 +1,22 @@
+﻿
+
+set  NewSuitePath to  "/Users/ranhesse/desktop" 
+
+set  DAIServer to"https://eval510.dai.eggplant.cloud"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+//------------------------------
+
+
+put new "Utilities/API_Class"  into AC
+
+
+
+(AC)."SetDAIcredentials" DAIServer,DAIusername,DAIpassword
+(AC).GetAccessToken
+(AC).GetModels
+//log (AC).ListofModels
+put "66732c4a-e1a2-4868-aad6-853612f2f68a" into UID
+put UID into (AC).ModelUID
+
+ (AC).ExecuteModel

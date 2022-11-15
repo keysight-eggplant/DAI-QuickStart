@@ -1,0 +1,27 @@
+﻿///--Grab all the Logs about your Model Based on the UID
+
+
+
+put "http://ec2-3-22-49-52.us-east-2.compute.amazonaws.com:8000" into DAIServer
+put "client:dai:agent:integration" into DAIClientID
+put "95c19181-5e92-4fdb-b414-74ce92b4d619" into DAIClientSecret
+
+
+
+put new "Utilities/API_Class"  into AC
+(AC)."SetDAIcredentials" DAIServer,DAIClientID,DAIClientSecret
+
+
+
+
+
+
+put DAIServer & "/ai/runs" into URL --Need this
+put "bearer" && (AC).GetAccessToken into RH."Authorization"
+put "application/x-www-form-urlencoded" into RH."Content-Type"
+DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+put JSONValue(api().responseBody) into ResponseInformation
+
+repeat number of items of ResponseInformation.items times
+	log item repeatindex() of ResponseInformation.items
+end repeat

@@ -172,6 +172,19 @@ function GetLogs TestID
 end GetLogs
 
 
+function GetTestCaseRuns
+	put my ModelUID into Model_ID
+	put my DAIServer & "/ai/models/"&Model_ID&"/testcaseruns" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into RunLogs
+	return RunLogs
+	
+	
+	
+end GetTestCaseRuns
+
 
 on UpdateModel  DAIModel
 	
@@ -221,9 +234,22 @@ on CreateModel DAIModel, NewName
 		logwarning API()
 		put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
 	end if
-	
-	
 end CreateModel
+
+
+on ExecuteModel
+	
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	
+	put my DAIServer & "/ai/run/" into URL 
+	
+	
+	DAI_API(httpMethod:"POST",url:URL,requestheaders:RH,requestbody:(group:RBGroup,"name":RBName,"modeljson":DAIMMJ))
+	log api()
+	
+	
+end ExecuteModel
 
 
 

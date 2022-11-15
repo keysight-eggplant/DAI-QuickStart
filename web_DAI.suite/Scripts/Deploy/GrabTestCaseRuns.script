@@ -1,0 +1,33 @@
+﻿///--Grab all the Logs about your Model Based on the UID
+
+
+set  DAIServer to"https://eval53.dai.eggplant.cloud/"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
+
+put new "Utilities/API_Class"  into AC
+
+
+(AC)."SetDAIcredentials" DAIServer,DAIusername,DAIpassword
+(AC).GetAccessToken
+(AC).GetModels
+//log (AC).ListofModels
+put "3ed63267-8f04-4b58-941b-f598d215b0a0" into UID
+put UID into (AC).ModelUID
+
+
+//put (AC).GetTestCaseRuns into TestcasesRuns
+//log TestcasesRuns
+
+
+put (AC).GetRuns into TestRuns
+log TestRuns
+put the number of items of TestRuns into TestCount
+repeat TestCount times
+	put  (item repeatindex() of TestRuns).id into TestID
+	insert (AC).GetLogs (TestID) into AllLogsFiles
+end repeat
+
+log AllLogsFiles

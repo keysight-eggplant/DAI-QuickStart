@@ -1,4 +1,7 @@
-﻿on initialize
+﻿//Build the base Framework for the JSON and Suites ot understand.
+
+
+on initialize
 	put False into my ShowFramework // Show I show the Customer Framework?
 	
 end initialize

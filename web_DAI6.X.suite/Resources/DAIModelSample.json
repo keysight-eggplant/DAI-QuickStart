@@ -1,0 +1,382 @@
+{
+  "created": "2022-03-24T15:30:20.832274",
+  "group": {
+    "id": 6,
+    "name": "randy.hesse"
+  },
+  "id": 248,
+  "modeljson": {
+    "actionCounter": 3,
+    "allowGlobalActionsInInitialStates": true,
+    "allSnippetsDisabled": false,
+    "elements": [
+      {
+        "elementUuid": "de812e30-3166-4e25-9c5b-ecd1cd392763",
+        "id": 0,
+        "name": "SubModel",
+        "parameters": [
+          {
+            "id": 1,
+            "initial": "",
+            "name": "",
+            "parameterUuid": "0b9c93d4-d757-43e6-b219-8bada19a5eef",
+            "random": "",
+            "ranges": [
+            ],
+            "type": ""
+          }
+        ],
+        "type": "Root"
+      },
+      {
+        "elementUuid": "a9969b4a-0e85-4fe9-a18a-f2ede2e8ae79",
+        "id": 374855634430,
+        "invisible": true,
+        "name": "Exit",
+        "parameters": [
+        ],
+        "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ExitModel",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "Z",
+        "stateType": "Normal",
+        "type": "State"
+      },
+      {
+        "elementUuid": "081c7858-6e3f-4356-aa4b-f725d1dcb065",
+        "id": 46605129517,
+        "invisible": true,
+        "name": "Error",
+        "parameters": [
+        ],
+        "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:ErrorModel",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "X",
+        "stateType": "Exception",
+        "type": "State"
+      },
+      {
+        "elementUuid": "a37741ff-a32f-4d9f-be1b-7dc00b5259bf",
+        "id": 868456239698,
+        "invisible": true,
+        "name": "Cleanup",
+        "parameters": [
+        ],
+        "parentId": 0,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "Snippets/GlobalStates.script:Cleanup",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "Y",
+        "stateType": "Cleanup",
+        "type": "State"
+      },
+      {
+        "dx": 20,
+        "dy": 20,
+        "elementUuid": "b7455275-47d4-4983-97b0-cebeba9f71f7",
+        "id": 15291602485,
+        "invisible": false,
+        "name": "sub_Initial",
+        "parameters": [
+        ],
+        "parentId": 0,
+        "shapeHeight": 100,
+        "shapeWidth": 120,
+        "snippets": [
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Initial",
+            "name": "sub_Initial",
+            "scriptPath": "Snippets/sub_Initial.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "ConfigFile",
+            "name": "ConfigFile",
+            "scriptPath": "SetupEnv/StartupEnv.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Initial",
+            "name": "sub_Initial",
+            "scriptPath": "Snippets/sub_Initial.script:StateCall",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "A",
+        "stateType": "Start",
+        "textX": 20,
+        "textY": 25,
+        "type": "State"
+      },
+      {
+        "dx": 220,
+        "dy": 40,
+        "elementUuid": "34106eb3-3076-4666-8804-167d6bf9e4cd",
+        "id": 868456239700,
+        "invisible": false,
+        "name": "sub_State0",
+        "parameters": [
+          {
+            "id": 0,
+            "initial": "",
+            "name": "",
+            "parameterUuid": "79bdd8f9-7111-49dd-a9ad-17264e251ecd",
+            "random": "",
+            "ranges": [
+            ],
+            "type": ""
+          }
+        ],
+        "parentId": 0,
+        "shapeHeight": 120,
+        "shapeWidth": 300,
+        "snippets": [
+          {
+            "fullName": "sub_State0",
+            "name": "sub_State0",
+            "scriptPath": "Snippets/sub_State0.script:StateCall",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_State0",
+            "name": "sub_State0",
+            "scriptPath": "Snippets/sub_State0.script:StateCall",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "B",
+        "stateType": "Normal",
+        "textX": 20,
+        "textY": 25,
+        "type": "State"
+      },
+      {
+        "actionType": "Normal",
+        "callLimit": 0,
+        "connectedStates": [
+          {
+            "stateRef": 868456239700
+          }
+        ],
+        "dx": 20,
+        "dy": 40,
+        "elementUuid": "c2b35360-1981-428b-babb-438db06cdb0a",
+        "id": 868456239699,
+        "name": "sub_Action0",
+        "parameters": [
+          {
+            "id": 0,
+            "initial": "",
+            "name": "",
+            "parameterUuid": "1d1af0fc-34a2-4972-a50a-d72e9bfea85b",
+            "random": "",
+            "ranges": [
+            ],
+            "type": ""
+          }
+        ],
+        "parentId": 15291602485,
+        "shapeHeight": 40,
+        "shapeWidth": 85,
+        "snippets": [
+          {
+            "fullName": "sub_Script0.script",
+            "name": "sub_Script0",
+            "scriptPath": "SubModel/sub_Script0.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action0",
+            "name": "sub_Action0",
+            "scriptPath": "Snippets/sub_Initial.script:sub_Action0",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action0",
+            "name": "sub_Action0",
+            "scriptPath": "Snippets/sub_Initial.script:sub_Action0",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "C",
+        "textX": 15,
+        "textY": 22,
+        "type": "Action",
+        "weight": 100
+      },
+      {
+        "actionType": "Normal",
+        "callLimit": 0,
+        "connectedStates": [
+          {
+            "stateRef": 868456239702
+          }
+        ],
+        "description": "",
+        "dx": 20,
+        "dy": 40,
+        "elementUuid": "0f7fb70c-3365-43b6-bb63-d61902a2071d",
+        "id": 868456239701,
+        "name": "sub_Action1",
+        "parameters": [
+          {
+            "id": 0,
+            "initial": "",
+            "name": "",
+            "parameterUuid": "3935ed85-b70a-4415-b2e9-06ca428a2e8a",
+            "random": "",
+            "ranges": [
+            ],
+            "type": ""
+          }
+        ],
+        "parentId": 868456239700,
+        "shapeHeight": 40,
+        "shapeWidth": 85,
+        "snippets": [
+          {
+            "fullName": "sub_Script1.script",
+            "name": "sub_Script1",
+            "scriptPath": "SubModel/sub_Script1.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action1",
+            "name": "sub_Action1",
+            "scriptPath": "Snippets/sub_State0.script:sub_Action1",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action1",
+            "name": "sub_Action1",
+            "scriptPath": "Snippets/sub_State0.script:sub_Action1",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "C",
+        "textX": 15,
+        "textY": 22,
+        "type": "Action",
+        "weight": 100
+      },
+      {
+        "actionType": "Sequent",
+        "callLimit": 0,
+        "connectedStates": [
+          {
+            "stateRef": 374855634430
+          }
+        ],
+        "dx": 180,
+        "dy": 40,
+        "elementUuid": "6b48fc14-8edf-4ce3-9c9a-c24687235f57",
+        "id": 868456239702,
+        "name": "sub_Action2",
+        "parameters": [
+          {
+            "id": 0,
+            "initial": "",
+            "name": "",
+            "parameterUuid": "82284300-96b7-43ac-aa71-5e0cd370d397",
+            "random": "",
+            "ranges": [
+            ],
+            "type": ""
+          }
+        ],
+        "parentId": 868456239700,
+        "snippets": [
+          {
+            "fullName": "sub_Script2.script",
+            "name": "sub_Script2",
+            "scriptPath": "SubModel/sub_Script2.script",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action2",
+            "name": "sub_Action2",
+            "scriptPath": "Snippets/sub_State0.script:sub_Action2",
+            "type": "normal"
+          },
+          {
+            "fullName": "sub_Action2",
+            "name": "sub_Action2",
+            "scriptPath": "Snippets/sub_State0.script:sub_Action2",
+            "type": "normal"
+          }
+        ],
+        "sortingType": "C",
+        "textX": 15,
+        "textY": 22,
+        "type": "Action",
+        "weight": 100
+      }
+    ],
+    "ePFhost": "RandyMac",
+    "ePFsuite": "",
+    "modeluuid": "9d9e472b-5040-44ba-9c55-bc96405a2d61",
+    "parameterCounter": 0,
+    "path": "",
+    "performanceTests": [
+    ],
+    "performanceTimings": false,
+    "runCleanupAfterAbort": false,
+    "snippetFull": false,
+    "stateCounter": 1,
+    "suitePath": "SubModel.suite",
+    "tags": [
+      {
+        "id": 1,
+        "name": "",
+        "values": ""
+      }
+    ],
+    "verbosity": 27392,
+    "version": "6.1.0-12-e9ea2331e620ac6b1eae258e9a2433c36f0f405d"
+  },
+  "modeluuid": "9d9e472b-5040-44ba-9c55-bc96405a2d61",
+  "name": "SubModel",
+  "updated": "2022-06-02T19:48:12.898813"
+}

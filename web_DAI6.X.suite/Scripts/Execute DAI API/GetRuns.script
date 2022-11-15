@@ -1,0 +1,34 @@
+﻿
+//https://docs.eggplantsoftware.com/DAI/api/dai-ai-api-v6.htm#list-runs-details
+
+//-------------------------------------------------------------------------------------------
+put "http://ec2-3-22-49-52.us-east-2.compute.amazonaws.com:8000" into DAIServer
+put "client:dai:agent:integration" into DAIClientID
+put "95c19181-5e92-4fdb-b414-74ce92b4d619" into DAIClientSecret
+//-------------------------------------------------------------------------------------------
+
+
+put new "Utilities/API_Class"  into AC
+(AC)."SetDAIcredentials" DAIServer,DAIClientID,DAIClientSecret
+
+
+put "August 01, 2000"  into startdate
+put ((AC).GetRuns (startdate,empty,20000)).items into TheData
+
+
+
+//put JSONFormat(TheData) into file (ResourcePath() &"/DataDump.json")
+
+if file "/Users/randallhesse/desktop/DataDump.csv" exists
+	delete file "/Users/randallhesse/desktop/DataDump.csv" 
+end if
+
+
+log TheData
+
+
+
+put CSVFormat(TheData) into file "/Users/randallhesse/desktop/DataDump.csv"
+
+
+

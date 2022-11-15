@@ -1,0 +1,34 @@
+﻿///Tucked Away Master File
+
+params DAIServer,DAIClientID,DAIClientSecret, NewSuitePath
+
+
+//------------------------------
+log "Building Suites and Model"
+//-----------------------------------------------------
+"Utilities/Framework_Class".ChooseFrameworkType
+
+
+put new "Utilities/API_Class"  into AC
+put new "Utilities/Framework_Class" into FC
+put new "Utilities/Json_Class" into JC
+put new "Utilities/Suite_Class" into SC
+
+
+
+(AC)."ConvertModelFromDAI" DAIServer,DAIClientID,DAIClientSecret
+
+
+
+put (AC)."GetModelJson" into OriginalDAIModel
+
+(FC)."BuildFramework" OriginalDAIModel
+put (FC).GetFramework into  (SuiteMapping,JsonMapping)
+//-----------------------------------------------------------------------------------
+(JC)."BuildJson" JsonMapping,OriginalDAIModel
+put (JC).GetJson into  NewDAIModel
+//-----------------------------------------------------------------------------------
+(SC).BuildSuite NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel
+(AC).UpdateModel NewDAIModel
+
+

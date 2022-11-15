@@ -1,0 +1,4 @@
+﻿log "2021-04-21T21:32:30.592Z"
+
+
+log formattedTime("%Y-%m-%dT%H:%M:%S.%FZ", the time ) 

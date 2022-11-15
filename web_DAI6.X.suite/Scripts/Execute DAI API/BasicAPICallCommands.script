@@ -1,0 +1,30 @@
+﻿--https://docs.eggplantsoftware.com/docs/dai-rest-api/#retrieve-your-credentials
+--The Basic
+
+
+put "http://ec2-3-22-49-52.us-east-2.compute.amazonaws.com:8000" into DAIServer
+put "client:dai:agent:integration" into DAIClientID
+put "95c19181-5e92-4fdb-b414-74ce92b4d619" into DAIClientSecret
+
+
+
+put new "Utilities/API_Class"  into AC
+(AC)."SetDAIcredentials" DAIServer,DAIClientID,DAIClientSecret
+
+
+
+--log (AC).GetAccessToken // Logs out the Access Token
+--log (AC).GetModels // Logs out the Model Information
+--log (AC).GetGroups // Logs out the Group Information
+
+--(AC).SetModelUID "b3a17a75-f3fa-4a0a-8f17-7d89252f993f"
+--or
+--(AC). ChooseModel
+
+
+--log (AC).GetModelJSON // Logs our the Json of the Selected Model
+--log (AC).GetModelRuns // Get the Runs of the Model
+--log (AC).GetModelLogs  ("1205") // ID comes from GetModelRuns
+--log (AC).GetTestCaseRuns // Get TestCasesRun
+
+--(AC).ExecuteModel

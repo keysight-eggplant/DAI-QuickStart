@@ -1,4 +1,7 @@
-﻿on BuildSample
+﻿//Designs the Element Part of the JSON File
+
+
+on BuildSample
 
 	me.Buildinitial
 	me.SampleBuild

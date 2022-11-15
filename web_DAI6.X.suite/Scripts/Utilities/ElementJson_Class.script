@@ -1,0 +1,162 @@
+﻿//Designs the Element Part of the JSON File
+
+
+on BuildSample
+
+	me.Buildinitial
+	me.SampleBuild
+	me. Design
+end BuildSample
+
+
+on BuildFromBasicJson JSONFile
+	me.Buildinitial
+	me.JasonBuild JSONFile
+	me. Design
+end BuildFromBasicJson
+
+on SetModelName NewModelName
+	put NewModelName into my NewModelName
+end SetModelName
+
+
+on Buildinitial 
+
+	put my NewModelName into  NewModelName
+	
+	put {agent:0, group:{id:15, name:"randy.hesse@eggplant.io"}, modeljson:{actionCounter:1, allowGlobalActionsInInitialStates:True, allSnippetsDisabled:false, ePFhost:"", ePFsuite:"", parameterCounter:0, path:"", performanceTests:[], performanceTimings:false, runCleanupAfterAbort:false, snippetFull:false, stateCounter:1, suitePath:"", tags:[], testcases:[], verbosity:27392, version:"dai-5.1.0"}} into DAIJSON
+
+
+	insert  {id:0, name:NewModelName, parameters:[{id:1, initial:"", name:"", random:"", ranges:[], type:""}], type:"Root"} into DAIJSON.modeljson.elements
+	insert {id:1, invisible:True, name:"Exit", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"Z", stateType:"Normal", type:"State"} into DAIJSON.modeljson.elements
+	insert {id:2, invisible:True, name:"Error", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"X", stateType:"Exception", type:"State"} into DAIJSON.modeljson.elements
+	insert {id:3, invisible:True, name:"Cleanup", parameters:[{id:0, initial:"", name:"", random:"", ranges:[], type:""}], parentId:0, sortingType:"Y", stateType:"Cleanup", type:"State"} into DAIJSON.modeljson.elements
+
+
+	insert {id:4,invisible:false, name:"Initial", parentId:0, sortingType:"A", stateType:"Start",type:"State"} into DAIJSON.modeljson.elements
+	
+	put DAIJson into my DAIJson
+	
+	
+end Buildinitial
+
+
+on SampleBuild
+
+	//--------------------------
+	insert {id:5,name:"Start", parentId:4,  type:"Action"} into ElementLists
+	//-------------------
+	insert {id:6,invisible:false, name:"Another State01", parentId:0, type:"State"} into ElementLists
+	insert {id:7,invisible:false, name:"Another State02", parentId:0, type:"State"} into ElementLists
+	insert {id:8,invisible:false, name:"Another State03",  type:"State"} into ElementLists
+	//--------------------------------
+	insert {id:09,name:"TheActionment01", parentId:6,type:"Action"} into ElementLists
+	insert {id:10,name:"TheActionment02", parentId:6,type:"Action"} into ElementLists
+	insert {id:11,name:"TheActionment03", parentId:6,type:"Action"} into ElementLists
+	insert {id:12,name:"TheActionment04", parentId:6,type:"Action"} into ElementLists
+	insert {id:13,name:"TheActionment05", parentId:6,type:"Action"} into ElementLists
+	insert {id:14,name:"TheActionment06", parentId:6,type:"Action"} into ElementLists
+	insert {id:15,name:"TheActionment07", parentId:7,type:"Action"} into ElementLists
+	insert {id:16,name:"TheActionment08", parentId:7,type:"Action"} into ElementLists
+	insert {id:17,name:"TheActionment09", parentId:7,type:"Action"} into ElementLists
+	insert {id:18,name:"TheActionment10", parentId:7,type:"Action"} into ElementLists
+	insert {id:19,name:"TheActionment11", parentId:8,type:"Action"} into ElementLists
+	insert {id:20,name:"TheActionment12", parentId:8,type:"Action"} into ElementLists
+	insert {id:21,name:"TheActionment13", parentId:8,type:"Action"} into ElementLists
+	insert {id:22,name:"TheActionment14", parentId:8,type:"Action"} into ElementLists
+
+
+	put ElementLists into My ElementLists
+end SampleBuild
+
+
+on JasonBuild JsonData
+
+	insert {id:5,name:"Start", parentId:4,  type:"Action"} into ElementLists
+
+
+	put JSONValue(JsonData) into MBJ
+	put 6 into startingStateID
+	put keys(MBJ) into ListOfStates
+	put the number of items of ListOfStates into StateCount
+	put startingStateID + StateCount into StartingActionID
+	repeat StateCount times
+		put item repeatindex() of ListOfStates into StateName
+		//--Create the State
+		insert {id:startingStateID,invisible:false, name:StateName, parentId:0, sortingType:"B", stateType:"Normal", type:"State"} into ElementBuild
+		put  StateName into ElementBuild."description"
+		insert ElementBuild into ElementLists
+		put empty into ElementBuild
+		//--Create the State
+		
+		put MBJ.(StateName) into ActionList
+		put the number of Items of  ActionList into ActionCount
+		repeat ActionCount times
+			put item repeatindex() of ActionList into ActionInformation
+			//--Creates the Action
+			insert {id:StartingActionID,name:ActionInformation.name, parentId:startingStateID,type:"Action"} into ElementBuild
+			put  ActionInformation."description" into ElementBuild."description"
+			insert ElementBuild into ElementLists
+			put empty into ElementBuild
+			//--Creates the Action
+			
+			add 1 to StartingActionID
+		end repeat
+		add 1 to startingStateID
+	end repeat
+	
+	
+	put ElementLists into My ElementLists
+end JasonBuild
+
+
+on Design
+	put My ElementLists into  ElementLists
+	
+	put 170 into StartingDX //Starting Postion of the Action and or State
+	put 20 into StartingDY //Starting Postion of the Action and or State
+	put 0 into StateCount
+	
+	put the number of items in ElementLists into ElementCount
+	repeat ElementCount times
+		
+		
+		put item repeatindex() of ElementLists into SingleElement
+		if  SingleElement.type = "State" then
+			
+			put StartingDX into (SingleElement).dx
+			put StartingDY into (SingleElement).dy
+			put "B" into (SingleElement).sortingType
+			put "Normal" into (SingleElement).stateType
+			put 0 into (SingleElement).parentId
+			
+			if StartingDX >= 1300  then
+				put 00 into StartingDX //-Starting Reset
+				put 250 +StartingDY into StartingDY //-Shift a littoe down
+			else
+				put StartingDX + 450 into StartingDX // Move  over
+				put StartingDY + 000 into StartingDY
+			end if
+			
+		else if SingleElement.type = "Action" then
+			put "C" into (SingleElement).sortingType
+		end if
+		
+		put 100 into (SingleElement).shapeHeight
+		put 100 into (SingleElement).shapeWidth
+		put 20 into (SingleElement).textX
+		put 20 into (SingleElement).texty
+		put 0 into (SingleElement).callLimit
+		put "Normal" into (SingleElement).actionType
+		put "C" into (SingleElement).sortingType
+		put 100 into (SingleElement).weight
+		put [{id:0, initial:"", name:"", random:"", ranges:[], type:""}] into (SingleElement).parameters
+		//------------------------------
+		//------------------------------
+		//------------------------------
+		
+		insert  SingleElement into My DAIJSON.modeljson.elements
+	end repeat
+end Design
+
+

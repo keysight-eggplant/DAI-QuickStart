@@ -1,0 +1,39 @@
+﻿// Testing the Master CovertModel Script with Preset Creds
+
+
+set  NewSuitePath to  "/Users/randallhesse/desktop" 
+set  DAIServer to"https://eval510.dai.eggplant.cloud/"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
+
+"Utilities/Framework_Class".ChooseFrameworkType
+
+
+put new "Utilities/API_Class"  into AC
+put new "Utilities/Framework_Class" into FC
+put new "Utilities/Json_Class" into JC
+put new "Utilities/Suite_Class" into SC
+
+
+
+(AC)."GrabModelFromDAI" DAIServer,DAIusername,DAIpassword
+put (AC)."GetModelJson" into OriginalDAIModel
+
+(FC)."BuildFramework" OriginalDAIModel
+put (FC).GetFramework into  (SuiteMapping,JsonMapping)
+
+
+
+//-----------------------------------------------------------------------------------
+(JC)."BuildJson" JsonMapping,OriginalDAIModel
+put (JC).GetJson into  NewDAIModel
+//-----------------------------------------------------------------------------------
+
+
+
+(SC).BuildSuite NewSuitePath,SuiteMapping,OriginalDAIModel,NewDAIModel
+(AC).UpdateModel NewDAIModel
+
+

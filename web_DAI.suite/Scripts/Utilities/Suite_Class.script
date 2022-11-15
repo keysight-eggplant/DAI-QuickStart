@@ -1,4 +1,8 @@
-﻿on initialize
+﻿//Create a Suite from the Framework
+
+
+
+on initialize
 	put False into my WriteLogsSnippets //Should I Write Extra Log Statement to the Snippets?
 	
 	

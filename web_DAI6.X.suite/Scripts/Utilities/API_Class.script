@@ -1,0 +1,326 @@
+﻿on initialize
+	
+end initialize
+
+on ConvertModelFromDAI DAIServer, DAIClientID ,DAIClientSecret
+	put DAIServer into My DAIServer
+	put DAIClientID into my DAIClientID
+	put DAIClientSecret into my DAIClientSecret
+	
+	me.SetAccessToken
+	me.ChooseModel
+end ConvertModelFromDAI
+
+////---------------SET ALL OF IT----------------------------------------------//
+on SetDAIcredentials DAIServer, DAIClientID ,DAIClientSecret
+	put DAIServer into My DAIServer
+	put DAIClientID into my DAIClientID
+	put DAIClientSecret into my DAIClientSecret
+	
+	me."SetAccessToken"
+end SetDAIcredentials
+
+to SetAccessToken
+	put My DAIServer &"/auth/realms/eggplant/protocol/openid-connect/token" into URL
+	put my DAIClientID into DAIClientID
+	put my DAIClientSecret into DAIClientSecret
+	
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	put (grant_type:"client_credentials",client_id:DAIClientID,client_secret:DAIClientSecret) into RB
+	DAI_API(httpMethod:"POST",url:URL,requestBody:RB,requestheaders:RH)
+	
+	put JSONValue(api().responsebody) into ResponseInformation
+	put ResponseInformation.access_token into my access_token
+	if api().statusCode = "200" then
+		Logsuccess "Able to Access DAI Server, and grab a access token"
+	else
+		logerror "Unable to Access DAI Server (Bad Username,Password, or DAI Server)"
+		logwarning ResponseInformation
+		logwarning API()
+		exit all
+	end if
+end SetAccessToken
+
+to SetModelUID Model_ID
+	put  Model_ID into my ModelUID
+	
+end SetModelUID
+//------------------------------------------------------------Check it all
+
+to CheckModelUID
+	if my ModelUID is empty then
+		logerror <<ModelUID has not been set, please use "SetModelUID">>
+		exit all
+	end if
+end CheckModelUID
+//----------------------------------------------------------Log it
+
+(*
+function LogModel_ID
+	return my Model_ID
+end LogModel_ID
+
+
+function LogAccessToken
+	return my Access_Token
+end LogAccessToken
+*)
+
+////---------------GET ALL OF IT----------------------------------------------//
+
+to GetGroups
+	put My DAIServer & "/ai/groups" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/json" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put api().responseBody into GroupList
+	put GroupList into my GroupList
+	return GroupList
+end GetGroups
+
+
+to GetModels
+	put My DAIServer & "/ai/models" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/json" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ListofModels
+	put ListofModels into my ListofModels
+	return ListofModels
+end GetModels
+
+function GetAccessToken
+	return my access_token
+end GetAccessToken
+
+function GetModelUID
+	return my ModelUID
+end GetModelUID
+
+
+function GetModelJSON
+	me.CheckModelUID
+	
+	
+	put my ModelUID into Model_ID
+	put My DAIServer & "/ai/models/"&Model_ID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/json" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into Model
+	return Model
+end GetModelJSON
+
+function GetModelRuns
+	me.CheckModelUID
+	
+	put my ModelUID into Model_ID
+	put my DAIServer & "/ai/models/"&Model_ID&"/runs" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ResponseInformation
+	return ResponseInformation
+end GetModelRuns
+
+function GetRuns starttime,sort,limit
+	
+	if limit is empty then
+		put 10 into Limit
+	end if
+	
+	if starttime is empty then
+		//put "2021-04-21T21:32:30.592Z" into starttime
+		put formattedTime("%Y-%m-%dT%H:%M:%S.%FZ", The Date)  into starttime
+	else
+		put formattedTime("%Y-%m-%dT%H:%M:%S.%FZ", starttime)  into starttime
+	end if
+	
+	if sort is empty then
+		put "%2Bstarttime" into sort
+	end if
+	
+	
+	put my ModelUID into Model_ID
+	put my DAIServer & "/ai/runs?limit="&Limit&"&starttime="&starttime&"&sort="&sort into URL
+	//put my DAIServer & "/ai/runs?starttime="&starttime&"&sort="&sort into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ResponseInformation
+	return ResponseInformation
+end GetRuns
+
+
+function GetModelLogs TestID
+	put my DAIServer & "/ai/runlogs/"&TestID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ResponseInformation
+	return ResponseInformation
+end GetModelLogs
+
+
+function GetTestCaseRuns
+	me.CheckModelUID
+	
+	put my ModelUID into Model_ID
+	put my DAIServer & "/ai/models/"&Model_ID&"/testcaseruns" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into ResponseInformation
+	return ResponseInformation
+end GetTestCaseRuns
+
+function GetTestConfigTasks
+	put my DAIServer & "/ai/testconfigtasks" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into RunLogs
+	return RunLogs
+end GetTestConfigTasks
+
+function GetSingleTestConfigTasks TestID
+	put my DAIServer & "/ai/testconfigtasks/"& TestID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"GET",url:URL,requestheaders:RH)
+	put JSONValue(api().responseBody) into RunLogs
+	return RunLogs
+end GetSingleTestConfigTasks
+
+
+////---------------GET ALL OF IT----------------------------------------------//
+
+(*
+to ChooseGroup
+	put my GroupList into GroupList
+	log GroupList
+	put the number of items of GroupList into GroupCount
+	repeat GroupCount times
+		put item repeatindex() of GroupList into GroupName
+		insert GroupName.groupname into PickGroupList.(GroupName.id)
+		insert GroupName.groupname  into DisplayGroupPick
+	end repeat
+	
+	answer "Your Group to Filter though the Models"  from list DisplayGroupPick with "Ok" or "Cancel" title "Please Choose"
+	put it into PickedGroup
+	put empty into it	
+	if PickedGroup = "Cancel" or if PickedGroup is empty then
+		logwarning "User did not pick a Group"
+		exit all
+	end if
+	
+	log "Group Picked:"&& PickedGroup
+	put PickedGroup into my PickedGroup
+	return PickedGroup
+end ChooseGroup
+*)
+
+
+on ChooseModel
+	if  me.ListofModels is empty then 
+		me.GetModels
+	end if
+	
+	put me.ListofModels into UserModels
+	put the number of items of UserModels into ModelCount
+	repeat ModelCount times
+		put item repeatindex() of UserModels into InfoOnModel
+		insert (InfoOnModel.name) into ModelChooseList
+		put InfoOnModel.modeluuid into ModelListID.(InfoOnModel.name)
+	end repeat
+	answer "Your Model to Build a Suite From"  from list ModelChooseList with "Ok" or "Cancel" title "Please Choose"
+	put it into PickedModel
+	put empty into it	
+	if PickedModel = "Cancel" or if PickedModel is empty then
+		logwarning "User did not pick a Model"
+		exit all
+	end if
+	put ModelListID.(PickedModel) into my ModelUID
+end ChooseModel
+
+
+
+on UpdateModel  DAIModel
+	
+	put DAIModel.modeluuid into Model_ID
+	put DAIModel.name into RBName
+	put  DAIModel.group.name into RBGroup
+	put JSONFormat(DAIModel.modeljson) into DAIMMJ
+	
+	//-------------------------------------
+	put My DAIServer & "/ai/models/"&Model_ID into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"PUT",url:URL,requestheaders:RH,requestbody:("group":RBGroup,"name":RBName,"modeljson":DAIMMJ))
+	put JSONValue(api().responseBody) into responsebody
+	if api().statusCode = "200" then
+		Log "Model Updated:" && RBName
+	else
+		logerror "Could not update Model:" && RBName
+		logwarning responsebody
+		logwarning API()
+		put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
+	end if
+	
+	
+end UpdateModel
+
+
+
+on CreateModel DAIModel, NewName
+	//put DAIModel.name into RBName
+	put NewName into RBName
+	put  DAIModel.group.name into RBGroup
+	put JSONFormat(DAIModel.modeljson) into DAIMMJ
+	
+	put My DAIServer & "/ai/models" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/x-www-form-urlencoded" into RH."Content-Type"
+	DAI_API(httpMethod:"POST",url:URL,requestheaders:RH,requestbody:(group:RBGroup,"name":RBName,"modeljson":DAIMMJ))
+	
+	
+	put JSONValue(api().responseBody) into responsebody
+	if api().statusCode = "200" then
+		Log "Model Created:" && RBName
+	else
+		logerror "Could not update Model:" && RBName
+		logwarning responsebody
+		logwarning API()
+		put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
+	end if
+end CreateModel
+
+
+to ExecuteModel
+	me.CheckModelUID
+	
+	
+	put my DAIServer &"/execution_service/api/v1/executions" into URL
+	put "bearer" && my access_token into RH."Authorization"
+	put "application/json" into RH."Content-Type"
+	put (model_id:my ModelUID) into RB
+	put "JSON (application/json)" into RBF
+	
+	DAI_API(httpMethod:"POST",url:URL,requestheaders:RH,requestBody:JSONFormat(RB),requestbodyformat:RBF)
+	put JSONValue(api().responseBody) into responsebody
+	
+	
+	if api().statusCode = "200" then
+		Log "Model Executed:" &&  api().responsebody
+	else
+		logerror "Could not Execute Model"
+		logwarning responsebody
+		logwarning API()
+		put JSONFormat (API()) into file (ResourcePath() &"/requestbody.json")
+	end if
+	
+	return responsebody
+end ExecuteModel
+
+
+

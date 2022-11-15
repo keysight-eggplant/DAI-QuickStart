@@ -1,0 +1,16 @@
+﻿//Build a Json for DAI so you can import a Model.
+
+
+
+put new  "Utilities/ElementJson_Class" into EJC
+
+
+(EJC).BuildSample
+
+
+//log (EJC).DAIJSON
+
+put JSONFormat((EJC).DAIJSON) into JsonOutput
+
+
+put JsonOutput into file (ResourcePath() &"/DAISample.json")

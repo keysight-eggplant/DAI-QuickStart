@@ -1,0 +1,22 @@
+﻿//------------------------------------------
+//--Create a Suite from a Model
+//------------------------------------------
+
+
+
+set  NewSuitePath to  "/Users/randallhesse/desktop/Throw-Away Suites" 
+
+
+put "http://ec2-3-22-49-52.us-east-2.compute.amazonaws.com:8000" into DAIServer
+put "client:dai:agent:integration" into DAIClientID
+put "95c19181-5e92-4fdb-b414-74ce92b4d619" into DAIClientSecret
+
+
+
+//-----------------------------------------------------
+//-----------------------------------------------------
+//---Do Not Modified Below---------
+//------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+Run "Utilities/ConvertModel" DAIServer, DAIClientID , DAIClientSecret , NewSuitePath

@@ -1,0 +1,19 @@
+﻿
+
+put "http://ec2-3-22-49-52.us-east-2.compute.amazonaws.com:8000" into DAIServer
+put "client:dai:agent:integration" into DAIClientID
+put "95c19181-5e92-4fdb-b414-74ce92b4d619" into DAIClientSecret
+
+
+
+put new "Utilities/API_Class"  into AC
+(AC)."SetDAIcredentials" DAIServer,DAIClientID,DAIClientSecret
+
+
+//log (AC).GetModels
+
+put "109fd38c-cd6e-45f7-9e95-1b1c2add129b" into UID
+(AC).SetModelUID UID
+(AC).ExecuteModel
+
+

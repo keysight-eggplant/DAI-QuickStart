@@ -1,4 +1,6 @@
-﻿params DAIServer, DAIusername , DAIpassword, NewSuitePath
+﻿///Tucked Away Master File
+
+params DAIServer, DAIusername , DAIpassword, NewSuitePath
 
 
 //------------------------------

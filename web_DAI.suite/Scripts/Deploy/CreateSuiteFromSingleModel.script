@@ -1,0 +1,21 @@
+﻿//------------------------------------------
+//--Create a Model 1st and then Run This
+//------------------------------------------
+
+
+
+set  NewSuitePath to  "/Users/randallhesse/desktop/Throw-Away Suites" 
+
+
+set  DAIServer to"https://eval510.dai.eggplant.cloud/"
+set  DAIusername to "randy.hesse@eggplant.io"
+set  DAIpassword to "Spr1ng2016"
+
+
+//-----------------------------------------------------
+//-----------------------------------------------------
+//---Do Not Modified Below---------
+//------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+Run "Utilities/ConvertModel" DAIServer, DAIusername , DAIpassword , NewSuitePath

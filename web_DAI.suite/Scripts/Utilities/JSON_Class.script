@@ -1,4 +1,8 @@
-﻿on initialize
+﻿//Add snippets to an already Build DAI Json File
+
+
+
+on initialize
 
 
 	if global FrameworkType is empty then
